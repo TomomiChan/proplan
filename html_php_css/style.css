@@ -1,0 +1,615 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*Allgemein jede Seite */ 
+@font-face { font-family: 'BRLNSR';
+             src: local('BRLNSR.ttf') format('truetype'); }
+body{
+	margin: 0px;
+	min-width: 100%;		
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 100%;
+    height: 100%;
+    max-height: 100%;
+	
+	background-image: url('../Images/hintergrund.png');
+	/*background-repeat: no-repeat;*/
+	
+	background-size: 100%; 
+}
+
+
+.headerunterseiten{
+	height:150px;
+}
+
+.hauptbereichunterseiten{
+	float:left;
+	top:150px;
+	width:1280px;
+	height:auto;
+	
+}
+
+.lesezeichenunterseiten{
+	position:absolute;
+	margin-top:130px;
+	left:99px;
+	float:left;
+}
+
+.gluehbirneunterseiten{
+	position:absolute;
+	left:81px;
+}
+
+.lilabannerunterseiten{
+	top:0px;
+	width:100%;
+	height:150px;
+	background:#586fb4;	
+}
+
+.proplan{
+	position:absolute;
+	margin-left:210px;
+	margin-top:80px;
+}
+
+
+.pfad{
+	position:absolute;
+	left:200px;
+	top:160px;
+	margin:0px;
+	font-family: 'Ubuntu', sans-serif;
+	color:#8bc797;
+	font-size:22px;
+	width:80%;
+}
+
+.ueberschrift{
+	position:absolute;
+	font-family: 'Ubuntu';
+	font-weight:800;
+	font-size:34px;
+  	color:#FFF; 
+	margin:0px; 
+	left:420px;
+	top:70px;
+}
+
+.profil{	
+	position:absolute;
+	left:1000px;
+  	top:70px;
+}
+
+.logout{
+	position:absolute;
+	top:82px;
+	left:1050px;
+}
+
+
+
+ /* unvisited link */
+a:link {
+    color: #8bc797;
+	text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: #8bc797;
+	text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: #6dc77f;
+	text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: #6dc77f;
+	text-decoration: none;
+}
+
+
+ /* unvisited link */
+.a1:link {
+    color: #586fb4;
+	text-decoration: none;
+}
+
+/* visited link */
+.a1:visited {
+    color: #586fb4;
+	text-decoration: none;
+}
+
+/* mouse over link */
+.a1:hover {
+    color: #586fb4;
+	text-decoration: none;
+}
+
+/* selected link */
+.a1:active {
+    color: #586fb4;
+	text-decoration: none;
+}
+
+
+
+footer{
+	float:left;
+	margin-left:1000px;
+	margin-top:20px;
+	padding-bottom:20px;
+}
+
+
+/*Anmeldeseite*/
+
+#lilabereich{
+	/*position:absolute;*/
+	top:0px;
+	width:100%;
+	height:350px;
+	background:#586fb4;	
+}
+
+
+header{
+	/*width:1600px;*/
+	height:350px;
+}
+
+#grafikoben{
+	padding-left:150px;
+}
+
+
+#hauptbereich{
+	/*width:1600px;*/
+	/*height:350px;*/
+	position:absolute;
+	top:350px;
+}
+
+#formular{
+	position:relative;
+	top:-300px;
+}
+
+#formular1{
+	position:relative;
+	top:-190px;
+}
+
+#lesezeichen{
+	margin-top:-20px;
+	/*margin-left:220px;*/
+	margin-left:222px;
+}
+
+h1{
+	padding-left:320px;
+	margin-top: -80px;
+	font-family: 'Ubuntu', sans-serif;
+  	color:#8bc797;   
+	font-weight: bold;
+
+}
+
+#wasgibtes{
+	padding-left:210px;
+	padding-top:120px;	
+}
+
+#klemmbrett{
+	padding-left:800px;
+	margin-top:-450px;	
+	
+}
+
+table{
+	margin-left:900px;
+	margin-top: -105px;
+}
+
+
+#button1 {
+	
+    background-color:#8bc797 ;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    margin: 8px 0;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 100px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#button1:hover{
+     color:#fff;
+     background-color:#6dc77f;
+}
+
+#button2 {
+	
+    
+    background-color:#818eb5 ;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    margin: 8px 0;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 100px;
+	font-family: 'Ubuntu', sans-serif;
+	
+}
+#button2:hover{
+     color:#fff;
+     background-color:#586fb4;
+}
+
+
+#username{
+	padding-left:80px;
+	margin-top:-120px;
+}
+
+#passwort{
+	padding-left:80px;
+	padding-top:40px;
+}
+
+#login{
+	padding-left:80px;
+	padding-top:25px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#registrieren{
+	padding-left:80px;
+	padding-top:15px;
+}
+#registriert{
+	margin-left:980px;
+    /*margin-top:-70px;*/
+	margin-top:-265px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size:12px;
+  	color:#7e7f7e;  
+	
+}
+
+/*Meine Projekte Seite*/
+
+
+.ordnerGruen{
+	float:left;
+	margin-left:20px;
+	width:200px;
+}
+
+#ordnerGrau{
+	float:left;
+	margin-left:20px;
+	width:200px;
+}
+
+#alleOrdner{
+	
+	margin-left:180px;
+	width:900px;
+	margin-top:40px;	
+}
+
+
+#projektname{
+	position:relative;
+	margin:0px;
+	margin-top:-70px;
+	text-align:center;
+	}
+
+
+
+/*projektseite*/
+
+
+#todo{
+	float:left;
+	width:650px;
+	height:auto;
+	border: 1px solid #000000;
+	margin-left:127px;
+	margin-top:100px;
+	margin-bottom:40px;
+	min-height:370px;
+	background-color:#eeeff0;
+}
+
+h3{
+	width:1100px;
+	background:#586fb4;	
+	color:#8bc797;
+	margin:0px;
+	padding-left:10px;
+	font-size:25px;
+	height:75px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+h4{
+	width:1153px;
+	background:#586fb4;	
+	color:#8bc797;
+	margin:0px;
+	padding-left:10px;
+	font-size:25px;
+	height:75px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.listetodo{
+	width:610px;
+	height:35px;
+	background-color:#eeeff0;
+	font-size:20px;
+	margin-top:30px;
+	position:relative;
+	margin-left:20px;
+	border-bottom: 1px solid;
+}
+
+
+.zeichen{
+	position:absolute;
+	left:450px;
+	top:-10px;
+}
+
+#forum{
+	clear:both;
+	top:40px;
+	width:1148px;
+	height:auto;
+	border: 1px solid #000000;
+	margin-left:127px;
+	background-color:#eeeff0;
+}
+
+#thema{
+	width:1113px;
+	background-color:#eeeff0;
+	border-bottom: 1px solid #000000;
+	font-size:20px;
+	position:relative;
+	margin-left:20px;
+	margin-top:30px;
+	height:35px;
+}
+
+.neuesButton{
+	margin-left:20px;
+}
+
+#button3 {
+	
+    background-color:#8bc797 ;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    margin: 8px 0;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 200px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+/*kalender*/
+.calender {
+    width:455px;
+    border:1px solid black;
+	background-color:#eeeff0;
+	float:left;
+	margin-left:40px;
+	margin-top:100px;
+	margin-bottom:40px;
+	min-height:370px;
+}
+* html .calender,
+* + html .calender {
+    width:453px;
+}
+.calender div.after,
+.calender div.before{
+    color:silver;
+}
+.day {
+    float:left;
+    width:65px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+	font-size:18px;
+}
+.day.headline {
+    background:#586fb4;
+	color:#8bc797;
+}
+.day.current {
+    font-weight:bold;
+}
+.clear {
+    clear:left;
+}
+.pagination {
+    text-align: center;
+    height:35px;
+    line-height:20px;
+    font-weight: bold;
+	background-color:#586fb4;
+}
+.pagihead { 
+   display:inline-block;
+   background: #586fb4;
+   width: 200px;
+   height: 35px;
+   color: #8bc797;
+   font-size:22px;
+	margin-top:10px;
+}
+.pagination a {
+    width:20px;
+    height:20px;
+}
+
+/* Kontaktfeld */
+.Formularfeld {
+    width: 450px;
+    margin-left: 500px;
+    margin-top: 50px;
+}
+
+.Formularzeile {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.textfeld {
+    float: right;
+    width: 230px;
+    height: 20px;
+    border: 1px;
+    border-style: solid;
+    border-color: #7e7f7e;
+    border-radius: 7px;
+} 
+
+.text {
+    float: right;
+    width: 200px;
+    height: 150px;
+    border: 1px;
+    border-style: solid;
+    border-color: #7e7f7e;
+    border-radius: 7px;
+}
+
+#schrift {
+    font-family: 'Ubuntu', sans-serif;
+	font-size:16px;
+  	color:#7e7f7e; 
+}
+
+#submit {
+    float: right;
+    margin-top: 10px;
+    margin-left: 150px;
+}
+
+/* Registrierung */
+
+#rechtsbuendig {
+    float: right;
+}
+
+.button {
+    font-size:20px;
+    width: 160px;
+    font-family: 'Ubuntu', sans-serif;
+  	color:#8bc797; 
+    border: 1px;
+    border-style: solid;
+    border-radius:20px;
+    background-color: #fff;
+    border-color: #7e7f7e;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+/*Forum*/
+#beitraege{
+	float:left;
+	height:auto;
+	width:1100px;
+	margin-left:127px;
+	margin-top:100px;
+}
+.beitrag {
+    float: left;
+    width:1100px;
+    height:auto;
+	min-height:250px;
+    border:1px #586fb4 solid;
+    background-color: #efefef;
+    margin-bottom:40px;
+    border-radius: 7px;
+
+}
+
+.userbild {
+    float: left;
+    margin: 20px 25px;
+    background-color:white;
+    width:100px;
+    height:110px;
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.verfassen {
+    float: left;
+    width: 1100px;
+}
+
+#textareaforum {
+    float: left;
+    width:1096px;
+    min-height:150px;
+	height:auto;
+    border:1px #586fb4 solid;
+    background-color: #efefef;
+    margin-bottom: 5px;
+    border-radius: 7px;
+}
+
+
+
+
+.nutzer {
+    float: left;
+	clear:both;
+    width: 150px;
+    margin: 5px;
+	height:100px;
+}
+
+.beispieltext {
+    height: 75px; 
+    margin-left: 150px;
+    border-left: 1px solid;
+}
+
+.textforum {
+    float: left;
+    width: 950px;
+    height: auto;
+	min-height:190px;
+    border-left: 1px solid #000000;
+	margin-top:-190px;
+	margin-left:150px;
+}
