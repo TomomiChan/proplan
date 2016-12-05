@@ -321,9 +321,15 @@ table{
 	margin-top:-70px;
 	text-align:center;
 	}
-
-
-
+/*neuesProjekt*/
+#neuesProjekt {
+    position:absolute;
+	height:300px;
+	width:500px;
+	margin-top:200px;
+	margin-left:-50px;
+	
+}
 /*projektseite*/
 
 

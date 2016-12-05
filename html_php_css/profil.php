@@ -1,6 +1,11 @@
+
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
+<head>
 	<meta charset="utf-8">
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 		<title> Proplaner </title>
@@ -15,40 +20,16 @@
 			<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 			<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
 			<img class="proplan" src="../Images/proplan.png" alt="proplan" />
-			<p class="ueberschrift">Meine Projekte</p>	
+			<p class="ueberschrift">Mein Profil</p>	
 			
 			<div class="logout">	
 				<a href="index.html" > <img src="../Images/logout.png" alt="logout" /></a>
 			</div>
-  
-			<div class="profil">
-				<a href="profil.html"><img src="../Images/profil_weiß.png" alt="profil" /></a>
-			</div>
-   
-   			
-			</div>   		
+			  		
 		</header>
 	
     <div class="hauptbereichunterseiten">
-		<div id="alleOrdner">  
-			<div class="ordnerGruen">
-				<a class="a1" href="projektseite.php"><img src="../Images/ordnerGruen.png" alt="ordner">		<!--hier eigentlich scriptverarbeitung !-->
-				<p id="projektname">Designprojekt</p></a>
-			</div>
-			<div class="ordnerGruen">
-				<img src="../Images/ordnerGruen.png" alt="ordner">
-				<p id="projektname">Interaktionsdesign</p>
-			</div>
-			<div class="ordnerGruen">
-				<img src="../Images/ordnerGruen.png" alt="ordner">
-				<p id="projektname">Webprogrammierung</p>
-			</div>
-			<div id="ordnerGrau">
-                <a href="neuesProjekt.php" > <img src="../Images/ordnerGrau.png" alt="logout" /></a>
-			</div>
-		</div>  
-	 
-		
+			
 	</div>	
 	
 	<footer>
