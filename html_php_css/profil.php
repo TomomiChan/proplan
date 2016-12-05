@@ -24,6 +24,7 @@
 	
     <div class="hauptbereichunterseiten">
 	<?php 
+	session_start();
     echo "Eingeloggt ist der Benutzter ".$_SESSION['name']." ".$_SESSION['id']; 
 	
 	?> 	
