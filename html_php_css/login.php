@@ -26,6 +26,8 @@
 		echo "Login hat geklappt. Willkommen ".$row['name'];
 		$_SESSION['logged_in']=true;
 		$_SESSION['name']=$row['name'];
+		$id = mysql_query("select user_id from user where name = '$username' and passwort = '$passwort' ");
+		$_SESSION['id']=$id;
 		echo '<meta http-equiv="refresh" content="2; URL = meineProjekte.html">';
 	}else{
 		echo "Login gescheitert";
