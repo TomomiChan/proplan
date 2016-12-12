@@ -291,6 +291,53 @@ table{
   	color:#7e7f7e;  
 	
 }
+/*profilseite*/
+
+#profiltabelle{
+	font-family: 'Ubuntu', sans-serif;
+	margin-top: 250px;
+	margin-left:-550px;
+	
+
+}
+.eingabe{
+	float:right;
+	margin-left:50px;
+	margin-right:50px
+	
+}
+#button4{
+    background-color:#8bc797 ;
+    color: white;
+    
+    margin: 8px ;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 100px;
+	height:25px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size:10px;
+	
+}
+
+#profilbild_upload{
+	font-family: 'Ubuntu', sans-serif;
+	margin-left:680px;
+	margin-top:20px;
+	
+}
+#profilbild{
+	
+	margin-top:-150px;
+	margin-left:650px;
+	height:135px;
+	width:125px;
+}
+#pBeschriftung{
+	margin-bottom:0.5px;
+	
+}
 
 /*Meine Projekte Seite*/
 
@@ -330,6 +377,9 @@ table{
 	margin-left:-50px;
 	
 }
+
+
+
 /*projektseite*/
 
 
