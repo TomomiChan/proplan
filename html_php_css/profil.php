@@ -78,11 +78,13 @@
 			mysql_select_db("pro_db");
 			$userID = $_SESSION['id'];
 			
-			$result = mysql_query("select bild from user where user_id = '$userID'");echo $result;
-			if ($result!='NULL'){
-				echo "<img  src=\"$result\">";
+			$result = mysql_query("select bild from user where user_id = '$userID'");
+			$pfad = mysql_fetch_array($result);
+			$bildpfad = $pfad['bild'];
+			if ($pfad['bild']!=""){
+				echo "<img  src=\"$bildpfad\" height=\"150px\" width=\"200px\">";
 			}else{
-				echo"<img  src=\"../Images/profilbild_rechteck.png\">";
+				echo"<img src='../Images/profilbild_rechteck.png' height=\"150px\" width=\"200px\"/>";
 			}
 			
 			?>

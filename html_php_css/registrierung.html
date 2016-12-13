@@ -6,7 +6,6 @@
 	<title> Proplaner </title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <header class="headerunterseiten">
 			<div class="lilabannerunterseiten">
@@ -22,50 +21,39 @@
 			<div class="profil">
 				<a href="profil.html"><img src="../Images/profil_weiß.png" alt="profil" /></a>
 			</div>
-   
-   			
 			</div>   		
 		</header>
     
     <div class="hauptbereichunterseiten">
        
-        <form action= "kontakt.php" class="Formularfeld" id="schrift">
+        
+        <form  name="Form" class="Formularfeld" id="schrift" method="POST"  enctype="multipart/form-data" action ="">
+            
+            <a class ="kleineSchrift">* benötigtes Feld</a> <br><br/>
             
             <div class="Formularzeile">
-                Benutzername <input type="text" name="firstname" class="textfeld">
+                Benutzername *<input type="text" name="username" class="textfeld">
             </div>
-            
-            
-            <div class="Formularzeile">
-                Vorname <input type="text" name="firstname" class="textfeld">
-            </div>
-            
+
             
             <div class="Formularzeile">
-                Nachname: <input type="text" name="lastname" class="textfeld">
-            </div>
-            
-            <div class="Formularzeile">
-                Geschlecht 
-                <div id="rechtsbuendig">
-                    <input type="radio" name="sex" value="male">Männlein          <input type="radio" name="sex" value="male">Weiblein
-                </div>
-            </div>
-            
-            <div class="Formularzeile">
-                 E - Mail <input type="email" name="e-mail" class="textfeld">
+                 E - Mail *<input type="email" name="email" class="textfeld">
             </div>
            
             <div class="Formularzeile">
-                Passwort <input type="email" name="e-mail" class="textfeld">
+                Passwort *<input type="text" name="password" class="textfeld">
             </div>
             
             <div class="Formularzeile">
-                Passwort bestätigen <input type="email" name="e-mail" class="textfeld">
+                Passwort bestätigen *<input type="text" name="confirmpassword" class="textfeld">
+            </div>
+            
+            <div class="Formularzeile">
+                Profilbild hochladen <input type="file" name="picture" class="textfeld">
             </div>
   
             <div id="submit" class="Formularzeile">
-                <input type="submit" value="Registrieren"/ class="button">
+                <input type="submit" name="button" value="Registrieren" class="button" onclick="return submitForm()"/>
             </div>
         </form>
     </div>
@@ -74,3 +62,29 @@
 	</footer>
 </body>
 </html>
+
+<script type="text/javascript">
+    function submitForm()
+        {
+            var username = document.forms["Form"]["username"].value;
+            var email = document.forms["Form"]["email"].value;
+            var password = document.forms["Form"]["password"].value;
+            var confirmpassword = document.forms["Form"]["confirmpassword"].value;
+            
+            if (username == null || username == "" || email == null || email == "", password == null || password == "", confirmpassword == null || confirmpassword == "") {
+                
+                alert("Bitte fülle alle benötigten Felder aus");
+                return false;
+                
+                if (!(password = confirmpassword)) {
+                
+                alert("Deine Passwortbestätigung ist falsch, versuche es erneut")
+                }
+                
+            } else {
+                document.getElementById("schrift").action = "registrieren.php";
+                document.getElementById("schrift").submit(); 
+            }
+        }
+    
+</script>

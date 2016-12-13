@@ -32,7 +32,7 @@
 		$_SESSION['id']=$row['user_id'];
 		$_SESSION['email']=$row['email'];
 		
-		echo '<meta http-equiv="refresh" content="2; URL = meineProjekte.html">';
+		echo '<meta http-equiv="refresh" content="2; URL = meineProjekte.php">';
 	}else{
 		echo "Login gescheitert";
 		
