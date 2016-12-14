@@ -1,4 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php 
+	session_start();
+	$berechtigung = 0;
+	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
+		$berechtigung = 0;
+		header("location:index.html");
+	} else{
+		$berechtigung = 1;
+		//echo "Eingeloggt ist der Benutzter ".$_SESSION['name']." ".$_SESSION['id'];
+		$benutzer = $_SESSION['name'];
+		$email = $_SESSION['email'];
+	}
+?> 
+	
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8">
@@ -17,7 +31,7 @@
 			<p class="ueberschrift">Mein Profil</p>	
 			
 			<div class="logout">	
-            	<a href="index.html" > <img src="../Images/logout.png" alt="logout" /></a>
+            	<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
 			</div>
         
 			  		
@@ -26,13 +40,7 @@
 	
     <div class="hauptbereichunterseiten">
     
-	<?php 
-	session_start();
-   	//echo "Eingeloggt ist der Benutzter ".$_SESSION['name']." ".$_SESSION['id'];
-	$benutzer = $_SESSION['name'];
-	$email = $_SESSION['email'];
-	?> 
-    
+	
     <form id = "profiltabelle" method="post" action="update.php">	
     	<table>
 			<tr>
@@ -74,19 +82,20 @@
       
       	<div id=profilbild>
         	<?php
-			mysql_connect("localhost", "root", "");
-			mysql_select_db("pro_db");
-			$userID = $_SESSION['id'];
+			if($berechtigung==1){
+				mysql_connect("localhost", "root", "");
+				mysql_select_db("pro_db");
+				$userID = $_SESSION['id'];
 			
-			$result = mysql_query("select bild from user where user_id = '$userID'");
-			$pfad = mysql_fetch_array($result);
-			$bildpfad = $pfad['bild'];
-			if ($pfad['bild']!=""){
-				echo "<img  src=\"$bildpfad\" height=\"150px\" width=\"200px\">";
-			}else{
-				echo"<img src='../Images/profilbild_rechteck.png' height=\"150px\" width=\"200px\"/>";
-			}
-			
+				$result = mysql_query("select bild from user where user_id = '$userID'");
+				$pfad = mysql_fetch_array($result);
+				$bildpfad = $pfad['bild'];
+				if ($pfad['bild']!=""){
+					echo "<img  src=\"$bildpfad\" height=\"150px\" width=\"200px\">";
+				}else{
+					echo"<img src='../Images/profilbild_rechteck.png' height=\"150px\" width=\"200px\"/>";
+				}
+				}
 			?>
         	
         </div>
