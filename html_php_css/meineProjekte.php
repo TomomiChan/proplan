@@ -14,14 +14,14 @@
 		mysql_select_db("pro_db");
 
 		$result = mysql_query("select * from user_projekte where user_ref = '$benutzer_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
-		$projekte[] = array();		// lege ein leeres Array fuer Projekte an
+	//	$projekte[] = array();		// lege ein leeres Array fuer Projekte an
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			//echo $row['projekt_ref'];
-			$i++;										//zaehler fuer array
-		}	
-		$_SESSION['projekte'] = $projekte;
+			$i++;	//zaehler fuer array					
+		}
+		
 	}
 	?> 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,16 +58,21 @@
 		<div id="alleOrdner">  
 		<?php 
 		if($berechtigung == 1){
-			foreach ($projekte as $p) {
-			$result = mysql_query("select name from projekt where projekt_id = '$p'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-			$namen = mysql_fetch_array($result);
-			//echo $namen['name'];	
-			echo"<div class=\"ordnerGruen\">";	
-				echo"<a class=\"a1\" href=\"projektseite.php?projekt_id=$p\"><img src=\"../Images/ordnerGruen.png\" alt=\"ordner\">";	
-				echo"<p id=\"projektname\">";
-					echo $namen['name']; 
-				echo"</p></a>";
-			echo"</div>";
+			if(!isset($projekte)){	//Prueft ob der Nutzer Projekte hat, ansonsten legt er keine Ordner an
+				//echo "test";
+			} else {
+				//print_r($projekte);	//testausgabe kommt noch weg
+				foreach ($projekte as $p_id) {
+				$result = mysql_query("select name from projekt where projekt_id = '$p_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
+				$namen = mysql_fetch_array($result);
+				//echo $namen['name'];	//testausgabe kommt noch weg
+				echo"<div class=\"ordnerGruen\">	
+						<a class=\"a1\" href=\"projektseite.php?projekt_id=$p_id\"><img src=\"../Images/ordnerGruen.png\" alt=\"ordner\">
+						<p id=\"projektname\">";
+					echo $namen['name'];
+					echo"</p></a>
+					</div>";
+				}
 			}
 		}
 		?> 

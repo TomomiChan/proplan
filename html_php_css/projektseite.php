@@ -1,6 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <?php
+	session_start();
+	$berechtigung = 0;
+	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
+		$berechtigung = 0;
+		header("location:index.html");
+	} else {
+		$berechtigung = 1;
+		$benutzer = $_SESSION['name'];
+		$benutzer_id = $_SESSION['id'];
+		
+		//Verbinung zu Datenbank
+		mysql_connect("localhost", "root", "");
+		mysql_select_db("pro_db");
+
+		$result = mysql_query("select * from user_projekte where user_ref = '$benutzer_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
+		$i=0;
+		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
+			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
+			//echo $row['projekt_ref'];
+			$i++;										//zaehler fuer array
+		}	
+		
+	}
+	$aktuelles_projekt = $_GET['projekt_id'];	 
+	$aktuelles_projekt = stripcslashes($aktuelles_projekt);
+	$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
+	
+	$nutzer_ist_berechtigt = FALSE;				// Variable um zu gucken ob der Nutzer fuer das Projekt registriert ist
+	for($i = 0; $i < count($projekte); $i++){		//geht alle Projekte in der Session durch
+		if($aktuelles_projekt == $projekte[$i]){	//und gleicht dieses mit dem Projekt aus der Adresszeile ab
+			$nutzer_ist_berechtigt = TRUE;			// Wenn er berechtigt ist true
+		}
+	}
+	if(!$nutzer_ist_berechtigt){					//Ansonsten wird er auf eine andere Seite weitergeleitet
+		header("location:fehler.php?fehlercode=Nicht_ihr_projekt");
+	}
 function monthBack( $timestamp ){
     return mktime(0,0,0, date("m",$timestamp)-1,date("d",$timestamp),date("Y",$timestamp) );
 }
@@ -71,23 +105,28 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px"/>
 				<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 				<img class="proplan" src="../Images/proplan.png" alt="proplan" />
-				<p class="ueberschrift">Designprojekt</p>	
+				<p class="ueberschrift">
+				<?php 
+					$result = mysql_query("select name from projekt where projekt_id = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
+					$projektname = mysql_fetch_array($result);
+					echo $projektname[0];
+				?>
+				</p>	
 		
 				<div class="logout">	
-					<a href="index.html" > <img src="../Images/logout.png" alt="logout" /></a>
+					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
 				</div>
   
 				<div class="profil">
-					<a href="profil.html"><img src="../Images/profil_weiß.png" alt="profil" /></a>
+					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
 				</div>
         
 				<p class="pfad">
-					<a href="javascript:history.back()">Meine Projekte ></a>
+					<a href="meineProjekte.php">Meine Projekte ></a>
 					<?php 
-					$projektname = "Designprojekt";
-					$projektid = "2"; //hier muesste die richtige id aus der datenbank geholt werden
-					echo $projektname;
-					//echo "$_POST["Projektname"]";
+						$result = mysql_query("select name from projekt where projekt_id = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
+						$projektname = mysql_fetch_array($result);
+						echo $projektname[0];
 					?> 
 				</p>
 			</div>
@@ -98,24 +137,35 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 			<div id="todo"><h3>TO-DO</h3>
 	
 			<?php  
-			$i=1;	
-			//if(!todoexists) -> es gibt noch kein todo else
-			while($i<=4){		//hier müsste sowas wie while (todoexist) oder halt mit ner for schleife alle abgehen vielleicht auch mit nem perl script abfragen
-				echo "<div class=\"listetodo\">Testtodo $i		
+			$result = mysql_query("select * from to_do where projekt_ref = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
+			$x=0;
+			while($row = mysql_fetch_array($result)){		
+				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);
+				$x++;	
+			}
+			//print_r($todos[0][0][0]);
 			
-				<div class=\"zeichen\">
+			if(!isset($todos)){
+				
+			} else {
+																//Da Dreidimensionale Arrays doof sind zum Vorstellen, hier mal ne Erklärung
+				for($i=0; $i < count($todos); $i++){			//Itterieren über die erste Zeile heisst ueberalle Todos die zum Projekt existieren
+					foreach ($todos[$i][0] as $todo) {			//Holt sich die Zeile in dem die Atribute drin stehen und itteriert ueber diese, die Attribute stehen in einem Zweidimensionalen Array
+						echo "<div class=\"listetodo\">";
+						echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
+						echo "<div class=\"zeichen\">
 
-					<form action='todoscript.php' method='POST'>
-						<input type=\"image\" src=\"../Images/haken.png\" width=\"50px\" value=\"bearbeiten.$i\" name=\"bearbeiten\" />
-						<input type=\"image\" src=\"../Images/haken.png\" width=\"50px\" value=\"erledigt.$i\" name=\"erledigt\" />
-						<input type=\"image\" src=\"../Images/haken.png\" width=\"50px\" value=\"loeschen.$i\" name=\"loeschen\" />
-					</form> 
+								<form name=\"todoform\" action='todoscript.php' method='POST'>
+									<button class=\"buttontodo\" type=\"submit\" name=\"bearbeiten\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
+									<button class=\"buttontodo\" type=\"submit\" name=\"erledigt\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
+									<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
+								</form> 
 
-				</div>
+							  </div>
 			
-				</div>";		//$i = todoname ...
-			
-				$i++;
+							  </div>";		
+					}
+				}
 			}
 			?>
 	
