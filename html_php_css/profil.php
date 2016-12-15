@@ -41,8 +41,8 @@
     <div class="hauptbereichunterseiten">
     
 	
-    <form id = "profiltabelle" method="post" action="update.php">	
-    	<table>
+    <form id ="profiltabelle" method="post" action="update.php">	
+    	<table id="inneretabelle">
 			<tr>
 				<td id="user_name">
                 	Name:
