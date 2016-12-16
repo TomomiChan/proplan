@@ -295,10 +295,12 @@ table{
 
 #profiltabelle{
 	font-family: 'Ubuntu', sans-serif;
-	margin-top: 250px;
-	margin-left:-550px;
-	
+	position:relative;
+}
 
+#inneretabelle{
+	margin-left: 400px;
+	margin-top: 100px;
 }
 .eingabe{
 	float:right;
@@ -329,10 +331,8 @@ table{
 }
 #profilbild{
 	
-	margin-top:-150px;
+	margin-top:-148px;
 	margin-left:144px;
-	height:135px;
-	width:125px;
 }
 #pBeschriftung{
 	margin-bottom:0.5px;

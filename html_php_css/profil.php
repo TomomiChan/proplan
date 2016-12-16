@@ -12,7 +12,7 @@
 	}
 ?> 
 	
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8">
@@ -38,11 +38,22 @@
 		</header>
         
 	
+    <script language="JavaScript">
+		function passwortAbgleich(){
+			
+			if (document.passwortbereich.neuesPasswort.value != document.passwortbereich.wiederholtesPasswort.value) {
+			alert ("Fehler. Bitte überprüfen Sie ihre Passwortangaben");
+			document.passwortbereich.neuesPasswort.focus();
+			return false;
+			}
+		}
+    </script>
+        
     <div class="hauptbereichunterseiten">
     
 	
-    <form id = "profiltabelle" method="post" action="update.php">	
-    	<table>
+    <form id ="profiltabelle" method="post" action="update.php" >	
+    	<table id="inneretabelle">
 			<tr>
 				<td id="user_name">
                 	Name:
@@ -54,8 +65,8 @@
 			</tr>
      </form>
      
-     <form id = "profiltabelle" method="POST" action="update.php">
-     		 <tr>
+     <form id = "profiltabelle" method="POST" action="update.php" name = "passwortbereich" onSubmit="return passwortAbgleich()">
+     		<tr>
 				<td id="user_pw">
 					Passwort:
                     <div class = "eingabe"><input type="password" placeholder="******" name="neuesPasswort" required></div>
@@ -64,6 +75,14 @@
                 	<button type="submit" id="button4" value="passwort_aendern">Passwort ändern</button>
                 </td>
 			</tr>
+            <tr>
+            	<td>
+                    <div class = "eingabe">
+                    	<input type="password" placeholder="passwort wiederholen" name="wiederholtesPasswort" required>
+                    </div>
+                </td>
+            </tr>
+            
      </form>
      
      <form id = "profiltabelle" method="POST" action="update.php">
@@ -99,34 +118,14 @@
 			?>
         	
         </div>
+        
     	<div id="profilbild_upload">
-        	<form action = "" method="POST" enctype="multipart/form-data" >
+        	<form action = "upload.php" method="POST" enctype="multipart/form-data" >
             	<p id = "pBeschriftung">Neues Profilbild?</p><br> <input type="file" name="bild" /><br>
                 <input type="submit" name="upload" value="Upload"  id="button4"/>
             </form>    
    		 </div>
-           
-         <?php 
-		 if($_POST['upload']){
-			$target_dir="../uploads/";
-			$bildname = $target_dir. basename($_FILES['bild']['name']);
-			
-		 }
-		 
-		 if(move_uploaded_file ($_FILES['bild']['name'],$bildname)){
-			 echo "Dein Bild ". basename( $_FILES['bild']['name']). " wurde hochgeladen"; 
-		 }
-		 
-		 if($bildname != ''){
-			  
-			  mysql_connect("localhost", "root", "");
-			  mysql_select_db("pro_db");
-			  $userID = $_SESSION['id'];
-			  mysql_query("INSERT into user set bild = '$bildname' where user_id='$userID' ");
-			  
-		 }
-		 ?>
-      	
+  	
 	</div>	
     
 
