@@ -52,7 +52,11 @@
     <div class="hauptbereichunterseiten">
     
 	
+<<<<<<< HEAD
     <form id ="profiltabelle" method="post" action="update.php" >	
+=======
+    <form id ="profiltabelle" method="post" action="update.php">	
+>>>>>>> 8ceab04d8c21bf5b2def3462fbaf2f527594dd7a
     	<table id="inneretabelle">
 			<tr>
 				<td id="user_name">

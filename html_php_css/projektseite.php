@@ -153,17 +153,22 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 					foreach ($todos[$i][0] as $todo) {			//Holt sich die Zeile in dem die Atribute drin stehen und itteriert ueber diese, die Attribute stehen in einem Zweidimensionalen Array
 						echo "<div class=\"listetodo\">";
 						echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
-						echo "<div class=\"zeichen\">
+						echo "<div class=\"zeichen\">";
+						if($todo[2]==1){
+							echo"<div class=\"buttontodoerledigt\"><img src=\"../Images/haken.png\" width=\"50px\"></div></div></div>";
+						} else{
+						
 
-								<form name=\"todoform\" action='todoscript.php' method='POST'>
-									<button class=\"buttontodo\" type=\"submit\" name=\"bearbeiten\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
+								echo"<form name=\"todoform\" action='todoscript.php' method='POST'>
+									<button class=\"buttontodo\" type=\"submit\" name=\"bearbeiten\" value=\"$todo[0]\"><img src=\"../Images/bearbeiten.png\" width=\"24px\"></button>
 									<button class=\"buttontodo\" type=\"submit\" name=\"erledigt\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
-									<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
+									<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/muelleimer.png\" width=\"23px\"></button>
 								</form> 
 
 							  </div>
 			
-							  </div>";		
+							  </div>";	
+						}
 					}
 				}
 			}
