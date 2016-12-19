@@ -397,11 +397,11 @@ table{
 	background-color:#transparent ;
     color: white;
     padding: 0;
-    margin-top: -10px;
     border: none;
 	width: 50px;
 	height: 50px;
-	margin-left:-100px;
+	float:left;
+	padding-right:60px;
 }
 
 #todo{
@@ -414,6 +414,55 @@ table{
 	margin-bottom:40px;
 	min-height:370px;
 	background-color:#eeeff0;
+}
+
+#textareatodo {
+    overflow: auto;
+	resize: none;
+    position: relative;
+    top: 20px;
+	left: 20px;
+}
+
+#uebrigeZeichen{
+    height: 50px;
+    position: relative;
+    top: 20px;
+	left:20px;
+    width: 400px;
+}
+
+.todoButtonForm{
+	background-color:#8bc797 ;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    margin: 8px 0;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 200px;
+	font-family: 'Ubuntu', sans-serif;
+	position:relative;
+	top:20px;
+	left:20px;
+}
+
+
+.todoButtonForm:hover{
+     color:#fff;
+     background-color:#586fb4;
+}
+
+.aufgabetext{
+	width:450px;
+	position:relative;
+	top: -5px;
+}
+
+.aufgabetexthoeher{
+	width:450px;
+	position:relative;
+	top:-20px;
 }
 
 h3{
@@ -494,6 +543,11 @@ h4{
     cursor: pointer;
     width: 200px;
 	font-family: 'Ubuntu', sans-serif;
+}
+
+#button3:hover{
+     color:#fff;
+     background-color:#586fb4;
 }
 
 /*kalender*/

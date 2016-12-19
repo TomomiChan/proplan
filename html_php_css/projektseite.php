@@ -12,12 +12,14 @@
 		//Verbinung zu Datenbank
 		mysql_connect("localhost", "root", "");
 		mysql_select_db("pro_db");
+		mysql_query ('SET NAMES utf8'); 
 
 		$result = mysql_query("select * from user_projekte where user_ref = '$benutzer_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			//echo $row['projekt_ref'];
+			//echo $projekte[$i];
 			$i++;										//zaehler fuer array
 		}	
 		
@@ -152,10 +154,23 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				for($i=0; $i < count($todos); $i++){			//Itterieren über die erste Zeile heisst ueberalle Todos die zum Projekt existieren
 					foreach ($todos[$i][0] as $todo) {			//Holt sich die Zeile in dem die Atribute drin stehen und itteriert ueber diese, die Attribute stehen in einem Zweidimensionalen Array
 						echo "<div class=\"listetodo\">";
-						echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
+						
+						if (strlen($todo[1])<=55){				//Gucken ob der Text ueber zwei Spalten gehen muss
+							echo "<div class=\"aufgabetext\">";
+							echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
+							echo "</div>";
+						} else {
+							echo "<div class=\"aufgabetexthoeher\">";
+							echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
+							echo "</div>";
+						}
+						
 						echo "<div class=\"zeichen\">";
-						if($todo[2]==1){
-							echo"<div class=\"buttontodoerledigt\"><img src=\"../Images/haken.png\" width=\"50px\"></div></div></div>";
+						if($todo[2]==1){		//Wenn in Datenbank steht erledigt Printe nur den Haken ohne Anklickfunktion und den Loeschbutton aus
+							echo"
+							<form name=\"todoform\" action='todoscript.php' method='POST'><div class=\"buttontodoerledigt\"><img src=\"../Images/haken.png\" width=\"50px\"></div>
+							<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/muelleimer.png\" width=\"23px\"></button>
+							</div></div></form>";
 						} else{
 						
 
@@ -173,9 +188,9 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				}
 			}
 			?>
-	
+
 				<form class="neuesButton" action="neuestodo.php" method="Post">
-					<button type="submit" id="button3">To-Do anlegen</button>
+					<button type="submit" id="button3" name="neuesToDo" value="<?php echo $aktuelles_projekt;?>">To-Do anlegen</button>
 				</form>
 			</div>
 	
