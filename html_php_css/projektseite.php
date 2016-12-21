@@ -10,11 +10,11 @@
 		$benutzer_id = $_SESSION['id'];
 		
 		//Verbinung zu Datenbank
-		mysql_connect("localhost", "root", "");
-		mysql_select_db("pro_db");
-		mysql_query ('SET NAMES utf8'); 
 
-		$result = mysql_query("select * from user_projekte where user_ref = '$benutzer_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
+
+		$result = getORSetEintraegeSchleifen("select * from user_projekte where user_ref = '$benutzer_id'");
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
@@ -25,7 +25,7 @@
 		
 	}
 	$aktuelles_projekt = $_GET['projekt_id'];	 
-	$aktuelles_projekt = stripcslashes($aktuelles_projekt);
+	//$aktuelles_projekt = stripcslashes($aktuelles_projekt);
 	$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
 	
 	$nutzer_ist_berechtigt = FALSE;				// Variable um zu gucken ob der Nutzer fuer das Projekt registriert ist
@@ -109,8 +109,7 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				<img class="proplan" src="../Images/proplan.png" alt="proplan" />
 				<p class="ueberschrift">
 				<?php 
-					$result = mysql_query("select name from projekt where projekt_id = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-					$projektname = mysql_fetch_array($result);
+					$projektname = getORSetEintraege("select name from projekt where projekt_id = '$aktuelles_projekt'");
 					echo $projektname[0];
 				?>
 				</p>	
@@ -126,8 +125,6 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				<p class="pfad">
 					<a href="meineProjekte.php">Meine Projekte ></a>
 					<?php 
-						$result = mysql_query("select name from projekt where projekt_id = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-						$projektname = mysql_fetch_array($result);
 						echo $projektname[0];
 					?> 
 				</p>
@@ -139,7 +136,7 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 			<div id="todo"><h3>TO-DO</h3>
 	
 			<?php  
-			$result = mysql_query("select * from to_do where projekt_ref = '$aktuelles_projekt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
+			$result = getORSetEintraegeSchleifen("select * from to_do where projekt_ref = '$aktuelles_projekt'");
 			$x=0;
 			while($row = mysql_fetch_array($result)){		
 				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);

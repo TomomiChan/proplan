@@ -14,25 +14,22 @@
 	$passwort = md5($passwort);
 
 	//Verbinung zu Datenbank
-	mysql_connect("localhost", "root", "");
-	mysql_select_db("pro_db");
+	include ("datenbankschnittstelle.php");
+	datenbankaufbau();
 	// 
-	$result = mysql_query("select * from user where name = '$username' and passwort = '$passwort'")or 
-	die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
+	$row = getORSetEintraege("select * from user where name = '$username' and passwort = '$passwort'");
 	
-	$row = mysql_fetch_array($result);
 	
 	if($row['name']==$username && $row['passwort']==$passwort){
-		echo "Login hat geklappt. Willkommen ".$row['name'];
+		//echo "Login hat geklappt. Willkommen ".$row['name'];		// Hab ich erstmal rausgenommen, damit das beim testen nicht so lang dauert
 		$_SESSION['logged_in']=true;
 		$_SESSION['name']=$row['name'];
 		
-		$result = mysql_query("select user_id,email from user where name = '$username' and passwort = '$passwort' ");
-		$row = mysql_fetch_array($result);
+		$row = getORSetEintraege("select user_id,email from user where name = '$username' and passwort = '$passwort' ");
 		$_SESSION['id']=$row['user_id'];
 		$_SESSION['email']=$row['email'];
 		
-		echo '<meta http-equiv="refresh" content="2; URL = meineProjekte.php">';
+		echo '<meta http-equiv="refresh" content="0; URL = meineProjekte.php">';	//Hier hab ich die Zeit zum Umspringen mal auf 0 gesetzt
 	}else{
 		echo "Login gescheitert";
 		

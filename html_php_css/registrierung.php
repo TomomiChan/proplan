@@ -31,7 +31,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 
     // JavaScript Pop Up, was zeigt, dass die Passwörter nicht übereinstimmen
     echo "<script type='text/javascript'>
-            alert('Die Passwärter stimmen nicht überein.')
+            alert('Die Passwörter stimmen nicht überein.')
           </script>";
   }
 

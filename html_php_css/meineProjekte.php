@@ -10,10 +10,10 @@
 		$benutzer_id = $_SESSION['id'];
 	
 		//Verbinung zu Datenbank
-		mysql_connect("localhost", "root", "");
-		mysql_select_db("pro_db");
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
 
-		$result = mysql_query("select * from user_projekte where user_ref = '$benutzer_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
+		$result = getORSetEintraegeSchleifen("select * from user_projekte where user_ref = '$benutzer_id'");
 	//	$projekte[] = array();		// lege ein leeres Array fuer Projekte an
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
@@ -63,8 +63,7 @@
 			} else {
 				//print_r($projekte);	//testausgabe kommt noch weg
 				foreach ($projekte as $p_id) {
-				$result = mysql_query("select name from projekt where projekt_id = '$p_id'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-				$namen = mysql_fetch_array($result);
+				$namen = getORSetEintraege("select name from projekt where projekt_id = '$p_id'");	
 				//echo $namen['name'];	//testausgabe kommt noch weg
 				echo"<div class=\"ordnerGruen\">	
 						<a class=\"a1\" href=\"projektseite.php?projekt_id=$p_id\"><img src=\"../Images/ordnerGruen.png\" alt=\"ordner\">

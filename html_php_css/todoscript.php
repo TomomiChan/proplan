@@ -9,25 +9,22 @@ session_start();
 		$benutzer = $_SESSION['name'];
 		$benutzer_id = $_SESSION['id'];
 		
-		mysql_connect("localhost", "root", "");
-		mysql_select_db("pro_db");
-		mysql_query ('SET NAMES utf8'); 
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
 		
 		if(isset($_POST['bearbeiten'])){
-			$bearbeiten = $_POST['bearbeiten'];
-			$bearbeiten = stripcslashes($bearbeiten);
+			$bearbeiten = $_POST['bearbeiten'];			//ID des jeweiligen TODOS
+			//$bearbeiten = stripcslashes($bearbeiten);
 			$bearbeiten = mysql_real_escape_string($bearbeiten);
 			
-			$result = mysql_query("select projekt_ref FROM to_do WHERE to_do_id = '$bearbeiten'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
-			$projektID = mysql_fetch_array($result);
+			$projektID = getORSetEintraege("select projekt_ref FROM to_do WHERE to_do_id = '$bearbeiten'");
 			$projektID = $projektID['projekt_ref'];
 			
-			$result = mysql_query("select name FROM projekt WHERE projekt_id = '$projektID'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-			$projektname = mysql_fetch_array($result);
+			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projektID'");
 			
-			$todo = mysql_query("select aufgabe FROM to_do WHERE to_do_id = '$bearbeiten'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-			$todo_aufgabe = mysql_fetch_array($todo);
 			
+			$todo_aufgabe = getORSetEintraege("select aufgabe FROM to_do WHERE to_do_id = '$bearbeiten'");
+
 			
 			echo "<html>
 			<head>
@@ -121,26 +118,24 @@ session_start();
 			//echo "bearbeitet";
 		}
 		if(isset($_POST['erledigt'])){
-			$erledigt = $_POST['erledigt'];
-			$erledigt = stripcslashes($erledigt);
+			$erledigt = $_POST['erledigt'];			//ID des jeweiligen TODOS
+			//$erledigt = stripcslashes($erledigt);
 			$erledigt = mysql_real_escape_string($erledigt);
 		
-			$rueckgabe = mysql_query("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
-			$result = mysql_query("select projekt_ref from to_do WHERE to_do_id = '$erledigt'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
-			$projekt_id = mysql_fetch_array($result);
+			$rueckgabe = getORSetEintraege("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'");
+			$projekt_id = getORSetEintraege("SELECT projekt_ref FROM to_do WHERE to_do_id = '$erledigt'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			header("location:projektseite.php?projekt_id=$projekt_id");
 		}
 		if(isset($_POST['loeschen'])){
-			$loeschen = $_POST['loeschen'];
-			$loeschen = stripcslashes($loeschen);
+			$loeschen = $_POST['loeschen'];			//ID des jeweiligen TODOS
+			//$loeschen = stripcslashes($loeschen);
 			$loeschen = mysql_real_escape_string($loeschen);
 			
-			$result = mysql_query("select projekt_ref from to_do WHERE to_do_id = '$loeschen'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
-			$projekt_id = mysql_fetch_array($result);
+			$projekt_id = getORSetEintraege("select projekt_ref from to_do WHERE to_do_id = '$loeschen'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			
-			$rueckgabe = mysql_query("DELETE FROM to_do WHERE to_do_id = '$loeschen'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());
+			$rueckgabe = getORSetEintraege("DELETE FROM to_do WHERE to_do_id = '$loeschen'");
 			
 			header("location:projektseite.php?projekt_id=$projekt_id");
 		}

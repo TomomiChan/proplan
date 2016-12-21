@@ -9,17 +9,16 @@ session_start();
 		$benutzer = $_SESSION['name'];
 		$benutzer_id = $_SESSION['id'];
 		
-		mysql_connect("localhost", "root", "");
-		mysql_select_db("pro_db");
-		mysql_query ('SET NAMES utf8'); 
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
 		
 		if(isset($_POST['neuesToDo'])){
 			$projekt_ref = $_POST['neuesToDo'];
-			$projekt_ref = stripcslashes($projekt_ref);
+		//	$projekt_ref = stripcslashes($projekt_ref);
 			$projekt_ref = mysql_real_escape_string($projekt_ref);
 	
-			$result = mysql_query("select name FROM projekt WHERE projekt_id = '$projekt_ref'")or die("Verbindung zur Datenbank ist fehlgeschlagen".mysql_error());	
-			$projektname = mysql_fetch_array($result);
+			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projekt_ref'");
+			
 			
 
 			echo "<html>

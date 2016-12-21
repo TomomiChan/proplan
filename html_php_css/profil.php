@@ -9,6 +9,9 @@
 		//echo "Eingeloggt ist der Benutzter ".$_SESSION['name']." ".$_SESSION['id'];
 		$benutzer = $_SESSION['name'];
 		$email = $_SESSION['email'];
+		$userID = $_SESSION['id'];
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
 	}
 ?> 
 	
@@ -108,12 +111,7 @@
       	<div id=profilbild>
         	<?php
 			if($berechtigung==1){
-				mysql_connect("localhost", "root", "");
-				mysql_select_db("pro_db");
-				$userID = $_SESSION['id'];
-			
-				$result = mysql_query("select bild from user where user_id = '$userID'");
-				$pfad = mysql_fetch_array($result);
+				$pfad = getORSetEintraege("select bild from user where user_id = '$userID'");
 				$bildpfad = $pfad['bild'];
 				if ($pfad['bild']!=""){
 					echo "<img  src=\"$bildpfad\" height=\"150px\" width=\"200px\">";
