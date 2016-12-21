@@ -3,7 +3,7 @@ session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
 		$berechtigung = 0;
-		header("location:index.html");
+		header("location:index.php");
 	} else {
 		$berechtigung = 1;
 		$benutzer = $_SESSION['name'];

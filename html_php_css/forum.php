@@ -18,7 +18,7 @@
 			<p class="ueberschrift">Designvorschläge</p>	
 			
 			<div class="logout">	
-				<a href="index.html" > <img src="../Images/logout.png" alt="logout" /></a>
+				<a href="index.php" > <img src="../Images/logout.png" alt="logout" /></a>
 			</div>
   
 			<div class="profil">

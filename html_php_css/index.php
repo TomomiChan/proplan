@@ -1,3 +1,23 @@
+<?php
+//hole die werte aus dem vorherigen File
+// für den Fall, dass man nach der Registrierung direkt zur Login Seite gefuehrt wird
+session_start();
+
+// Abfrage, ob der Nutzer gerade von der Registrierungsseite kommt
+// Wenn dies der Fall ist, wird der Nutzer benachrichtigt, dass er sich jetzt einloggen kann
+if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
+
+  // Zuruecksetzen des boolean, welcher checkt, ob man durch einen Redirect auf die index Seite gekommen ist
+  unset($_SESSION['fromReg']);
+
+  // JavaScript Pop Up, was zeigt, dass sich der Nutzer jetzt einloggen kann
+  echo "<script type='text/javascript'>
+          alert('Die Registrierung war erfolgreich. Du kannst dich nun einloggen.')
+        </script>";
+}
+
+?>
+
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,16 +42,16 @@
 	<section>
 		<img id="lesezeichen" src="../Images/lesezeichen.png">
     </section>
-    
+
 	<h1> Organisiere dich jetzt!</h1>
-    
+
 		<img id="wasgibtes" src="../Images/wasgibtes.png">
 
 		<img id="klemmbrett" src="../Images/klemmbrett.png">
 
-    
 
-	<form id="formular" method="POST" action="login.php">	
+
+	<form id="formular" method="POST" action="login.php">
 
     	<!--hier eigentlich script !-->
 
@@ -49,15 +69,15 @@
 			<tr>
 				<td id="login">
 					<button type="submit" id="button1" value="Login">Login</button>
-				</td> 
+				</td>
 			</tr>
 			</table>
 
 		</form>
-		<form id="formular1" action="registrierung.html">		<!--hier eigentlich script !-->
+		<form id="formular1" action="registrierung.php">		<!--hier eigentlich script !-->
 
 		<table>
-			<tr>     
+			<tr>
 				<td id="registrieren">
 					<button type="submit" id="button2" value="Registrieren">Registrieren</button>
 				</td>
@@ -65,12 +85,12 @@
 		</table>
 
 		</form>
-		
+
 
 	<p id="registriert">
 		Noch nicht angemeldet?
 	</p>
-	
+
 </div>
 
 
