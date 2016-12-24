@@ -419,12 +419,40 @@ table{
 	left: 20px;
 }
 
+.textareatermin {
+    overflow: auto;
+	resize: none;
+    position: relative;
+    top: 20px;
+	left: 20px;
+}
+
 #uebrigeZeichen{
     height: 50px;
     position: relative;
     top: 20px;
 	left:20px;
     width: 400px;
+}
+
+#hinweis{
+    height: 50px;
+    position: relative;
+    top: 20px;
+	left:20px;
+    width: 400px;
+
+}
+
+.labeltermin{
+	left: 28px;
+    position: relative;
+    top: -30px;
+}
+
+.uhrzeit{
+	left: -115px;
+    position: relative;
 }
 
 .todoButtonForm{
@@ -440,6 +468,7 @@ table{
 	position:relative;
 	top:20px;
 	left:20px;
+	clear:both;
 }
 
 

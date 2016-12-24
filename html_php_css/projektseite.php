@@ -100,6 +100,7 @@
 		//echo strtotime($terminDatum[0]);	//wandelt in Time um, braucht man, da Date mit Time() als zweites argument arbeitet 
 		global $projektBeginn;
 		global $projektEnde;
+		global $aktuelles_projekt;
 		
 		$mehrfachdatum = array();		//Es koennen mehrere Termine an einen Tag auftauchen, diese Sammel ich hier und setze sie auf true oder false
 		for($i=0; $i < count($terminID); $i++){	//Als erstes muss es aber einmal komplett gefuellt werden, damit es spaeter nicht zu exeptions kommt
@@ -141,21 +142,21 @@
 					$eintragen = TRUE;					//Wenn er einen Eintrag hat 
 					if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y')) {	//Wenn der Tag $i der heutige ist
 						if($i == date('d',strtotime($projektBeginn[0]))&& date('m.Y',strtotime($projektBeginn[0])) == date('m.Y',$date)){ //Kontrolle ob das ProjektBeginn auf dem Tag liegt
-							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 									<div class=\"day eintragheutigerTagprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 										<div class=\"hovereintrag\">Projekt Beginn - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
 									</div>\n
 								</button></form>";	
 						}
 						elseif($i == date('d',strtotime($projektEnde[0]))&& date('m.Y',strtotime($projektEnde[0])) == date('m.Y',$date)){	//Kontrolle ob ProjektEnde auf dem Tag liegt
-							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 									<div class=\"day eintragheutigerTagprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 										<div class=\"hovereintrag\">Projekt Ende - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
 									</div>\n
 								</button></form>";
 						}
 						else{
-							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 									<div class=\"day eintragheutigerTag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 										<div class=\"hovereintrag\">".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>	
 									</div>\n
@@ -170,14 +171,14 @@
 								}
 								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
 								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
-									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 											<div class=\"day eintragprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 												<div class=\"hovereintrag\">Projekt Beginn - ".fassezusammen($terminDatum[$j])."</div>	
 											</div>\n
 										</button></form>";
 								}
 							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
-								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminID[$j]\" class=\"buttonkalender\">
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminID[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 										<div class=\"day eintragprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 											<div class=\"hovereintrag\">Projekt Beginn - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
 										</div>\n
@@ -192,14 +193,14 @@
 								}
 								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
 								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
-									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 											<div class=\"day eintragprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 												<div class=\"hovereintrag\">Projekt Ende - ".fassezusammen($terminDatum[$j])."</div>	
 											</div>\n
 										</button></form>";
 								}
 							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
-								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 										<div class=\"day eintragprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 											<div class=\"hovereintrag\">Projekt Ende - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
 										</div>\n
@@ -214,14 +215,14 @@
 								}
 								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
 								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
-									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 											<div class=\"day eintrag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 												<div class=\"hovereintrag\">".fassezusammen($terminDatum[$j])."</div>	
 											</div>\n
 										</button></form>";
 								}
 							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
-								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]/$aktuelles_projekt\" class=\"buttonkalender\">
 										<div class=\"day eintrag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
 											<div class=\"hovereintrag\">".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
 										</div>\n
@@ -257,28 +258,6 @@
 					}
 				}
 			} 
-			
-		/*	$eintragheute = FALSE;													//Hier nochmal anders geloest ... hatte irgendwie lust drauf ... projektBeginn und Ende sind dort noch nicht drin
-			$eintragen = FALSE;
-			if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y')) {
-				for($j=0; $j < count($terminID); $j++){
-					if($i == date('d',strtotime($terminDatum[$j]))&& date('m.Y',strtotime($terminDatum[$j])) == date('m.Y',$date)){
-						echo "<div class=\"day eintragheutigerTag\">".sprintf("%02d",$i)."</div>\n";
-						$eintragheute = TRUE;
-					}	
-				}
-				if(!$eintragheute) echo "<div class=\"day current\">".sprintf("%02d",$i)."</div>\n";
-			} else {
-				for($j=0; $j < count($terminID); $j++){
-					if($i == date('d',strtotime($terminDatum[$j]))&& date('m.Y',strtotime($terminDatum[$j])) == date('m.Y',$date)){
-						echo "<div class=\"day eintrag\">".sprintf("%02d",$i)."</div>\n";	
-						$eintragen = TRUE;
-					}	
-				}
-				if(!$eintragen) echo "<div class=\"day normal\">".sprintf("%02d",$i)."</div>\n";
-			}
-			*/
-
         
 			if( $i == $sum_days) {
 				$next_sum = (6 - array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun')));

@@ -26,7 +26,7 @@ session_start();
 			$neuertext = substr($neuertext, 0, 100);
 		}
 		
-		$rueckgabe = getORSetEintraege("UPDATE to_do SET aufgabe = '$neuertext' WHERE to_do_id = '$todoID'");
+		$rueckgabe = getORSetEintraegeSchleifen("UPDATE to_do SET aufgabe = '$neuertext' WHERE to_do_id = '$todoID'");
 		$projekt_id = getORSetEintraege("SELECT projekt_ref FROM to_do WHERE to_do_id = '$todoID'");
 		$projekt_id = $projekt_id['projekt_ref'];
 		header("location:projektseite.php?projekt_id=$projekt_id");

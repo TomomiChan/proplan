@@ -49,7 +49,7 @@ session_start();
 							// Anzahl Restzeichen berechnen und Zeichenanzeige aktualisieren  
 							charsToGo = maxCharCount - charInputSrc.value.length;  
 
-							document.getElementById(\"uebrigeZeichen\").innerHTML = 'Es können maximal 110 Zeichen geschrieben werden: (' + charsToGo + '&nbsp;Zeichen übrig)'; 
+							document.getElementById(\"uebrigeZeichen\").innerHTML = 'Es können maximal 100 Zeichen geschrieben werden: (' + charsToGo + '&nbsp;Zeichen übrig)'; 
 							}  
 							else{  
 								// Eingegebenes Zeichen wieder abschneiden  
