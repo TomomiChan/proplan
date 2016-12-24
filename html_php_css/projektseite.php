@@ -18,8 +18,6 @@
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
-			//echo $row['projekt_ref'];
-			//echo $projekte[$i];
 			$i++;										//zaehler fuer array
 		}	
 		
@@ -37,57 +35,285 @@
 	if(!$nutzer_ist_berechtigt){					//Ansonsten wird er auf eine andere Seite weitergeleitet
 		header("location:fehler.php?fehlercode=Nicht_ihr_projekt");
 	}
-function monthBack( $timestamp ){
-    return mktime(0,0,0, date("m",$timestamp)-1,date("d",$timestamp),date("Y",$timestamp) );
-}
-function yearBack( $timestamp ){
-    return mktime(0,0,0, date("m",$timestamp),date("d",$timestamp),date("Y",$timestamp)-1 );
-}
-function monthForward( $timestamp ){
-    return mktime(0,0,0, date("m",$timestamp)+1,date("d",$timestamp),date("Y",$timestamp) );
-}
-function yearForward( $timestamp ){
-    return mktime(0,0,0, date("m",$timestamp),date("d",$timestamp),date("Y",$timestamp)+1 );
-}
+	
+	/**Projektzeiten*/
+	$projektBeginn = getORSetEintraege("SELECT beginn_projekt FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
+	$projektEnde = getORSetEintraege("SELECT ende_projekt FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
+	//echo $projektBeginn[0];	
+	//echo $projektEnde[0];	
+	
+	/**Kalendereinträge**/
+	$result = getORSetEintraegeSchleifen("select * from termin where projekt_ref = '$aktuelles_projekt'");
+	$j = 0;
+	
+	while($row = mysql_fetch_array($result)){		
+		$terminID[$j] = $row['termin_id'];	
+		$terminName[$j] = $row['termin_name'];	
+		$terminDatum[$j] = $row['datum'];	
+		$terminUhrzeit[$j] = $row['uhrzeit'];	
+		$j++;
+	}	
+		
+	/*for($i=0; $i < count($terminID); $i++){		//Testausgabe
+		echo $terminID[$i];
+		echo $terminName[$i];
+		echo $terminDatum[$i];
+		echo $terminUhrzeit[$i];
+		echo "<br>";
+	}*/
+	
+	/**Kalender**/			//Grund Klander ist von der Website:http://www.webmasterpro.de/coding/article/einfacher-php-kalender.html
+	//Allerdings wurde dieses Beispiel sehr, sehr stark abgewandelt, sodass man Eintraege und Hoverbefehle hat usw. ... (nur damit es kein Copyright Problem gibt, auch wenn nur noch das Grundgeruest uebrig ist ...)
+	function monthBack( $timestamp ){
+		return mktime(0,0,0, date("m",$timestamp)-1,date("d",$timestamp),date("Y",$timestamp) );
+	}
+	function yearBack( $timestamp ){
+		return mktime(0,0,0, date("m",$timestamp),date("d",$timestamp),date("Y",$timestamp)-1 );
+	}
+	function monthForward( $timestamp ){
+		return mktime(0,0,0, date("m",$timestamp)+1,date("d",$timestamp),date("Y",$timestamp) );
+	}
+	function yearForward( $timestamp ){
+		return mktime(0,0,0, date("m",$timestamp),date("d",$timestamp),date("Y",$timestamp)+1 );
+	}
 
-function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')) {
-    $sum_days = date('t',$date);
-    $LastMonthSum = date('t',mktime(0,0,0,(date('m',$date)),0,date('Y',$date)));		//der scheiß war falsch im Internet -_- fehlersuche =10min ...
+	function fassezusammen($terDat){	//Falls ein Tag mehrere Termine hat uebergabe Wert ist das Datum welches mehrere Termine hat
+		global $terminID;
+		global $terminName;
+		global $terminDatum;		
+		global $terminUhrzeit;
+		$temp = date_format(date_create($terDat),'d.m.y');		
+		for($j=0; $j < count($terminID); $j++){		//geht alle Termine durch
+			if ($terminDatum[$j] == $terDat){		//Wenn das Datum gleich ist
+				$temp .= "<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr<br>------";		//haenge String an
+			}
+		}
+		
+		return $temp;
+	}
+	
+	function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')) {
+		global $terminID;
+		global $terminName;
+		global $terminDatum;		//$eintragnull = new DateTime($terminDatum[0]);	//echo $eintragnull->format('Y-m-d H:i:s');
+		global $terminUhrzeit;	
+		//echo strtotime($terminDatum[0]);	//wandelt in Time um, braucht man, da Date mit Time() als zweites argument arbeitet 
+		global $projektBeginn;
+		global $projektEnde;
+		
+		$mehrfachdatum = array();		//Es koennen mehrere Termine an einen Tag auftauchen, diese Sammel ich hier und setze sie auf true oder false
+		for($i=0; $i < count($terminID); $i++){	//Als erstes muss es aber einmal komplett gefuellt werden, damit es spaeter nicht zu exeptions kommt
+			$mehrfachdatum[$i]=FALSE;
+		}
+		for($i=0; $i < count($terminID); $i++){		//geh alle durch
+			for($j=$i; $j < count($terminID); $j++){	//damit keine doppelt genommen werden wird j auf i gesetzt
+				if($terminDatum[$i] == $terminDatum[$j] && $i != $j){	//wenn er ein Datum findet 
+					$mehrfachdatum[$i] = TRUE;		//setzt er es auf True
+					$mehrfachdatum[$j] = TRUE;
+				}
+			}
+		}
+	
+		$sum_days = date('t',$date);
+		$LastMonthSum = date('t',mktime(0,0,0,(date('m',$date)),0,date('Y',$date)));		//der scheiß war falsch im Internet -_- fehlersuche =10min ... hier stand 1 statt 0
     
-    foreach( $headline as $key => $value ) {
-        echo "<div class=\"day headline\">".$value."</div>\n";
-    }
+		foreach( $headline as $key => $value ) {
+			echo "<div class=\"day headline\">".$value."</div>\n";
+		}
     
-    for( $i = 1; $i <= $sum_days; $i++ ) {
-        $day_name = date('D',mktime(0,0,0,date('m',$date),$i,date('Y',$date)));
-        $day_number = date('w',mktime(0,0,0,date('m',$date),$i,date('Y',$date)));
+		for( $i = 1; $i <= $sum_days; $i++ ) {
+		
+			$day_name = date('D',mktime(0,0,0,date('m',$date),$i,date('Y',$date)));
+			$day_number = date('w',mktime(0,0,0,date('m',$date),$i,date('Y',$date)));
         
-        if( $i == 1) {
-            $s = array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'));
-            for( $b = $s; $b > 0; $b-- ) {
-                $x = $LastMonthSum-($b-1);			//der scheiß war falsch im Internet -_- fehlersuche =10min ...
-                echo "<div class=\"day before\">".sprintf("%02d",$x)."</div>\n";
-            }
-        } 
+			if( $i == 1) {
+				$s = array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'));
+				for( $b = $s; $b > 0; $b-- ) {
+					$x = $LastMonthSum-($b-1);			//der scheiß war falsch im Internet -_- fehlersuche =10min ... hier muss man nach der aenderung oben -1 nehmen
+					echo "<div class=\"day before\">".sprintf("%02d",$x)."</div>\n";
+				}
+			} 
+
+			$eintragen = FALSE;
+			for($j=0; $j < count($terminID); $j++){	//Zaehlt alle Termine durch
+				//Fuer Eintraege
+				if($i == date('d',strtotime($terminDatum[$j]))&& date('m.Y',strtotime($terminDatum[$j])) == date('m.Y',$date)){ 	//Wenn der Termineintrag aus der DB mit dem aktuellen uebereinstimmt und wir im richtigen Monat sind dann
+					$eintragen = TRUE;					//Wenn er einen Eintrag hat 
+					if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y')) {	//Wenn der Tag $i der heutige ist
+						if($i == date('d',strtotime($projektBeginn[0]))&& date('m.Y',strtotime($projektBeginn[0])) == date('m.Y',$date)){ //Kontrolle ob das ProjektBeginn auf dem Tag liegt
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									<div class=\"day eintragheutigerTagprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+										<div class=\"hovereintrag\">Projekt Beginn - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
+									</div>\n
+								</button></form>";	
+						}
+						elseif($i == date('d',strtotime($projektEnde[0]))&& date('m.Y',strtotime($projektEnde[0])) == date('m.Y',$date)){	//Kontrolle ob ProjektEnde auf dem Tag liegt
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									<div class=\"day eintragheutigerTagprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+										<div class=\"hovereintrag\">Projekt Ende - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
+									</div>\n
+								</button></form>";
+						}
+						else{
+							echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+									<div class=\"day eintragheutigerTag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+										<div class=\"hovereintrag\">".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>	
+									</div>\n
+								</button></form>";		//soll er ihn printen wie in day eintragheutigerTag bestimmt	
+						}	
+					}else {		//Wenn kein Eintrag am "heutigen" ($i) Tag vorhanden ist
+						if($i == date('d',strtotime($projektBeginn[0]))&& date('m.Y',strtotime($projektBeginn[0])) == date('m.Y',$date)){ //Ist das ProjektBeginn an dem Tag
+							if ($mehrfachdatum[$j]){	//Wenn es mehrere Termine gibt
+								$max=0;					//max = soll die maximale id speichern bei doppelten Datumseintraegen
+								for($z = 0; $z < count($terminID); $z++){ //geh wieder alle Termine durch
+									if($terminDatum[$z]==$terminDatum[$j])$max=$z;	//Wenn ein Termin Datum gleich dem jetztigen ist setz ich max auf die zaehlvariable, so wird diese bis zum letzten Eintrag mit der grad zu guckendem Datumsstelle ($terminDatum[$j]) ueberschrieben
+								}
+								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
+								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+											<div class=\"day eintragprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+												<div class=\"hovereintrag\">Projekt Beginn - ".fassezusammen($terminDatum[$j])."</div>	
+											</div>\n
+										</button></form>";
+								}
+							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminID[$j]\" class=\"buttonkalender\">
+										<div class=\"day eintragprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+											<div class=\"hovereintrag\">Projekt Beginn - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
+										</div>\n
+									</button></form>";
+							}								
+						} 
+						elseif($i == date('d',strtotime($projektEnde[0]))&& date('m.Y',strtotime($projektEnde[0])) == date('m.Y',$date)){	//Ist das ProjektEnde an dem Tag
+							if ($mehrfachdatum[$j]){	//Wenn es mehrere Termine gibt
+								$max=0;					//max = soll die maximale id speichern bei doppelten Datumseintraegen
+								for($z = 0; $z < count($terminID); $z++){ //geh wieder alle Termine durch
+									if($terminDatum[$z]==$terminDatum[$j])$max=$z;	//Wenn ein Termin Datum gleich dem jetztigen ist setz ich max auf die zaehlvariable, so wird diese bis zum letzten Eintrag mit der grad zu guckendem Datumsstelle ($terminDatum[$j]) ueberschrieben
+								}
+								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
+								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+											<div class=\"day eintragprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+												<div class=\"hovereintrag\">Projekt Ende - ".fassezusammen($terminDatum[$j])."</div>	
+											</div>\n
+										</button></form>";
+								}
+							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+										<div class=\"day eintragprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+											<div class=\"hovereintrag\">Projekt Ende - ".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
+										</div>\n
+									</button></form>";
+							}
+						}
+						else{
+							if ($mehrfachdatum[$j]){	//Wenn es mehrere Termine gibt
+								$max=0;					//max = soll die maximale id speichern bei doppelten Datumseintraegen
+								for($z = 0; $z < count($terminID); $z++){ //geh wieder alle Termine durch
+									if($terminDatum[$z]==$terminDatum[$j])$max=$z;	//Wenn ein Termin Datum gleich dem jetztigen ist setz ich max auf die zaehlvariable, so wird diese bis zum letzten Eintrag mit der grad zu guckendem Datumsstelle ($terminDatum[$j]) ueberschrieben
+								}
+								$letzte_id_mitdemDatum = $terminID[$max];	//Somit gab ich die letzte ID mit dem gleichen Datum
+								if ($letzte_id_mitdemDatum == $terminID[$j]){	//und kontrollier, ob die letzte ID mit dem gleichen Datum gleich der gerade zu pruefenden ID($terminID[$j]) uebereinstimmt, wenn dies der Fall ist, sind wir bei der letzten ID mit dem doppelten Datum angekommen und koennen problemlos einmal echo schreiben und das dies spaeter nochmal passiert
+									echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+											<div class=\"day eintrag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+												<div class=\"hovereintrag\">".fassezusammen($terminDatum[$j])."</div>	
+											</div>\n
+										</button></form>";
+								}
+							} else{ 		//Wenn das Datum nicht mehrmals vorkommt kann man einfach so ausgeben
+								echo "<form action=\"terminbearbeiten.php\" method=\"Post\" class=\"formkalender\"><button type=\"submit\" name=\"termin_bearbeiten\" value=\"$terminDatum[$j]\" class=\"buttonkalender\">
+										<div class=\"day eintrag\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+											<div class=\"hovereintrag\">".date_format(date_create($terminDatum[$j]),'d.m.y')."<br>".$terminName[$j]."<br> Um: ".date_format(date_create($terminUhrzeit[$j]),'H:i')." Uhr</div>
+										</div>\n
+									</button></form>";				//soll er ihn printen wie in day eintrag bestimmt
+								}	
+
+						}
+					}
+				}
+			}
+			//Kein Eintrag
+			if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y') && !$eintragen) {		// kontrolliert ob es der heutige Tag ist und ob er einen Eintrag hat, wenn kein Eintrag dann 
+				if($i == date('d',strtotime($projektBeginn[0]))&& date('m.Y',strtotime($projektBeginn[0])) == date('m.Y',$date)){ //Kontrolliert ob ein ProjektBeginn auf dem Tag liegt
+						echo "<div class=\"day currentprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+							<div class=\"hovereintrag\">Projekt Beginn</div></div>\n";	
+				}
+				elseif($i == date('d',strtotime($projektEnde[0]))&& date('m.Y',strtotime($projektEnde[0])) == date('m.Y',$date)){	//Kontrolliert ob ein ProjektEnde auf dem Tag liegt
+						echo "<div class=\"day currentprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+							<div class=\"hovereintrag\">Projekt Ende</div></div>\n";
+				}else{
+					echo "<div class=\"day current\">".sprintf("%02d",$i)."</div>\n";		//Printe heutigen Tag aus
+				}
+			} else {
+				if (!$eintragen){	//Wenn kein Eintrag an diesem Tag vorhanden  printe normalen Tag aus
+					if($i == date('d',strtotime($projektBeginn[0]))&& date('m.Y',strtotime($projektBeginn[0])) == date('m.Y',$date)){ 
+							echo "<div class=\"day normalprojektBeginn\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+							<div class=\"hovereintrag\">Projekt Beginn</div></div>\n";
+					}elseif($i == date('d',strtotime($projektEnde[0]))&& date('m.Y',strtotime($projektEnde[0])) == date('m.Y',$date)){
+							echo "<div class=\"day day normalprojektEnde\">".sprintf("%02d",$i)."<div class=\"hovereintragdreieck\"></div><div class=\"hovereintragdreieckinnen\"></div>
+							<div class=\"hovereintrag\">Projekt Ende</div></div>\n";
+					}else{
+						echo "<div class=\"day normal\">".sprintf("%02d",$i)."</div>\n";		//Ausgabe ohne Eintrag
+					}
+				}
+			} 
+			
+		/*	$eintragheute = FALSE;													//Hier nochmal anders geloest ... hatte irgendwie lust drauf ... projektBeginn und Ende sind dort noch nicht drin
+			$eintragen = FALSE;
+			if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y')) {
+				for($j=0; $j < count($terminID); $j++){
+					if($i == date('d',strtotime($terminDatum[$j]))&& date('m.Y',strtotime($terminDatum[$j])) == date('m.Y',$date)){
+						echo "<div class=\"day eintragheutigerTag\">".sprintf("%02d",$i)."</div>\n";
+						$eintragheute = TRUE;
+					}	
+				}
+				if(!$eintragheute) echo "<div class=\"day current\">".sprintf("%02d",$i)."</div>\n";
+			} else {
+				for($j=0; $j < count($terminID); $j++){
+					if($i == date('d',strtotime($terminDatum[$j]))&& date('m.Y',strtotime($terminDatum[$j])) == date('m.Y',$date)){
+						echo "<div class=\"day eintrag\">".sprintf("%02d",$i)."</div>\n";	
+						$eintragen = TRUE;
+					}	
+				}
+				if(!$eintragen) echo "<div class=\"day normal\">".sprintf("%02d",$i)."</div>\n";
+			}
+			*/
+
         
-        if( $i == date('d',$date) && date('m.Y',$date) == date('m.Y')) {
-            echo "<div class=\"day current\">".sprintf("%02d",$i)."</div>\n";
-        } else {
-            echo "<div class=\"day normal\">".sprintf("%02d",$i)."</div>\n";
-        }
-        
-        if( $i == $sum_days) {
-            $next_sum = (6 - array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun')));
-            for( $c = 1; $c <=$next_sum; $c++) {
-                echo "<div class=\"day after\"> ".sprintf("%02d",$c)." </div>\n"; 
-            }
-        }
-    }
+			if( $i == $sum_days) {
+				$next_sum = (6 - array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun')));
+				for( $c = 1; $c <=$next_sum; $c++) {
+					echo "<div class=\"day after\"> ".sprintf("%02d",$c)." </div>\n"; 
+				}
+			}
+		
+		}
 	
 
-}
+	}
 
-
+	if( isset($_REQUEST['timestamp'])){ 
+		$date = $_REQUEST['timestamp'];
+	} else {
+		$date = time();
+	}
+	$arrMonth = array(
+    "January" => "Januar",
+    "February" => "Februar",
+    "March" => "M&auml;rz",
+    "April" => "April",
+    "May" => "Mai",
+    "June" => "Juni",
+    "July" => "Juli",
+    "August" => "August",
+    "September" => "September",
+    "October" => "Oktober",
+    "November" => "November",
+    "December" => "Dezember"
+	);
+    
+	$headline = array('Mon','Die','Mit','Don','Fre','Sam','Son');
+/**Kalender Ende**/
 ?>
 
 
@@ -191,41 +417,21 @@ function getCalender($date,$headline = array('Mo','Di','Mi','Do','Fr','Sa','So')
 				</form>
 			</div>
 	
-	
-	<?php
-if( isset($_REQUEST['timestamp'])) $date = $_REQUEST['timestamp'];
-else $date = time();
-
-$arrMonth = array(
-    "January" => "Januar",
-    "February" => "Februar",
-    "March" => "M&auml;rz",
-    "April" => "April",
-    "May" => "Mai",
-    "June" => "Juni",
-    "July" => "Juli",
-    "August" => "August",
-    "September" => "September",
-    "October" => "Oktober",
-    "November" => "November",
-    "December" => "Dezember"
-);
-    
-$headline = array('Mon','Die','Mit','Don','Fre','Sam','Son');
-?>
 
 			<div class="calender">
+			
 				<div class="pagination">
-					<a href="?timestamp=<?php echo yearBack($date); ?>" class="last">|&laquo;</a> 
-					<a href="?timestamp=<?php echo monthBack($date); ?>" class="last">&laquo;</a> 
+					<a href="?timestamp=<?php echo yearBack($date)."&projekt_id=$aktuelles_projekt"; ?>" class="last">|&laquo;</a> <!-- Hier dran denken das man die projektID wieder ranhaengt, sonst hat kein Nutzer zugriff auf diese Seite!-->
+					<a href="?timestamp=<?php echo monthBack($date)."&projekt_id=$aktuelles_projekt"; ?>" class="last">&laquo;</a> 
 					<div class="pagihead">
 						<span><?php echo $arrMonth[date('F',$date)];?> <?php echo date('Y',$date); ?></span>
 					</div>
-					<a href="?timestamp=<?php echo monthForward($date); ?>" class="next">&raquo;</a>
-					<a href="?timestamp=<?php echo yearForward($date); ?>" class="next">&raquo;|</a>  
+					<a href="?timestamp=<?php echo monthForward($date)."&projekt_id=$aktuelles_projekt"; ?>" class="next">&raquo;</a>
+					<a href="?timestamp=<?php echo yearForward($date)."&projekt_id=$aktuelles_projekt"; ?>" class="next">&raquo;|</a>  
 				</div>
 				<?php getCalender($date,$headline); ?>
 				<div class="clear"></div>
+				
 				<form class="neuesButton" action="neuentermin.php" method="Post">
 					<button type="submit" id="button3">Neuen Termin anlegen</button>
 				</form>
