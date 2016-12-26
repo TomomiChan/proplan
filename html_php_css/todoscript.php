@@ -102,7 +102,7 @@ session_start();
 										In Ihrem Browser ist JavaScript deaktiviert. Um den vollen Umfang der Seite nutzen zu können aktivieren sie JavaScript!
 									</noscript>
 								Es können maximal 100 Zeichen geschrieben werden:</div>
-									<button type=\"submit\" class=\"todoButtonForm\" name=\"todoAendern\" value=\"$bearbeiten\">TO-DO ändern</button>
+									<button type=\"submit\" class=\"buttonForm\" name=\"todoAendern\" value=\"$bearbeiten\">TO-DO ändern</button>
 							</form>
 						</div>
 						

@@ -450,12 +450,19 @@ table{
     top: -30px;
 }
 
-.uhrzeit{
-	left: -115px;
+.uhrzeit_stunde{
+	left:-20px;
     position: relative;
+	width:50px;
 }
 
-.todoButtonForm{
+.uhrzeit_minute{
+	left:-20px;
+    position: relative;
+	width:50px;
+}
+
+.buttonForm{
 	background-color:#8bc797 ;
     color: white;
     padding: 10px 10px 10px 10px;
@@ -472,7 +479,7 @@ table{
 }
 
 
-.todoButtonForm:hover{
+.buttonForm:hover{
      color:#fff;
      background-color:#586fb4;
 }
@@ -583,7 +590,7 @@ h4{
 	margin-left:40px;
 	margin-top:100px;
 	margin-bottom:40px;
-	min-height:370px;
+	min-height:325px;
 }
 * html .calender,
 * + html .calender {
@@ -607,11 +614,11 @@ h4{
 }
 
 .day.normalprojektBeginn{
-	background-color:green;
+	background-color:#8bc797;
 }
 
 .day.normalprojektEnde{
-	background-color:silver;
+	background-color:#586fb4;
 }
 
 .day.current {
@@ -621,12 +628,14 @@ h4{
 
 .day.currentprojektBeginn {
     font-weight:bold;
-	background-color:green;
+	background-color:#8bc797;
+	font-size:25px;
 }
 
 .day.currentprojektEnde {
     font-weight:bold;
-	background-color:silver;
+	background-color:#586fb4;
+	font-size:25px;
 }
 
 .day.eintrag{
@@ -641,26 +650,26 @@ h4{
 }
 
 .day.eintragheutigerTagprojektBeginn{
-	background-color:green;
+	background-color:#8bc797;
 	color:red;
 	font-weight:bold;
 	font-size:25px;
 }
 
 .day.eintragheutigerTagprojektEnde{
-	background-color:silver;
+	background-color:#586fb4;
 	color:red;
 	font-weight:bold;
 	font-size:25px;
 }
 
 .day.eintragprojektBeginn{
-	background-color:green;
+	background-color:#8bc797;
 	color:red;
 }
 
 .day.eintragprojektEnde{
-	background-color:silver;
+	background-color:#586fb4;
 	color:red;
 }
 
@@ -782,6 +791,16 @@ h4{
 	width:65px;
 	margin:0px;
 }
+
+h5{
+	margin:0px;
+	padding-left:20px;
+	padding-top: 20px;
+	font-size:22px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
 
 /* Kontakt */
 .Formularfeld {
