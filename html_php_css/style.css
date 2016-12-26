@@ -592,16 +592,23 @@ h4{
 	font-size:inherit;
 	min-height:50px;
 	height:auto;
-	position:relative;
+	position:absolute;
+	text-align:left;
+	max-width:650px;
+	color:#000000;
+}
+
+.buttonthema:hover{
+	color:#586fb4;
 }	
 
 .formthema{
-	float:left;
 	min-height:50px;
 	width:auto;
 	max-width:650px;
 	margin:0px;
 	height:auto;
+	display:block;
 }
 
 .informationThema{
