@@ -538,6 +538,7 @@ h4{
 	top:-10px;
 }
 
+/*Forum*/
 #forum{
 	clear:both;
 	top:40px;
@@ -548,15 +549,15 @@ h4{
 	background-color:#eeeff0;
 }
 
-#thema{
+.thema{
 	width:1113px;
 	background-color:#eeeff0;
 	border-bottom: 1px solid #000000;
 	font-size:20px;
 	position:relative;
 	margin-left:20px;
-	margin-top:30px;
-	height:35px;
+	min-height:50px;
+	height:auto;
 }
 
 .neuesButton{
@@ -580,6 +581,37 @@ h4{
      color:#fff;
      background-color:#586fb4;
 }
+
+.buttonthema{
+	border:none;
+	outline:none;
+	background:none;
+	cursor:pointer;
+	padding:0px;
+	font-family:inherit;
+	font-size:inherit;
+	min-height:50px;
+	height:auto;
+	position:relative;
+}	
+
+.formthema{
+	float:left;
+	min-height:50px;
+	width:auto;
+	max-width:650px;
+	margin:0px;
+	height:auto;
+}
+
+.informationThema{
+	float: right;
+    position: relative;
+    right: 5px;
+    top: -35px;
+}
+
+
 
 /*kalender - gehoert zur Projektseite*/
 .calender {

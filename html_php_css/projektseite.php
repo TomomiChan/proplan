@@ -36,12 +36,21 @@
 		header("location:fehler.php?fehlercode=Nicht_ihr_projekt");
 	}
 	
+	/**Forumsthemen**/
+	$result = getORSetEintraegeSchleifen("select * from thema where projekt_ref = '$aktuelles_projekt'");
+	$j = 0;
+	
+	while($row = mysql_fetch_array($result)){		
+		$themaID[$j] = $row['thema_id'];	
+		$themaName[$j] = $row['name'];	
+		$j++;
+	}	
+
+	
 	/**Projektzeiten*/
 	$projektBeginn = getORSetEintraege("SELECT beginn_projekt FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
 	$projektEnde = getORSetEintraege("SELECT ende_projekt FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
-	//echo $projektBeginn[0];	
-	//echo $projektEnde[0];	
-	
+
 	/**Kalendereinträge**/
 	$result = getORSetEintraegeSchleifen("select * from termin where projekt_ref = '$aktuelles_projekt'");
 	$j = 0;
@@ -435,16 +444,12 @@
 							<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/muelleimer.png\" width=\"23px\"></button>
 							</div></div></form>";
 						} else{
-						
-
 								echo"<form name=\"todoform\" action='todoscript.php' method='POST'>
 									<button class=\"buttontodo\" type=\"submit\" name=\"bearbeiten\" value=\"$todo[0]\"><img src=\"../Images/bearbeiten.png\" width=\"24px\"></button>
 									<button class=\"buttontodo\" type=\"submit\" name=\"erledigt\" value=\"$todo[0]\"><img src=\"../Images/haken.png\" width=\"50px\"></button>
 									<button class=\"buttontodo\" type=\"submit\" name=\"loeschen\" value=\"$todo[0]\"><img src=\"../Images/muelleimer.png\" width=\"23px\"></button>
 								</form> 
-
 							  </div>
-			
 							  </div>";	
 						}
 					}
@@ -478,22 +483,15 @@
 	
 			<div id="forum"><h4>Forum</h4>
 			<?php  
-			$i=1;
-			$userid=2;
-			date_default_timezone_set("Europe/Berlin");
-			$timestamp = time();
-			$datum = date("d.m.Y",$timestamp);
-			$uhrzeit = date("H:i",$timestamp);
-	
-			//if(!themaexists) -> es gibt noch kein thema else
-			while($i<=2){		//hier müsste sowas wie while (themaexists) oder halt mit ner for schleife alle abgehen vielleicht auch mit nem perl script abfragen
-				$name = "thema1"; //hier muesste natürlich der echt name übergeben werden
-				echo "<div id=\"thema\"><a href=\"forum.php\">Designprojekt $i</a>"; //thema.pl&parameter=$i&projektid=$projektid&userid=$userid ---- unsicher zu übermitteln ... mit forular? kA würde einfach alles verschlüsseln :D 
-				for($j=1; $j<=100;$j++){
-					echo "&nbsp";
+			if(isset($themaID)){
+				for($i=0; $i < count($themaID); $i++){		
+					echo "<div class=\"thema\">
+							<form action=\"thema.php\" method=\"Post\" class=\"formthema\">
+								<button type=\"submit\" name=\"thema\" value=\"\" class=\"buttonthema\">$themaName[$i]</button>
+							</form>
+							<div class=\"informationThema\" >Versuchsperson 2 um 12.12.2016 ; 14:03 Uhr</div>
+						</div>";		
 				}
-				echo "Versuchsperson $i um $datum ; $uhrzeit Uhr</div>";		//$i = Thema name ...
-				$i++;
 			}
 			?>
 	
