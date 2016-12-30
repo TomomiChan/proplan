@@ -581,26 +581,7 @@ h4{
      color:#fff;
      background-color:#586fb4;
 }
-
-.buttonthema{
-	border:none;
-	outline:none;
-	background:none;
-	cursor:pointer;
-	padding:0px;
-	font-family:inherit;
-	font-size:inherit;
-	min-height:50px;
-	height:auto;
-	position:absolute;
-	text-align:left;
-	max-width:650px;
-	color:#000000;
-}
-
-.buttonthema:hover{
-	color:#586fb4;
-}	
+	
 
 .formthema{
 	min-height:50px;
@@ -609,15 +590,19 @@ h4{
 	margin:0px;
 	height:auto;
 	display:block;
+	float:left;
+	text-align:left;
 }
 
 .informationThema{
 	float: right;
-    position: relative;
     right: 5px;
-    top: -35px;
+	margin-top:12px;
 }
 
+.mittig{
+	margin-top:12px;
+}
 
 
 /*kalender - gehoert zur Projektseite*/
@@ -926,7 +911,6 @@ h5{
 }
 
 .userbild {
-    float: left;
     margin: 20px 25px;
     background-color:white;
     width:100px;
@@ -935,45 +919,124 @@ h5{
     border-radius: 7px;
 }
 
-.verfassen {
-    float: left;
-    width: 1100px;
-}
 
 #textareaforum {
-    float: left;
-    width:1096px;
-    min-height:150px;
-	height:auto;
+    overflow: auto;
+	resize: none;
+    position: relative;
+	width:1100px;
+	height:150px;
     border:1px #586fb4 solid;
     background-color: #efefef;
     margin-bottom: 5px;
-    border-radius: 7px;
+    border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	padding:5px;
+	margin:0px;
 }
 
 
 
+.forumlinks{
+	float:left;
+	width:150px;
+}
+
+.forumrechts{
+	float:right;
+	width:948px;
+}
+
 
 .nutzer {
-    float: left;
-	clear:both;
-    width: 150px;
+    width: 140px;
     margin: 5px;
 	height:100px;
 }
 
-.beispieltext {
-    height: 75px; 
-    margin-left: 150px;
-    border-left: 1px solid;
+.leiste {
+	width:1100px;
+	background:#586fb4;	
+	color:#8bc797;
+	margin:0px;
+	padding-right:10px;
+	font-size:18px;
+	height:35px;
+	display: table-cell;
+	vertical-align: middle;
+	border-top-right-radius:6px;
+	border-left: 1px solid #000000;
+	text-align:right;
 }
 
 .textforum {
-    float: left;
-    width: 950px;
+    width: 938px;
     height: auto;
-	min-height:190px;
+	min-height:222px;
     border-left: 1px solid #000000;
-	margin-top:-190px;
-	margin-left:150px;
+	padding: 5px;
+}
+
+.buttonforum{
+	border:none;
+	outline:none;
+	background:none;
+	cursor:pointer;
+	padding:0px;
+	font-family:inherit;
+	font-size:inherit;
+	color: #8bc797;
+}	
+
+.buttonforum:hover{
+	color: #6dc77f;
+}
+
+.formForum{
+	margin:0px;
+	float:right;
+}
+
+#beitragBearbeiten{
+	width:1100px;
+	height:auto;
+	border: 1px solid #586fb4;
+	margin-left:127px;
+	margin-top:100px;
+	min-height:225px;
+	border-radius:7px;
+}
+
+h6{
+	width:1100px;
+	background:#586fb4;	
+	color:#8bc797;
+	margin:0px;
+	padding-left:10px;
+	font-size:25px;
+	height:75px;
+	display: table-cell;
+	vertical-align: middle;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+}
+
+.forumformBeitragBearbeiten{
+	height: 150px;
+    margin: 0;
+}
+
+.forumformNeuesThema{
+	height: 150px;
+    margin: 0;
+}
+
+#themaName{
+	background-color:#efefef;
+	border: 0px;
+	font-family:inherit;
+	font-size:inherit;
+	height:25px;
+	color:#8bc797;
+	width:650px;
 }

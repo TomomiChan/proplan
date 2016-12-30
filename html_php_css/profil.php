@@ -114,9 +114,9 @@
 				$pfad = getORSetEintraege("select bild from user where user_id = '$userID'");
 				$bildpfad = $pfad['bild'];
 				if ($pfad['bild']!=""){
-					echo "<img  src=\"$bildpfad\" height=\"150px\" width=\"200px\">";
+					echo "<img  src=\"$bildpfad\" height=\"110px\" width=\"100px\">";
 				}else{
-					echo"<img src='../Images/profilbild_rechteck.png' height=\"150px\" width=\"200px\"/>";
+					echo"<img src='../Images/profilbild_rechteck.png' height=\"110px\" width=\"100px\"/>";
 				}
 				}
 			?>

@@ -14,7 +14,7 @@
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
 
-		$result = getORSetEintraegeSchleifen("select * from user_projekte where user_ref = '$benutzer_id'");
+		$result = getORSetEintraegeSchleifen("SELECT * FROM user_projekte WHERE user_ref = '$benutzer_id'");
 		$i=0;
 		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
@@ -37,7 +37,7 @@
 	}
 	
 	/**Forumsthemen**/
-	$result = getORSetEintraegeSchleifen("select * from thema where projekt_ref = '$aktuelles_projekt'");
+	$result = getORSetEintraegeSchleifen("SELECT * FROM thema WHERE projekt_ref = '$aktuelles_projekt'");
 	$j = 0;
 	
 	while($row = mysql_fetch_array($result)){		
@@ -52,7 +52,7 @@
 	$projektEnde = getORSetEintraege("SELECT ende_projekt FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
 
 	/**Kalendereinträge**/
-	$result = getORSetEintraegeSchleifen("select * from termin where projekt_ref = '$aktuelles_projekt'");
+	$result = getORSetEintraegeSchleifen("SELECT * FROM termin WHERE projekt_ref = '$aktuelles_projekt'");
 	$j = 0;
 	
 	while($row = mysql_fetch_array($result)){		
@@ -384,7 +384,7 @@
 				<img class="proplan" src="../Images/proplan.png" alt="proplan" />
 				<p class="ueberschrift">
 				<?php 
-					$projektname = getORSetEintraege("select name from projekt where projekt_id = '$aktuelles_projekt'");
+					$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
 					echo $projektname[0];
 				?>
 				</p>	
@@ -411,7 +411,7 @@
 			<div id="todo"><h3>TO-DO</h3>
 	
 			<?php  
-			$result = getORSetEintraegeSchleifen("select * from to_do where projekt_ref = '$aktuelles_projekt'");
+			$result = getORSetEintraegeSchleifen("SELECT * FROM to_do WHERE projekt_ref = '$aktuelles_projekt'");
 			$x=0;
 			while($row = mysql_fetch_array($result)){		
 				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);
@@ -484,19 +484,27 @@
 			<div id="forum"><h4>Forum</h4>
 			<?php  
 			if(isset($themaID)){
-				for($i=0; $i < count($themaID); $i++){		
+				
+				
+				for($i=0; $i < count($themaID); $i++){	
+					$userID = getORSetEintraege("SELECT user_ref FROM beitrag WHERE thema_ref = '$themaID[$i]' ORDER BY beitrag_id DESC LIMIT 1;");				
+					$userName = getORSetEintraege("SELECT name FROM user WHERE user_id = '$userID[0]'");
+					$beitragDatum = getORSetEintraege("SELECT datum FROM beitrag WHERE thema_ref = '$themaID[$i]' ORDER BY beitrag_id DESC LIMIT 1;");	
 					echo "<div class=\"thema\">
-							<form action=\"thema.php\" method=\"Post\" class=\"formthema\">
-								<button type=\"submit\" name=\"thema\" value=\"\" class=\"buttonthema\">$themaName[$i]</button>
-							</form>
-							<div class=\"informationThema\" >Versuchsperson 2 um 12.12.2016 ; 14:03 Uhr</div>
+							<div class=\"formthema\">";
+							if(strlen($themaName[$i])<69){
+								echo "<div class=\"mittig\"><a href=\"forum.php?thema=$themaID[$i]\">$themaName[$i]</a></div></div>";
+							}else {
+								echo "<a href=\"forum.php?thema=$themaID[$i]\">$themaName[$i]</a></div>";
+							}
+							echo"<div class=\"informationThema\">Letzter Beitrag von $userName[0] am ".date('d.m.Y \u\m H:i',strtotime($beitragDatum[0]))."</div>
 						</div>";		
 				}
 			}
 			?>
 	
-				<form class="neuesButton" action="neuesthema.php" method="Post">
-					<button type="submit" id="button3">Neues Thema</button>
+				<form class="neuesButton" action="neuesThema.php" method="Post">
+					<button type="submit" id="button3" name="neuesThema" value="<?php echo $aktuelles_projekt;?>">Neues Thema</button>
 				</form>
 	
 			</div>	

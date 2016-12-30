@@ -111,4 +111,4 @@ session_start();
 						<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
 					</footer>
 				</body>
-			</html>
+	</html>
