@@ -69,7 +69,7 @@ session_start();
 	
 					<div class="hauptbereichunterseiten">
 					
-						<div id="todo"><h3>Termin - Bearbeiten <?php echo date('d.m.Y',strtotime($terminDatumarray[0])); ?></h3>
+						<div id="inhalt"><h3>Termin - Bearbeiten <?php echo date('d.m.Y',strtotime($terminDatumarray[0])); ?></h3>
 							
 							<?php
 							for($i=0; $i < count($terminID); $i++){

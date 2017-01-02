@@ -59,77 +59,78 @@
     </script>
         
     <div class="hauptbereichunterseiten">
+		<div id="inhalt"><h3>Profil bearbeiten</h3>
+		<form id ="profiltabelle" method="post" action="update.php">	
 
-    <form id ="profiltabelle" method="post" action="update.php">	
-
-    	<table id="inneretabelle">
-			<tr>
-				<td id="user_name">
-                	Name:
-					<div class = "eingabe">	<input type="text" placeholder= <?=$benutzer?> name="neuerName" required></div>
-				</td>
-                <td>
-               		<button type="submit" id="button4" name="button" value="name_aendern">Name ändern</button>
-                </td> 
-			</tr>
-     </form>
+			<table id="inneretabelle">
+			<tbody>
+				<tr>
+					<td id="user_name">
+						Name:
+						<div class = "eingabe">	<input type="text" placeholder= <?=$benutzer?> name="neuerName" required></div>
+					</td>
+					<td>
+						<button type="submit" id="button4" name="button" value="name_aendern">Name ändern</button>
+					</td> 
+				</tr>
+		</form>
      
-     <form id = "profiltabelle" method="POST" action="update.php" name = "passwortbereich" onSubmit="return passwortAbgleich()">
-     		<tr>
-				<td id="user_pw">
-					Passwort:
-                    <div class = "eingabe"><input type="password" placeholder="******" name="neuesPasswort" required></div>
-				</td>
-                <td>
-                	<button type="submit" id="button4" value="passwort_aendern">Passwort ändern</button>
-                </td>
-			</tr>
-            <tr>
-            	<td>
-                    <div class = "eingabe">
-                    	<input type="password" placeholder="passwort wiederholen" name="wiederholtesPasswort" required>
-                    </div>
-                </td>
-            </tr>
+		<form id = "profiltabelle" method="POST" action="update.php" name = "passwortbereich" onSubmit="return passwortAbgleich()">
+				<tr>
+					<td id="user_pw">
+						Passwort:
+						<div class = "eingabe"><input type="password" placeholder="******" name="neuesPasswort" required></div>
+					</td>
+					<td>
+						<button type="submit" id="button4" value="passwort_aendern">Passwort ändern</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class = "eingabe">
+							<input type="password" placeholder="passwort wiederholen" name="wiederholtesPasswort" required>
+						</div>
+					</td>
+				</tr>
             
-     </form>
-     
-     <form id = "profiltabelle" method="POST" action="update.php">
+		</form>
+    
+		<form id = "profiltabelle" method="POST" action="update.php">
             
-            <tr>
-				<td id="user_email">
-                	Email:
-					<div class = "eingabe"> <input type="email" placeholder=<?=$email?> name="neueEmail" required></div>
-				</td>
-                <td>
-                	<button type="submit" id="button4" value="email_aendern">Email ändern</button>
-                </td>
-			</tr>
-            </table>
-      </form>
-      
-      	<div id=profilbild>
-        	<?php
-			if($berechtigung==1){
-				$pfad = getORSetEintraege("select bild from user where user_id = '$userID'");
-				$bildpfad = $pfad['bild'];
-				if ($pfad['bild']!=""){
-					echo "<img  src=\"$bildpfad\" height=\"110px\" width=\"100px\">";
-				}else{
-					echo"<img src='../Images/profilbild_rechteck.png' height=\"110px\" width=\"100px\"/>";
+				<tr>
+					<td id="user_email">
+						Email:
+						<div class = "eingabe"> <input type="email" placeholder=<?=$email?> name="neueEmail" required></div>
+					</td>
+					<td>
+						<button type="submit" id="button4" value="email_aendern">Email ändern</button>
+					</td>
+				</tr>
+				</table>
+		</form>
+		</tbody>
+			<div id=profilbild>
+				<?php
+				if($berechtigung==1){
+					$pfad = getORSetEintraege("select bild from user where user_id = '$userID'");
+					$bildpfad = $pfad['bild'];
+					if ($pfad['bild']!=""){
+						echo "<img  src=\"$bildpfad\" height=\"110px\" width=\"100px\">";
+					}else{
+						echo"<img src='../Images/profilbild_rechteck.png' height=\"110px\" width=\"100px\"/>";
+					}
 				}
-				}
-			?>
+				?>
         	
+			
         </div>
-        
-    	<div id="profilbild_upload">
-        	<form action = "upload.php" method="POST" enctype="multipart/form-data" >
-            	<p id = "pBeschriftung">Neues Profilbild?</p><br> <input type="file" name="bild" /><br>
-                <input type="submit" name="upload" value="Upload"  id="button4"/>
-            </form>    
-   		 </div>
-  	
+			<div id="profilbild_upload">
+				<form action = "upload.php" method="POST" enctype="multipart/form-data" >
+					<p id = "pBeschriftung">Neues Profilbild?</p> <input type="file" name="bild"  />
+					<input type="submit" name="upload" value="Upload"  id="button4"/>
+				</form>    
+			</div>
+		</div>
 	</div>	
     
 

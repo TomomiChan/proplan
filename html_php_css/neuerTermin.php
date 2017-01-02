@@ -62,7 +62,7 @@ session_start();
 	
 					<div class="hauptbereichunterseiten">
 					
-						<div id="todo"><h3>Termin - Anlegen <?php echo $tagAusgabe; ?></h3>
+						<div id="inhalt"><h3>Termin - Anlegen <?php echo $tagAusgabe; ?></h3>
 							
 							<form name="terminformAnlegen" action='terminAnlegenScript.php' method='POST'>
 									<textarea name="textareatermin" class="textareatermin" rows="3" cols="40" placeholder="Schreiben sie ihre Aufgabe ..." required></textarea> 
