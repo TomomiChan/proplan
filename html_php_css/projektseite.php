@@ -366,7 +366,7 @@
 ?>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -407,7 +407,9 @@
 		</header>
 
 		<div class="hauptbereichunterseiten">
-	
+			<form name="einstellungform" class="einstellungform" action='projektEinstellung.php' method='POST'>
+				<button class="einstellbutton" type="submit" name="einstellen" value="<?php echo $aktuelles_projekt; ?>"><img src="../Images/zahnrad.png" width="40px" height="40px"></button>
+			</form>
 			<div id="todo"><h3>TO-DO</h3>
 	
 			<?php  

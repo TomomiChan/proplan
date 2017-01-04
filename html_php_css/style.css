@@ -348,6 +348,7 @@ tbody{
 	float:left;
 	margin-left:20px;
 	width:200px;
+	height:175px;
 }
 
 #ordnerGrau{
@@ -424,10 +425,11 @@ tbody{
 	height:auto;
 	border: 1px solid #000000;
 	margin-left:127px;
-	margin-top:100px;
+	margin-top:50px;
 	margin-bottom:40px;
 	min-height:370px;
 	background-color:#eeeff0;
+	clear:both;
 }
 
 
@@ -558,6 +560,24 @@ h4{
 	top:-10px;
 }
 
+.einstellungform{
+	background: transparent none repeat scroll 0 0;
+    float: right;
+    margin: 10px 10px 0 0;
+    padding: 0;
+}
+
+.einstellbutton{
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    cursor: pointer;
+    height: 41px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 40px;
+}
+
 /*Forum*/
 #forum{
 	clear:both;
@@ -632,7 +652,7 @@ h4{
 	background-color:#eeeff0;
 	float:left;
 	margin-left:40px;
-	margin-top:100px;
+	margin-top:50px;
 	margin-bottom:40px;
 	min-height:325px;
 }
@@ -1059,4 +1079,124 @@ h6{
 	height:25px;
 	color:#8bc797;
 	width:650px;
+}
+
+/**Neues Projekt**/
+
+#ordnerBild{
+	margin-top:5px;
+	margin-left:5px;
+	float:left;
+}
+
+#neueProjektTabelle{
+	font-family: 'Ubuntu', sans-serif;
+	margin:0px;
+	padding:0px;
+}
+
+#formularProjekt{
+	float:right;
+	margin-right:50px;
+	margin-top:5px;
+}
+
+.eingabeProjekt{
+	float:right;
+}
+
+#pName{
+	margin-left:-210px;
+	height:25px;
+	width:210px;
+}
+
+#neuerProjektbutton{
+	padding-left:130px;
+	
+}
+
+.datumfeld{
+	width:60px;
+	height:25px;
+	float:right;
+	margin-left:22.5px;
+	margin-right:-5px;
+}
+
+.textareaprojekt{
+    overflow: auto;
+	resize: none;
+    position: relative;
+	left: 5px;
+}
+
+/** Einstellungen**/
+
+.eintraege{
+	margin-bottom:20px;
+	clear:both;
+}
+
+.prEinstellungForm{
+	margin: 15px 15px 0;
+}
+
+.projektInput{
+    float: left;
+    height: 25px;
+    margin-right: 18px;
+	width:216px;
+}
+
+.datumInput{
+	margin-right: 14px;
+    width: 60px;
+	height:25px;
+}
+
+.inputSchrift{
+	float:left;
+	width:150px;
+}
+
+#button6{
+	background-color:#8bc797 ;
+    color: white;
+    padding:0px;
+    margin: 0px ;
+	margin-top: 0px;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 106px;
+	height:25px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size:10px;
+}
+
+#button7{
+	background-color:#8bc797 ;
+    color: white;
+    padding:0px;
+    margin: 0px ;
+	margin-top: -100px;
+    border: none;
+	border-radius:5px;
+    cursor: pointer;
+    width: 106px;
+	height:25px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size:10px;
+}
+
+.textareaprojekteinstellungen{
+    overflow: auto;
+	resize: none;
+    position: relative;
+	margin-right:16px;
+}
+
+.hinweistext{
+	margin-left: 150px;
 }
