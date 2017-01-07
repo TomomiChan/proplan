@@ -18,6 +18,8 @@ session_start();
 		$projektID = mysql_real_escape_string($projektID);
 		
 		$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$projektID'");
+		$projektBeginn = getORSetEintraege("SELECT beginn_projekt FROM projekt WHERE projekt_id = '$projektID'");
+		$projektEnde = getORSetEintraege("SELECT ende_projekt FROM projekt WHERE projekt_id = '$projektID'");
 		$erstellerREF = getORSetEintraege("SELECT ersteller_ref FROM projekt WHERE projekt_id = '$projektID'");
 		$zusatz="";
 		if($erstellerREF[0] == $benutzer_id){
@@ -63,19 +65,21 @@ session_start();
 						<div id="inhalt"><h3>Projekteinstellungen</h3>
 							<form name="prEinstellungForm" class="prEinstellungForm" action='projektEinstellungAendern.php' method='POST'>
 								<div class="eintraege">
-									<div class="inputSchrift">Projektname: </div><input class="projektInput" type="text" name="projektname" placeholder="Projektname" required>
+									<div class="inputSchrift">Projektname: </div><input class="projektInput" type="text" name="projektname" placeholder="Projektname" value="<?php echo $projektname['name'];?>" required>
 									<button type="submit" id="button6" name="nameaendern" value="<?php echo $projektID;?>">Namen ändern</button>
 								</div>
 								<div class="eintraege"> 
-									<div class="inputSchrift">Projektbeginn: </div><input class="datumInput" type="number" min="2001" max ="3030" name="beginnJahr"  placeholder="Jahr" required>
-									<input class="datumInput" type="number" min="01" max="12" name="beginnMonat"  placeholder="Monat" required>
-									<input class="datumInput" type="number" min="01" max="31" name="beginn"  placeholder="Tag" required>
+									<div class="wrap"><div class="jahrmonattag">Jahr:</div><div class="jahrmonattag">Monat:</div><div class="jahrmonattag">Tag:</div></div>
+									<div class="inputSchrift">Projektbeginn: </div><input class="datumInput" type="number" min="2001" max ="3030" name="beginnJahr"  placeholder="Jahr" value="<?php echo date('Y',strtotime($projektBeginn[0]));?>" required>
+									<input class="datumInput" type="number" min="01" max="12" name="beginnMonat"  placeholder="Monat" value="<?php echo date('m',strtotime($projektBeginn[0]));?>" required>
+									<input class="datumInput" type="number" min="01" max="31" name="beginnTag"  placeholder="Tag" value="<?php echo date('d',strtotime($projektBeginn[0]));?>" required>
 									<button type="submit" id="button6" name="beginnaendern" value="<?php echo $projektID;?>">Beginn ändern</button>
 								</div>
 								<div class="eintraege">
-									<div class="inputSchrift">Projektende: </div><input class="datumInput" type="number" min="2001" max ="3030" name="endeJahr"  placeholder="Jahr" required>
-									<input class="datumInput" type="number" min="01" max="12" name="beginnMonat"  placeholder="Monat" required>
-									<input class="datumInput" type="number" min="01" max="31" name="beginn"  placeholder="Tag" required>
+									<div class="wrap"><div class="jahrmonattag">Jahr:</div><div class="jahrmonattag">Monat:</div><div class="jahrmonattag">Tag:</div></div>
+									<div class="inputSchrift">Projektende: </div><input class="datumInput" type="number" min="2001" max ="3030" name="endeJahr"  placeholder="Jahr" value="<?php echo date('Y',strtotime($projektEnde[0]));?>"required>
+									<input class="datumInput" type="number" min="01" max="12" name="endeMonat"  placeholder="Monat" value="<?php echo date('m',strtotime($projektEnde[0]));?>" required>
+									<input class="datumInput" type="number" min="01" max="31" name="endeTag"  placeholder="Tag" value="<?php echo date('d',strtotime($projektEnde[0]));?>" required>
 									<button type="submit" id="button6" name="endeaendern" value="<?php echo $projektID;?>">Ende ändern</button>
 								</div>
 								<div class="eintraege">

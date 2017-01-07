@@ -18,10 +18,11 @@ session_start();
 			//$loeschen = stripcslashes($loeschen);
 			$loeschen = mysql_real_escape_string($loeschen);
 			
-			$themaID = getORSetEintraege("select thema_ref from beitrag WHERE beitrag_id = '$loeschen'");
+			$themaID = getORSetEintraege("SELECT thema_ref FROM beitrag WHERE beitrag_id = '$loeschen'");
 			$themaID = $themaID['thema_ref'];
 			
-			$rueckgabe = getORSetEintraege("DELETE FROM beitrag WHERE beitrag_id = '$loeschen'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM beitrag WHERE beitrag_id = '$loeschen'");
+			//echo "$loeschen <br> $themaID";
 			
 			header("location:forum.php?thema=$themaID");
 		}
@@ -31,16 +32,16 @@ session_start();
 			//$loeschen = stripcslashes($loeschen);
 			$loeschen = mysql_real_escape_string($loeschen);
 			
-			$themaID = getORSetEintraege("select thema_ref from beitrag WHERE beitrag_id = '$loeschen'");
-			$themaID = $themaID['thema_ref'];
+			$themaID = getORSetEintraege("SELECT thema_ref FROM beitrag WHERE beitrag_id = '$loeschen'");
+			$themaID = $themaID[0];
 			
-			echo "$loeschen <br> $themaID[0]";
+			//echo "$loeschen <br> $themaID";
 			
-			$rueckgabe = getORSetEintraege("DELETE FROM beitrag WHERE thema_ref = '$themaID[0]'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM beitrag WHERE thema_ref = '$themaID'");
 			
-			$projektID = getORSetEintraege("SELECT projekt_ref FROM thema WHERE thema_id = '$themaID[0]'");
+			$projektID = getORSetEintraege("SELECT projekt_ref FROM thema WHERE thema_id = '$themaID'");
 			
-			$rueckgabe = getORSetEintraege("DELETE FROM thema WHERE thema_id = '$themaID[0]'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM thema WHERE thema_id = '$themaID'");
 			
 			header("location:projektseite.php?projekt_id=$projektID[0]");
 		}

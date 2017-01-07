@@ -86,7 +86,7 @@ session_start();
 	
 					<div class=\"hauptbereichunterseiten\">
 					
-						<div id=\"todo\"><h3>TO-DO - Anlegen</h3>
+						<div id=\"inhalt\"><h3>TO-DO - Anlegen</h3>
 							<form name=\"todoformAnlegen\" action='todoAbsendenScript.php' method='POST'>
 								<textarea name=\"textareatodo\" id=\"textareatodo\" rows=\"2\" cols=\"55\" placeholder=\"Schreiben sie ihre Aufgabe ...\" 
 									onKeyDown=\"return charCounter('textareatodo', 99);\"  
