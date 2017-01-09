@@ -18,6 +18,7 @@ body{
 	/*background-repeat: no-repeat;*/
 	
 	background-size: 100%; 
+	font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -151,6 +152,7 @@ footer{
 	margin-left:1000px;
 	margin-top:20px;
 	padding-bottom:20px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -349,6 +351,7 @@ tbody{
 	margin-left:20px;
 	width:200px;
 	height:175px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #ordnerGrau{
@@ -1059,6 +1062,7 @@ h6{
 	vertical-align: middle;
 	border-top-left-radius:6px;
 	border-top-right-radius:6px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .forumformBeitragBearbeiten{
@@ -1079,6 +1083,7 @@ h6{
 	height:25px;
 	color:#8bc797;
 	width:650px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 /**Neues Projekt**/
@@ -1147,17 +1152,20 @@ h6{
     height: 25px;
     margin-right: 18px;
 	width:216px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .datumInput{
 	margin-right: 14px;
     width: 60px;
 	height:25px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .inputSchrift{
 	float:left;
 	width:150px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #button6{
@@ -1195,6 +1203,7 @@ h6{
 	resize: none;
     position: relative;
 	margin-right:15px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .hinweistext{
@@ -1214,4 +1223,13 @@ h6{
     margin-left: 150px;
     position: relative;
     width: 240px;
+}
+
+/*Impressum*/
+
+.impressum{
+	margin-left:130px;
+	margin-top:-100px;
+	font-family: 'Ubuntu', sans-serif;
+	color:#586eb3;
 }

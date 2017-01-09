@@ -77,7 +77,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
             </div>
 
             <div class="Formularzeile">
-                Passwort *<input type="password" name="password" class="textfeld" required="">
+                Passwort *<input type="password" name="password" class="textfeld" minlength= "8" required="">
             </div>
 
             <div class="Formularzeile">

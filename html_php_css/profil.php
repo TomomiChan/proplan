@@ -30,7 +30,7 @@
 			<div class="lilabannerunterseiten">
 			<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 			<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
-			<img class="proplan" src="../Images/proplan.png" alt="proplan" />
+			<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 			<p class="ueberschrift">Mein Profil</p>	
 			
 			<div class="logout">	
@@ -50,11 +50,18 @@
 			document.passwortbereich.neuesPasswort.focus();
 			return false;
 			}
-			if (passwort1 == passwort2){
-				alert ("Passwort geändert");
+			
+			if(passwort1.length<8)
+			{
+				alert ("Das Passwort muss eine Länge von mindestens 8 Zeichen betragen");
+				document.passwortbereich.neuesPasswort.focus();
+				return false;
 			}
 			
-			
+			if (passwort1 == passwort2){
+				alert ("Passwort geändert");
+				return false;
+			}			
 		}
     </script>
         

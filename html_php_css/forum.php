@@ -81,7 +81,7 @@
 			<div class="lilabannerunterseiten">
 				<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 				<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
-				<img class="proplan" src="../Images/proplan.png" alt="proplan" />
+				<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 				<p class="ueberschrift">
 					<?php $themaname = getORSetEintraege("SELECT name FROM thema WHERE thema_id = '$themaID'");
 					echo $themaname[0];?>

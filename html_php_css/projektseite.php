@@ -381,7 +381,7 @@
 			<div class="lilabannerunterseiten">
 				<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px"/>
 				<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
-				<img class="proplan" src="../Images/proplan.png" alt="proplan" />
+                <a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 				<p class="ueberschrift">
 				<?php 
 					$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$aktuelles_projekt'");

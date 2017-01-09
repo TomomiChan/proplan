@@ -33,7 +33,7 @@ session_start();
 						<div class="lilabannerunterseiten">
 							<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 							<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
-							<img class="proplan" src="../Images/proplan.png" alt="proplan" />
+							<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 							<p class="ueberschrift">Thema erstellen</p>	
 			
 							<div class="logout">	
@@ -58,7 +58,7 @@ session_start();
 						<div id="beitragBearbeiten">
 							
 							<form name="forumformNeuesThema" class="forumformNeuesThema" action='forumNeuesThemaScript.php' method='POST'>
-								<h6>Name des Themas: <input id="themaName" type="text" placeholder="Thema Name" name="themaName" required/></h6>
+								<h6>Name des Themas: <input id="themaName" type="text" placeholder="Thema Name" name="themaName"  maxlength="28" required/></h6>
 								<textarea name="textareaNeuesThema" id="textareaforum" placeholder="Schreiben sie einen Beitrag" required></textarea>
 								<button type="submit" class="buttonForm" name="forumNeuesThema" value="<?php echo $projektID;?>">Thema erstellen</button>
 							</form>
