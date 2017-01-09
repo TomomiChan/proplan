@@ -596,7 +596,7 @@ h4{
 	width:1113px;
 	background-color:#eeeff0;
 	border-bottom: 1px solid #000000;
-	font-size:20px;
+	font-size:18px;
 	position:relative;
 	margin-left:20px;
 	min-height:50px;
@@ -1229,7 +1229,7 @@ h6{
 
 .impressum{
 	margin-left:130px;
-	margin-top:-100px;
+	margin-top:125px;
 	font-family: 'Ubuntu', sans-serif;
 	color:#586eb3;
 }
