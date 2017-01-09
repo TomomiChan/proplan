@@ -16,7 +16,7 @@
 
 		$result = getORSetEintraegeSchleifen("SELECT * FROM user_projekte WHERE user_ref = '$benutzer_id'");
 		$i=0;
-		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
+		while($row = $result->fetch_array(MYSQLI_BOTH)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			$i++;										//zaehler fuer array
 		}	
@@ -24,7 +24,7 @@
 	}
 	$aktuelles_projekt = $_GET['projekt_id'];	 
 	//$aktuelles_projekt = stripcslashes($aktuelles_projekt);
-	$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
+	//$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
 	
 	$nutzer_ist_berechtigt = FALSE;				// Variable um zu gucken ob der Nutzer fuer das Projekt registriert ist
 	for($i = 0; $i < count($projekte); $i++){		//geht alle Projekte in der Session durch
@@ -40,7 +40,7 @@
 	$result = getORSetEintraegeSchleifen("SELECT * FROM thema WHERE projekt_ref = '$aktuelles_projekt'");
 	$j = 0;
 	
-	while($row = mysql_fetch_array($result)){		
+	while($row = $result->fetch_array(MYSQLI_BOTH)){		
 		$themaID[$j] = $row['thema_id'];	
 		$themaName[$j] = $row['name'];	
 		$j++;
@@ -55,7 +55,7 @@
 	$result = getORSetEintraegeSchleifen("SELECT * FROM termin WHERE projekt_ref = '$aktuelles_projekt'");
 	$j = 0;
 	
-	while($row = mysql_fetch_array($result)){		
+	while($row = $result->fetch_array(MYSQLI_BOTH)){		
 		$terminID[$j] = $row['termin_id'];	
 		$terminName[$j] = $row['termin_name'];	
 		$terminDatum[$j] = $row['datum'];	
@@ -415,7 +415,7 @@
 			<?php  
 			$result = getORSetEintraegeSchleifen("SELECT * FROM to_do WHERE projekt_ref = '$aktuelles_projekt'");
 			$x=0;
-			while($row = mysql_fetch_array($result)){		
+			while($row = $result->fetch_array(MYSQLI_BOTH)){		
 				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);
 				$x++;	
 			}

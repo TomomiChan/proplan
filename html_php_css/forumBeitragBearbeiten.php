@@ -15,7 +15,7 @@ session_start();
 		datenbankaufbau();
 		
 		$beitragID = $_POST['beitrag'];	 
-		$beitragID = mysql_real_escape_string($beitragID);
+		//$beitragID = mysql_real_escape_string($beitragID);
 
 		$themaID = getORSetEintraege("SELECT thema_ref FROM beitrag WHERE beitrag_id = '$beitragID'");
 		$projektID = getORSetEintraege("SELECT projekt_ref FROM thema WHERE thema_id = '$themaID[0]'");

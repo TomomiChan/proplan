@@ -16,12 +16,12 @@ session_start();
 		if(isset($_POST['terminLoeschen'])){
 			$loeschen = $_POST['terminLoeschen'];			//ID des jeweiligen Termins
 			//$loeschen = stripcslashes($loeschen);
-			$loeschen = mysql_real_escape_string($loeschen);
+			//$loeschen = mysql_real_escape_string($loeschen);
 			
 			$projekt_id = getORSetEintraege("select projekt_ref from termin WHERE termin_id = '$loeschen'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			
-			$rueckgabe = getORSetEintraege("DELETE FROM termin WHERE termin_id = '$loeschen'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM termin WHERE termin_id = '$loeschen'");
 			
 			header("location:projektseite.php?projekt_id=$projekt_id");
 		}
@@ -30,12 +30,12 @@ session_start();
 		
 			$neuertext = $_POST['textareatermin'];
 			//$neuertext = stripcslashes($neuertext);
-			$neuertext = mysql_real_escape_string($neuertext);
+			//$neuertext = mysql_real_escape_string($neuertext);
 		
 			$stundeUhrzeit = $_POST['uhrzeit_stunde'];
 			$minuteUhrzeit = $_POST['uhrzeit_minute'];
-			$stundeUhrzeit = mysql_real_escape_string($stundeUhrzeit);
-			$minuteUhrzeit = mysql_real_escape_string($minuteUhrzeit);
+			/*$stundeUhrzeit = mysql_real_escape_string($stundeUhrzeit);
+			$minuteUhrzeit = mysql_real_escape_string($minuteUhrzeit);*/
 
 			$neueUhrzeit = $stundeUhrzeit . ":" . $minuteUhrzeit;
 
@@ -45,7 +45,7 @@ session_start();
 		
 			$terminID = $_POST['terminAendern'];
 			//$terminID = stripcslashes($terminID);
-			$terminID = mysql_real_escape_string($terminID);
+			//$terminID = mysql_real_escape_string($terminID);
 		
 			if(strlen($neuertext)> 100){
 				$neuertext = substr($neuertext, 0, 100);

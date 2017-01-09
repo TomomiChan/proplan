@@ -5,11 +5,11 @@
 	$username= $_POST['uname'];	 
 	$passwort= $_POST['psw'];
 	
-	$username = stripcslashes($username);
+	/*$username = stripcslashes($username);
 	$passwort = stripcslashes($passwort);
 	
 	$username = mysql_real_escape_string($username);
-	$passwort = mysql_real_escape_string($passwort);
+	$passwort = mysql_real_escape_string($passwort);*/
 	
 	$passwort = md5($passwort);
 

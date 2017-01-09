@@ -16,7 +16,7 @@ session_start();
 		if(isset($_POST['beitragLoeschen'])){
 			$loeschen = $_POST['beitragLoeschen'];			
 			//$loeschen = stripcslashes($loeschen);
-			$loeschen = mysql_real_escape_string($loeschen);
+		//	$loeschen = mysql_real_escape_string($loeschen);
 			
 			$themaID = getORSetEintraege("SELECT thema_ref FROM beitrag WHERE beitrag_id = '$loeschen'");
 			$themaID = $themaID['thema_ref'];
@@ -30,7 +30,7 @@ session_start();
 		if(isset($_POST['beitragThemaLoeschen'])){
 			$loeschen = $_POST['beitragThemaLoeschen'];			
 			//$loeschen = stripcslashes($loeschen);
-			$loeschen = mysql_real_escape_string($loeschen);
+		//	$loeschen = mysql_real_escape_string($loeschen);
 			
 			$themaID = getORSetEintraege("SELECT thema_ref FROM beitrag WHERE beitrag_id = '$loeschen'");
 			$themaID = $themaID[0];

@@ -13,16 +13,16 @@ session_start();
 		datenbankaufbau();
 		
 		$neuertext = $_POST['textareatermin'];
-		$neuertext = mysql_real_escape_string($neuertext);		//Mysql befehle werden escaped
+		//$neuertext = mysql_real_escape_string($neuertext);		//Mysql befehle werden escaped
 		
 		$terminDatum_projektID = $_POST['terminAnlegen'];
-		$terminDatum_projektID = mysql_real_escape_string($terminDatum_projektID);
-		list ($terminDatum, $projektID) = split('[/]', $terminDatum_projektID);
+		//$terminDatum_projektID = mysql_real_escape_string($terminDatum_projektID);
+		list ($terminDatum, $projektID) = explode('/', $terminDatum_projektID);
 		
 		$stundeUhrzeit = $_POST['uhrzeit_stunde'];
 		$minuteUhrzeit = $_POST['uhrzeit_minute'];
-		$stundeUhrzeit = mysql_real_escape_string($stundeUhrzeit);
-		$minuteUhrzeit = mysql_real_escape_string($minuteUhrzeit);
+		/*$stundeUhrzeit = mysql_real_escape_string($stundeUhrzeit);
+		$minuteUhrzeit = mysql_real_escape_string($minuteUhrzeit);*/
 
 		$neueUhrzeit = $stundeUhrzeit . ":" . $minuteUhrzeit;
 		$neueUhrzeit = date('H:i:s',strtotime($neueUhrzeit));
@@ -31,7 +31,7 @@ session_start();
 			$neuertext = substr($neuertext, 0, 100);
 		}
 
-		$rueckgabe = getORSetEintraege("INSERT INTO termin (termin_name, datum, uhrzeit, projekt_ref) VALUES ('$neuertext', '$terminDatum', '$neueUhrzeit', '$projektID')");
+		$rueckgabe = getORSetEintraegeSchleifen("INSERT INTO termin (termin_name, datum, uhrzeit, projekt_ref) VALUES ('$neuertext', '$terminDatum', '$neueUhrzeit', '$projektID')");
 		header("location:projektseite.php?projekt_id=$projektID");
 	}	
 		

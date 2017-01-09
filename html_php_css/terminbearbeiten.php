@@ -15,16 +15,16 @@ session_start();
 		datenbankaufbau();
 		
 		$terminDatum_projektID = $_POST['termin_bearbeiten'];	 
-		$terminDatum_projektID = mysql_real_escape_string($terminDatum_projektID);
+		//$terminDatum_projektID = mysql_real_escape_string($terminDatum_projektID);
 
-		list ($terminDatum, $projektID) = split('[/]', $terminDatum_projektID);
+		list ($terminDatum, $projektID) = explode('/', $terminDatum_projektID);
 		//echo "terminDatum: $terminDatum; ProjektID: $projektID;";
 		//echo $terminDatum_projektID;
 		$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$projektID'");
 		
 		$result = getORSetEintraegeSchleifen("SELECT * FROM termin WHERE projekt_ref = '$projektID' AND datum ='$terminDatum'");
 		$j = 0;
-		while($row = mysql_fetch_array($result)){		
+		while($row = $result->fetch_array(MYSQLI_BOTH)){		
 			$terminID[$j] = $row['termin_id'];	
 			$terminName[$j] = $row['termin_name'];	
 			$terminDatumarray[$j] = $row['datum'];	

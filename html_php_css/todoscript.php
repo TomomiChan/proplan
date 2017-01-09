@@ -15,7 +15,7 @@ session_start();
 		if(isset($_POST['bearbeiten'])){
 			$bearbeiten = $_POST['bearbeiten'];			//ID des jeweiligen TODOS
 			//$bearbeiten = stripcslashes($bearbeiten);
-			$bearbeiten = mysql_real_escape_string($bearbeiten);
+			//$bearbeiten = mysql_real_escape_string($bearbeiten);
 			
 			$projektID = getORSetEintraege("select projekt_ref FROM to_do WHERE to_do_id = '$bearbeiten'");
 			$projektID = $projektID['projekt_ref'];
@@ -120,9 +120,9 @@ session_start();
 		if(isset($_POST['erledigt'])){
 			$erledigt = $_POST['erledigt'];			//ID des jeweiligen TODOS
 			//$erledigt = stripcslashes($erledigt);
-			$erledigt = mysql_real_escape_string($erledigt);
+			//$erledigt = mysql_real_escape_string($erledigt);
 		
-			$rueckgabe = getORSetEintraege("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'");
+			$rueckgabe = getORSetEintraegeSchleifen("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'");
 			$projekt_id = getORSetEintraege("SELECT projekt_ref FROM to_do WHERE to_do_id = '$erledigt'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			header("location:projektseite.php?projekt_id=$projekt_id");
@@ -130,12 +130,12 @@ session_start();
 		if(isset($_POST['loeschen'])){
 			$loeschen = $_POST['loeschen'];			//ID des jeweiligen TODOS
 			//$loeschen = stripcslashes($loeschen);
-			$loeschen = mysql_real_escape_string($loeschen);
+			//$loeschen = mysql_real_escape_string($loeschen);
 			
-			$projekt_id = getORSetEintraege("select projekt_ref from to_do WHERE to_do_id = '$loeschen'");
+			$projekt_id = getORSetEintraege("SELECT projekt_ref FROM to_do WHERE to_do_id = '$loeschen'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			
-			$rueckgabe = getORSetEintraege("DELETE FROM to_do WHERE to_do_id = '$loeschen'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM to_do WHERE to_do_id = '$loeschen'");
 			
 			header("location:projektseite.php?projekt_id=$projekt_id");
 		}

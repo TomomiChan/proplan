@@ -16,7 +16,7 @@
 
 		$result = getORSetEintraegeSchleifen("SELECT * FROM user_projekte WHERE user_ref = '$benutzer_id'");
 		$i=0;
-		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
+		while($row = $result->fetch_array(MYSQLI_BOTH)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			$i++;										//zaehler fuer array
 		}	
@@ -24,12 +24,12 @@
 	}
 	
 	$themaID = $_GET['thema'];	 
-	$themaID = mysql_real_escape_string($themaID);
+	//$themaID = mysql_real_escape_string($themaID);
 
 	
 	$projektID = getORSetEintraege("SELECT projekt_ref FROM thema WHERE thema_id = '$themaID'");
 	$aktuelles_projekt = $projektID[0];	 
-	$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
+	//$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
 	
 	
 	$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
@@ -47,7 +47,7 @@
 	$result = getORSetEintraegeSchleifen("SELECT * FROM beitrag WHERE thema_ref = '$themaID'");
 	$j = 0;
 	
-	while($row = mysql_fetch_array($result)){		
+	while($row = $result->fetch_array(MYSQLI_BOTH)){		
 		$beitragID[$j] = $row['beitrag_id'];	
 		$beitragText[$j] = $row['beitrag_text'];	
 		$beitragDatum[$j] = $row['datum'];	

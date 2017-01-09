@@ -16,7 +16,7 @@
 		$result = getORSetEintraegeSchleifen("select * from user_projekte where user_ref = '$benutzer_id'");
 	//	$projekte[] = array();		// lege ein leeres Array fuer Projekte an
 		$i=0;
-		while($row = mysql_fetch_array($result)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
+		while($row = $result->fetch_array(MYSQLI_BOTH)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			//echo $row['projekt_ref'];
 			$i++;	//zaehler fuer array					

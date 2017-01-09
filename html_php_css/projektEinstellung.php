@@ -15,7 +15,7 @@ session_start();
 		datenbankaufbau();
 		
 		$projektID = $_POST['einstellen'];	 
-		$projektID = mysql_real_escape_string($projektID);
+		//$projektID = mysql_real_escape_string($projektID);
 		
 		$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$projektID'");
 		$projektBeginn = getORSetEintraege("SELECT beginn_projekt FROM projekt WHERE projekt_id = '$projektID'");

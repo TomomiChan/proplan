@@ -16,7 +16,7 @@ session_start();
 		
 	}
 ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 	<meta charset="utf-8">
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">

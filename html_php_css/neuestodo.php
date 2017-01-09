@@ -15,7 +15,7 @@ session_start();
 		if(isset($_POST['neuesToDo'])){
 			$projekt_ref = $_POST['neuesToDo'];
 		//	$projekt_ref = stripcslashes($projekt_ref);
-			$projekt_ref = mysql_real_escape_string($projekt_ref);
+			//$projekt_ref = mysql_real_escape_string($projekt_ref);
 	
 			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projekt_ref'");
 			

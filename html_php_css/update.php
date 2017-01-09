@@ -8,7 +8,7 @@
 	
 	if (isset($_POST["button"])&& $_POST["button"]=="name_aendern"){
 	$neuerName = $_POST['neuerName'];
-	$result = getORSetEintraegeSchleifen("update user set name='$neuerName' where user_id ='$userID'");
+	$result = getORSetEintraegeSchleifen("UPDATE user SET name='$neuerName' WHERE user_id ='$userID'");
 		if($result){
 			$_SESSION['name'] = $neuerName;
 			header("Location: profil.php"); 

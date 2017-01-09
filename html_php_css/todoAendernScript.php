@@ -16,11 +16,11 @@ session_start();
 		
 		$neuertext = $_POST['textareatodo'];
 		//$neuertext = stripcslashes($neuertext);
-		$neuertext = mysql_real_escape_string($neuertext);
+		//$neuertext = mysql_real_escape_string($neuertext);
 		
 		$todoID = $_POST['todoAendern'];
 		//$todoID = stripcslashes($todoID);
-		$todoID = mysql_real_escape_string($todoID);
+		//$todoID = mysql_real_escape_string($todoID);
 		
 		if(strlen($neuertext)> 100){
 			$neuertext = substr($neuertext, 0, 100);

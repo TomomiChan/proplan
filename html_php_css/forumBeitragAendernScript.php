@@ -16,11 +16,11 @@ session_start();
 		
 		$neuertext = $_POST['textareaforum'];
 		//$neuertext = stripcslashes($neuertext);
-		$neuertext = mysql_real_escape_string($neuertext);
+		//$neuertext = mysql_real_escape_string($neuertext);
 		
 		$beitragID = $_POST['forumBeitragBearbeiten'];
 		//$terminID = stripcslashes($terminID);
-		$beitragID = mysql_real_escape_string($beitragID);
+	//	$beitragID = mysql_real_escape_string($beitragID);
 		
 		$bearbeitet = getORSetEintraege("SELECT bearbeitet FROM beitrag WHERE beitrag_id = '$beitragID'");
 		$bearbeitet[0] +=1;

@@ -9,7 +9,13 @@
 
     $confirmpassword= $_POST['confirmpassword'];
 
-    // Entferne die Quotes
+  $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+	  $password = $_SESSION['password'];
+
+
+
+  /*  // Entferne die Quotes
 	  $username = stripcslashes($_SESSION['username']);
     $email = stripcslashes($_SESSION['email']);
 	  $password = stripcslashes($_SESSION['password']);
@@ -19,7 +25,7 @@
 	  $username = mysql_real_escape_string($username);
     $email = mysql_real_escape_string($email);
 	  $password = mysql_real_escape_string($password);
-    $confirmpassword = mysql_real_escape_string($confirmpassword);
+    $confirmpassword = mysql_real_escape_string($confirmpassword);*/
 
     // Bei einer erfolgreichen Registrierung, wird der Nutzer direkt auf die Login Seite weitergeleitet
     $_SESSION['fromReg'] = true;
@@ -29,27 +35,13 @@
     $_SESSION['passMismatch'] = false;
 
     // MD5 Verschlüsselung des Passworts
-	  $passwordfinal = md5($passwort);
+	  $passwordfinal = md5($password);
 
-    // Variable für die Datenbank
-    $dbname = "pro_db";
-    // Herstellung der Verbindung zur Datenbank
-    $conn = new mysqli("localhost", "root", "", $dbname);
-
-    // Ueberpruefung der Verbindung
-    if ($conn->connect_error) {
-        die("Verbindung zur Datenbank ist fehlgeschlagen ".$conn->connect_error);
-    }
-    // Herstellung der Verbindung zur Datenbank
-    $connfinal = new mysqli("localhost", "root", "", $dbname);
-
-    // Ueberpruefung der Verbindung
-    if ($connfinal->connect_error) {
-        die("Verbindung zur Datenbank ist fehlgeschlagen ".$connfinal->connect_error);
-    }
+		include ("datenbankschnittstelle.php");
+		datenbankaufbau();
 
     // Ueberpruefen, ob der user schon vorhanden ist
-    $check = $conn->query ("SELECT * FROM user WHERE name = '$username'");
+    $check = getORSetEintraegeSchleifen("SELECT * FROM user WHERE name = '$username'");
 
     if (mysqli_num_rows($check) != 0) {
 
@@ -67,7 +59,7 @@
     } else {
 
       // Datenbankeintrag eines neuen Users
-      $result = $connfinal->query("INSERT INTO user(email, passwort, name) VALUES ('$email','$passwordfinal','$username')");
+      $result = getORSetEintraegeSchleifen("INSERT INTO user(email, passwort, name) VALUES ('$email','$passwordfinal','$username')");
 
       header("location:index.php");
     }
