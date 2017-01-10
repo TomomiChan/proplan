@@ -1,24 +1,28 @@
 @charset "utf-8";
 /* CSS Document */
 
-/*Allgemein jede Seite */ 
+/*Allgemein jede Seite */
 @font-face { font-family: 'BRLNSR';
              src: local('BRLNSR.ttf') format('truetype'); }
+
 body{
 	margin: 0px;
-	min-width: 100%;		
+	min-width: 100%;
     width: 100%;
     max-width: 100%;
 
     min-height: 100%;
     height: 100%;
     max-height: 100%;
-	
+
 	background-image: url('../Images/hintergrund.png');
 	/*background-repeat: no-repeat;*/
-	
-	background-size: 100%; 
+
+	background-size: 100%;
 	font-family: 'Ubuntu', sans-serif;
+
+
+	background-size: 100%;
 }
 
 
@@ -31,7 +35,7 @@ body{
 	top:150px;
 	width:1280px;
 	height:auto;
-	
+
 }
 
 .lesezeichenunterseiten{
@@ -50,7 +54,7 @@ body{
 	top:0px;
 	width:100%;
 	height:150px;
-	background:#586fb4;	
+	background:#586fb4;
 }
 
 .proplan{
@@ -76,13 +80,13 @@ body{
 	font-family: 'Ubuntu';
 	font-weight:800;
 	font-size:34px;
-  	color:#FFF; 
-	margin:0px; 
+  	color:#FFF;
+	margin:0px;
 	left:420px;
 	top:70px;
 }
 
-.profil{	
+.profil{
 	position:absolute;
 	left:1000px;
   	top:70px;
@@ -162,7 +166,7 @@ footer{
 	top:0px;
 	width:100%;
 	height:350px;
-	background:#586fb4;	
+	background:#586fb4;
 }
 
 
@@ -199,20 +203,20 @@ h1{
 	padding-left:320px;
 	margin-top: -80px;
 	font-family: 'Ubuntu', sans-serif;
-  	color:#8bc797;   
+  	color:#8bc797;
 	font-weight: bold;
 
 }
 
 #wasgibtes{
 	padding-left:210px;
-	padding-top:120px;	
+	padding-top:120px;
 }
 
 #klemmbrett{
 	padding-left:800px;
-	margin-top:-450px;	
-	
+	margin-top:-450px;
+
 }
 
 table{
@@ -222,7 +226,7 @@ table{
 
 
 #button1 {
-	
+
     background-color:#8bc797 ;
     color: white;
     padding: 10px 10px 10px 10px;
@@ -240,8 +244,8 @@ table{
 }
 
 #button2 {
-	
-    
+
+
     background-color:#818eb5 ;
     color: white;
     padding: 10px 10px 10px 10px;
@@ -251,7 +255,7 @@ table{
     cursor: pointer;
     width: 100px;
 	font-family: 'Ubuntu', sans-serif;
-	
+
 }
 #button2:hover{
      color:#fff;
@@ -285,8 +289,8 @@ table{
 	margin-top:-265px;
 	font-family: 'Ubuntu', sans-serif;
 	font-size:12px;
-  	color:#7e7f7e;  
-	
+  	color:#7e7f7e;
+
 }
 /*profilseite*/
 
@@ -302,7 +306,7 @@ table{
 	float:right;
 	margin-left:20px;
 	margin-right:20px
-	
+
 }
 
 tbody{
@@ -322,7 +326,7 @@ tbody{
 	height:25px;
 	font-family: 'Ubuntu', sans-serif;
 	font-size:10px;
-	
+
 }
 
 #profilbild_upload{
@@ -361,10 +365,10 @@ tbody{
 }
 
 #alleOrdner{
-	
+
 	margin-left:180px;
 	width:900px;
-	margin-top:40px;	
+	margin-top:40px;
 }
 
 
@@ -381,7 +385,7 @@ tbody{
 	width:500px;
 	margin-top:200px;
 	margin-left:-50px;
-	
+
 }
 
 
@@ -523,11 +527,12 @@ tbody{
 
 h3{
 	width:1100px;
-	background:#586fb4;	
+	background:#586fb4;
 	color:#8bc797;
 	margin:0px;
+    font-family: 'Ubuntu', sans-serif;
 	padding-left:10px;
-	font-size:25px;
+	font-size:22px;
 	height:75px;
 	display: table-cell;
 	vertical-align: middle;
@@ -535,7 +540,7 @@ h3{
 
 h4{
 	width:1153px;
-	background:#586fb4;	
+	background:#586fb4;
 	color:#8bc797;
 	margin:0px;
 	padding-left:10px;
@@ -574,7 +579,7 @@ h4{
     background: transparent none repeat scroll 0 0;
     border: medium none;
     cursor: pointer;
-    height: 41px;
+    height: 40px;
     margin: 0;
     padding: 0;
     position: relative;
@@ -608,7 +613,7 @@ h4{
 }
 
 #button3 {
-	
+
     background-color:#8bc797 ;
     color: white;
     padding: 10px 10px 10px 10px;
@@ -624,7 +629,7 @@ h4{
      color:#fff;
      background-color:#586fb4;
 }
-	
+
 
 .formthema{
 	min-height:50px;
@@ -750,7 +755,7 @@ h4{
     font-weight: bold;
 	background-color:#586fb4;
 }
-.pagihead { 
+.pagihead {
    display:inline-block;
    background: #586fb4;
    width: 200px;
@@ -782,11 +787,11 @@ h4{
 }
 
 .hovereintragdreieck {
-	width: 0; 
-	height: 0; 
+	width: 0;
+	height: 0;
 	border-left: 6px solid transparent;
 	border-right: 6px solid transparent;
-  
+
 	border-bottom: 6px solid #eeeff0;
 	content: "";
 	position:relative;
@@ -797,11 +802,11 @@ h4{
 }
 
 .hovereintragdreieckinnen {
-	width: 0; 
-	height: 0; 
+	width: 0;
+	height: 0;
 	border-left: 7px solid transparent;
 	border-right: 7px solid transparent;
-  
+
 	border-bottom: 7px solid #000000;
 	content: "";
 	position:relative;
@@ -831,13 +836,13 @@ h4{
 .day.normalprojektBeginn:hover .hovereintragdreieck, .day.normalprojektBeginn:hover .hovereintragdreieckinnen, .day.normalprojektBeginn:hover .hovereintrag{
 	display: block;
 }
-	
+
 .day.normalprojektEnde:hover .hovereintragdreieck, .day.normalprojektEnde:hover .hovereintragdreieckinnen, .day.normalprojektEnde:hover .hovereintrag {
 	display: block;
 }
-	
-	
-	
+
+
+
 .buttonkalender{
 	border:none;
 	outline:none;
@@ -850,7 +855,7 @@ h4{
 	width:65px;
 	position:relative;
 	top:-1px;
-}	
+}
 
 .formkalender{
 	float:left;
@@ -869,32 +874,49 @@ h5{
 }
 
 
-/* Kontakt */
-.Formularfeld {
-    width: 450px;
-    margin-left: 500px;
-    margin-top: 50px;
+/* Kontakt + Kontakt*/
+.formularfeld{
+    width: 650px;
+    float:left;
+    height:auto;
+    margin-left:127px;
+  	margin-top:100px;
+    border: 1px solid #000000;
+    margin-bottom:40px;
+    padding-bottom: 15px;
+    min-height:370px;
+    background-color:#eeeff0;
+    clear:both;
+
 }
 
-.Formularzeile {
+.formularinhalt{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+}
+
+.formularzeile {
     padding-bottom: 15px;
     padding-top: 15px;
 }
 
 .textfeld {
     float: right;
+    clear: both;
     width: 230px;
     height: 20px;
     border: 1px;
     border-style: solid;
     border-color: #7e7f7e;
     border-radius: 7px;
-} 
+}
 
 .text {
     float: right;
-    width: 200px;
-    height: 150px;
+    clear: both;
+    width: 230px;
+    height: 230px;
     border: 1px;
     border-style: solid;
     border-color: #7e7f7e;
@@ -903,8 +925,14 @@ h5{
 
 #schrift {
     font-family: 'Ubuntu', sans-serif;
-	font-size:16px;
-  	color:#7e7f7e; 
+	  font-size:16px;
+    color:#7e7f7e;
+}
+
+#kleineSchrift {
+    font-family: 'Ubuntu', sans-serif;
+    font-size:12px;
+    color:#7e7f7e;
 }
 
 #submit {
@@ -920,10 +948,12 @@ h5{
 }
 
 .button {
+    float:right;
+    clear: both;
     font-size:20px;
     width: 160px;
     font-family: 'Ubuntu', sans-serif;
-  	color:#8bc797; 
+  	color:#8bc797;
     border: 1px;
     border-style: solid;
     border-radius:20px;
@@ -931,6 +961,7 @@ h5{
     border-color: #7e7f7e;
     padding-bottom: 5px;
     padding-top: 5px;
+	margin-top:5px;
 }
 
 /*Forum*/
@@ -945,7 +976,7 @@ h5{
     float: left;
     width:1100px;
     height:auto;
-	min-height:250px;
+	  min-height:250px;
     border:1px #586fb4 solid;
     background-color: #efefef;
     margin-bottom:40px;
@@ -999,7 +1030,7 @@ h5{
 
 .leiste {
 	width:1100px;
-	background:#586fb4;	
+	background:#586fb4;
 	color:#8bc797;
 	margin:0px;
 	padding-right:10px;
@@ -1029,7 +1060,7 @@ h5{
 	font-family:inherit;
 	font-size:inherit;
 	color: #8bc797;
-}	
+}
 
 .buttonforum:hover{
 	color: #6dc77f;
@@ -1052,7 +1083,7 @@ h5{
 
 h6{
 	width:1100px;
-	background:#586fb4;	
+	background:#586fb4;
 	color:#8bc797;
 	margin:0px;
 	padding-left:10px;
@@ -1118,7 +1149,7 @@ h6{
 
 #neuerProjektbutton{
 	padding-left:130px;
-	
+
 }
 
 .datumfeld{

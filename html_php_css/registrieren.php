@@ -9,11 +9,9 @@
 
     $confirmpassword= $_POST['confirmpassword'];
 
-  $username = $_SESSION['username'];
+    $username = $_SESSION['username'];
     $email = $_SESSION['email'];
 	  $password = $_SESSION['password'];
-
-
 
   /*  // Entferne die Quotes
 	  $username = stripcslashes($_SESSION['username']);
@@ -34,6 +32,8 @@
 
     $_SESSION['passMismatch'] = false;
 
+    $_SESSION['passUnsafe'] = false;
+
     // MD5 Verschlüsselung des Passworts
 	  $passwordfinal = md5($password);
 
@@ -53,6 +53,15 @@
     } else if (strcmp($password, $confirmpassword) !== 0) {
 
       $_SESSION['passMismatch'] = true;
+
+      header("location:registrierung.php");
+
+      // Ueberpruefe die Passwortsicherheit
+      // Das Password darf nicht laenger als 30 und nicht kuerzer als 5 Zeichen sein. Es muss mindestens eine Zahl und ein Buchstabe enthalten sein
+    } else if ((strlen($password) < 5) || (strlen($pwd) > 30) || (!preg_match("#[0-9]+#", $password))
+    || (!preg_match("#[a-zA-Z]+#", $password))) {
+
+      $_SESSION['passUnsafe'] = true;
 
       header("location:registrierung.php");
 

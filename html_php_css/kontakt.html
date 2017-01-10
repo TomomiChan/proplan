@@ -15,45 +15,50 @@
 			<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 			<p class="ueberschrift">Nehme Kontakt mit uns auf!</p>	
 			
-			<div class="logout">	
-				<a href="index.php" > <img src="../Images/logout.png" alt="logout" /></a>
-			</div>
+				<div class="logout">	
+					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
+				</div>
   
-			<div class="profil">
-				<a href="profil.html"><img src="../Images/profil_weiß.png" alt="profil" /></a>
-			</div>
+				<div class="profil">
+					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
+				</div>
    
-   			
-			</div>   		
+				<p class="pfad">
+					<a href="meineProjekte.php">Meine Projekte ></a> Kontakt
+				</p>
+
+			</div>
 		</header>
-    
-    <div class="hauptbereichunterseiten">
-        
-        
-        <form action= "kontakt.php" class="Formularfeld" id="schrift">
-            
-            <div class="Formularzeile">
+
+    <div class="formularfeld">
+
+			<h3>Nehme Kontakt zu uns auf :) </h3>
+
+        <form name ="Form" class="formularinhalt" action= "kontakt.php" id="schrift">
+
+            <div class="formularzeile">
                Vorname <input type="text" name="firstname" class="textfeld">
             </div>
 
-            <div class="Formularzeile">
+            <div class="formularzeile">
                 Nachname: <input type="text" name="lastname" class="textfeld">
             </div>
-            
-            <div class="Formularzeile">
+
+            <div class="formularzeile">
                 E - Mail <input type="email" name="e-mail" class="textfeld">
             </div>
-            
-            <div class="Formularzeile">
-                Dein Text <input type="text" name="mail" class="text">
-            <div id="submit">
-                <input type="submit" value="Absenden" class="button"/>
+
+            <div class="formularzeile">
+                Dein Text <input type="text" name="text" class="text">
             </div>
+
+						<div class="formularzeile">
+                <input type="submit" class="button" name ="button" value="Absenden"/>
             </div>
-            
+
         </form>
     </div>
-	
+
 	<footer>
 		<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
 	</footer>

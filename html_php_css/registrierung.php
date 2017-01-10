@@ -8,7 +8,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 	// Zuruecksetzen des boolean, der ueberprueft, ob man von der Registrierungsseite kommt
   unset($_SESSION['fromReg']);
 
-  // Um den value Parameter im HTML Tag auszufuellen
+  // Um den value Parameter im HTML Tag mit den bisher richtigen Werten auszufuellen
 	$_SESSION['username']= $_SESSION['username'];
 	$_SESSION['email']= $_SESSION['email'];
 
@@ -24,20 +24,33 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
           </script>";
   }
 
+  // Wenn die Passwoerter nicht uebereinstimmen
   if (isset($_SESSION['passMismatch']) && $_SESSION['passMismatch']) {
 
     // Zuruecksetzen des boolean
     unset($_SESSION['passMismatch']);
 
-    // JavaScript Pop Up, was zeigt, dass die Passwörter nicht übereinstimmen
+    // JavaScript Pop Up, was zeigt, dass die Passwoerter nicht übereinstimmen
     echo "<script type='text/javascript'>
             alert('Die Passwörter stimmen nicht überein.')
           </script>";
   }
 
+  // Wenn die Passwortsicherheit nicht erfuellt wurde
+  if (isset($_SESSION['passUnsafe']) && $_SESSION['passUnsafe']) {
+
+    // Zuruecksetzen des boolean
+    unset($_SESSION['passUnsafe']);
+
+    // JavaScript Pop Up, was zeigt, dass die Passwortsicherheit nicht erfuellt wurde
+    echo "<script type='text/javascript'>
+            alert('Dein Passwort sollte zwischen 5 und 30 Zeichen lang sein und mind. eine Zahl und Buchstaben enthalten')
+          </script>";
+  }
+
 } else {
 
-  // value Parameter fuer das HTML Form Tag
+  // value Parameter fuer das HTML Form Tag (Wenn der User ganz normal auf die Registrierungsseite kommt)
 	$_SESSION['username']= "";
 	$_SESSION['email']= "";
 }
@@ -61,16 +74,17 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 			</div>
 		</header>
 
-    <div class="hauptbereichunterseiten">
+    <div class="Formularfeld">
 
-        <form  name="Form" class="Formularfeld" id="schrift" method="POST"  enctype="multipart/form-data" action = "registrieren.php">
+      <h3>Erstelle dein proplan Konto</h3>
 
-            <a class ="kleineSchrift">* benötigtes Feld</a> <br><br/>
+        <form  name="Form" class="Formularinhalt" id="schrift" method="POST" enctype="multipart/form-data" action = "registrieren.php">
+
+            <a id ="kleineSchrift">* benötigtes Feld</a> <br><br/>
 
             <div class="Formularzeile">
                 Benutzername *<input type="text" name="username" class="textfeld" required="" value="<?php echo $_SESSION['username'];?>">
             </div>
-
 
             <div class="Formularzeile">
                  E - Mail *<input type="email" name="email" class="textfeld" required="" value="<?php echo $_SESSION['email'];?>">

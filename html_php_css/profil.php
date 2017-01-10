@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -13,8 +13,8 @@
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
 	}
-?> 
-	
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -33,14 +33,21 @@
 			<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 			<p class="ueberschrift">Mein Profil</p>	
 			
-			<div class="logout">	
-            	<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
-			</div>
-        
-			  		
+				<div class="logout">	
+					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
+				</div>
+  
+				<div class="profil">
+					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
+				</div>
+   
+				<p class="pfad">
+					<a href="meineProjekte.php">Meine Projekte ></a> Mein Profil	
+				</p>
+
 		</header>
-        
-	
+
+
     <script language="JavaScript">
 		function passwortAbgleich(){
 			var passwort1 = document.passwortbereich.neuesPasswort.value;
@@ -50,24 +57,30 @@
 			document.passwortbereich.neuesPasswort.focus();
 			return false;
 			}
-			
+
 			if(passwort1.length<8)
 			{
 				alert ("Das Passwort muss eine Länge von mindestens 8 Zeichen betragen");
 				document.passwortbereich.neuesPasswort.focus();
 				return false;
 			}
-			
+
 			if (passwort1 == passwort2){
 				alert ("Passwort geändert");
 				return false;
-			}			
+			}
+
+			if (passwort1 == passwort2){
+				alert ("Passwort geändert");
+			}
+
+
 		}
     </script>
-        
+
     <div class="hauptbereichunterseiten">
 		<div id="inhalt"><h3>Profil bearbeiten</h3>
-		<form id ="profiltabelle" method="post" action="update.php">	
+		<form id ="profiltabelle" method="post" action="update.php">
 
 			<table id="inneretabelle">
 			<tbody>
@@ -78,10 +91,10 @@
 					</td>
 					<td>
 						<button type="submit" id="button4" name="button" value="name_aendern">Name ändern</button>
-					</td> 
+					</td>
 				</tr>
 		</form>
-     
+
 		<form id = "profiltabelle" method="POST" action="update.php" name = "passwortbereich" onSubmit="return passwortAbgleich()">
 				<tr>
 					<td id="user_pw">
@@ -99,11 +112,11 @@
 						</div>
 					</td>
 				</tr>
-            
+
 		</form>
-    
+
 		<form id = "profiltabelle" method="POST" action="update.php">
-            
+
 				<tr>
 					<td id="user_email">
 						Email:
@@ -128,21 +141,21 @@
 					}
 				}
 				?>
-        	
-			
+
+
         </div>
 			<div id="profilbild_upload">
 				<form action = "upload.php" method="POST" enctype="multipart/form-data" >
 					<p id = "pBeschriftung">Neues Profilbild?</p> <input type="file" name="bild"  />
 					<input type="submit" name="upload" value="Upload"  id="button4"/>
-				</form>    
+				</form>
 			</div>
 		</div>
-	</div>	
-    
+	</div>
 
-    
-	
+
+
+
 	<footer>
 			<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
 		</footer>
