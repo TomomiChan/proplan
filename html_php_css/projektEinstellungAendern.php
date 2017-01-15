@@ -80,7 +80,8 @@ session_start();
 			$arrayEmails = explode(',',$emails);
 			for ($i=0; $i < count($arrayEmails);$i++){
 				$user_ref = getORSetEintraege("SELECT user_id FROM user WHERE email = '$arrayEmails[$i]'");
-				if($user_ref==""){
+				$schon_vorhanden = getORSetEintraegeSchleifen("SELECT * FROM user_projekte WHERE user_ref = '$user_ref[0]' AND projekt_ref = '$projektID'");
+				if($user_ref=="" or mysqli_num_rows($schon_vorhanden) != 0){
 				}else{	
 					$rueckgabe = getORSetEintraegeSchleifen("INSERT INTO user_projekte (user_ref, projekt_ref) VALUES ('$user_ref[0]','$projektID')");
 				}

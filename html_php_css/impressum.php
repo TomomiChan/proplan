@@ -1,5 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php
+	session_start();
+	$berechtigung = 0;
+	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
+		$berechtigung = 0;
+	} else {
+		$berechtigung = 1;
+	}
+?>
+<html>
 	<head>
 		<meta charset="utf-8">
     	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -15,17 +23,26 @@
 				<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
 				<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 				<p class="ueberschrift">Impressum</p>	
-				<p class="pfad">
-					<a href="meineProjekte.php">Meine Projekte ></a>
-					Impressum
-				</p>
-				<div class="logout">	
-					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
-				</div>
+				<?php
+				if($berechtigung == 1){	//anmerkung Christoph: falls der nutzer schon eingelogt ist, darf er folgendes sehen
+					echo "<p class=\"pfad\">
+						<a href=\"meineProjekte.php\">Meine Projekte ></a>
+						Impressum
+					</p>
+					<div class=\"logout\">	
+						<a href=\"logout.php\" > <img src=\"../Images/logout.png\" alt=\"logout\" /></a>
+					</div>
   
-				<div class="profil">
-					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
-				</div>
+					<div class=\"profil\">
+						<a href=\"profil.php\"><img src=\"../Images/profil_weiß.png\" alt=\"profil\" /></a>
+					</div>";
+				}else {		//wenn nicht dann das:
+					echo "<p class=\"pfad\">
+						<a href=\"registrierung.php\">Registrierung ></a>
+						Impressum
+					</p>";
+				}
+				?>
       	  </div>
 			  		
 		</header>
@@ -63,7 +80,7 @@ Sollten einzelne Regelungen oder Formulierungen dieses Haftungsaus- <br />schlus
 		</div>
 
 		<footer>
-			<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
+			<a href="impressum.php">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp  <a href="nutzungsbestimmung.php">Nutzungsbestimmung</a>
 		</footer>
      </body>
 	

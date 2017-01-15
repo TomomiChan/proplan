@@ -41,7 +41,7 @@
 		datenbankaufbau();
 
     // Ueberpruefen, ob der user schon vorhanden ist
-    $check = getORSetEintraegeSchleifen("SELECT * FROM user WHERE name = '$username'");
+    $check = getORSetEintraegeSchleifen("SELECT * FROM user WHERE email = '$email'");
 
     if (mysqli_num_rows($check) != 0) {
 

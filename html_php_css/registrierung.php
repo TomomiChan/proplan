@@ -69,42 +69,45 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 			<div class="lilabannerunterseiten">
 			<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 			<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
-			<img class="proplan" src="../Images/proplan.png" alt="proplan" />
+			<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
 			<p class="ueberschrift">Registrierung</p>
+			<p class="pfad">
+								<a href="index.php">Anmeldung ></a> Registrierung</p>
 			</div>
 		</header>
 
-    <div class="Formularfeld">
+    <div class="formularfeld">
 
       <h3>Erstelle dein proplan Konto</h3>
 
-        <form  name="Form" class="Formularinhalt" id="schrift" method="POST" enctype="multipart/form-data" action = "registrieren.php">
+        <form  name="Form" class="formularinhalt" id="schrift" method="POST" enctype="multipart/form-data" action = "registrieren.php">
 
-            <a id ="kleineSchrift">* benötigtes Feld</a> <br><br/>
+            <div id ="kleineSchrift">* benötigtes Feld</div> <br>
 
-            <div class="Formularzeile">
+            <div class="formularzeile">
                 Benutzername *<input type="text" name="username" class="textfeld" required="" value="<?php echo $_SESSION['username'];?>">
             </div>
 
-            <div class="Formularzeile">
+            <div class="formularzeile">
                  E - Mail *<input type="email" name="email" class="textfeld" required="" value="<?php echo $_SESSION['email'];?>">
             </div>
 
-            <div class="Formularzeile">
+            <div class="formularzeile">
                 Passwort *<input type="password" name="password" class="textfeld" minlength= "8" required="">
             </div>
 
-            <div class="Formularzeile">
+            <div class="formularzeile">
                 Passwort bestätigen *<input type="password" name="confirmpassword" class="textfeld" required="">
             </div>
 
-            <div id="submit" class="Formularzeile">
+            <div id="submit">
                 <input type="submit" name="button" value="Registrieren" class="button" onclick="return submitForm()"/ required="">
             </div>
+			 <div id ="kleineSchrift">Mit der Registrierung stimmen Sie automatisch unseren <a href="nutzungsbestimmung.php">Nutzerbedingungen</a> zu.</div>
         </form>
     </div>
 	<footer>
-		<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
+		<a href="impressum.php">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp  <a href="nutzungsbestimmung.php">Nutzungsbestimmung</a>
 	</footer>
 </body>
 </html>

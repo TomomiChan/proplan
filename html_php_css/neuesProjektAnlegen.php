@@ -61,8 +61,9 @@
 		$emails = $_POST['textareaprojekt'];
 		$emails = str_replace(' ','',$emails); 
 		$arrayEmails = explode(',',$emails);
-		for ($i=0; $i < count($arrayEmails);$i++){
-			$user_ref = getORSetEintraege("select user_id from user where email = '$arrayEmails[$i]'");
+		$newArrayEmails = array_values(array_unique($arrayEmails));		//anmerkung Christoph, um das Spammen von der selben Mail beim Anlegen zu verhinden filtert er erst alle doppelten Mails und uebergibt sie einem neuem array, dessen Keys wieder bei 0 anfangen (das alte haette dennoch alle key eintraege und es wuerde zu fehler beim schleifen durchlauf fuehren)
+		for ($i=0; $i < count($newArrayEmails);$i++){
+			$user_ref = getORSetEintraege("select user_id from user where email = '$newArrayEmails[$i]'");
 			if($user_ref==""){
 			}else{	
 				$result = getORSetEintraegeSchleifen("INSERT INTO user_projekte (user_ref, projekt_ref) VALUES ('$user_ref[0]','$projektID[0]')");
