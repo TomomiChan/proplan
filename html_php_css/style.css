@@ -153,12 +153,11 @@ a:active {
 
 footer{
 	float:left;
-	margin-left:1000px;
+	margin-left:750px;
 	margin-top:20px;
 	padding-bottom:20px;
 	font-family: 'Ubuntu', sans-serif;
 }
-
 
 /*Anmeldeseite*/
 
@@ -168,7 +167,6 @@ footer{
 	height:350px;
 	background:#586fb4;
 }
-
 
 header{
 	height:350px;

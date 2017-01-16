@@ -15,8 +15,8 @@
 	}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<html>
 <head>
 	<meta charset="utf-8">
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -49,6 +49,8 @@
 
 
     <script language="JavaScript">
+			
+			
 		function passwortAbgleich(){
 			var passwort1 = document.passwortbereich.neuesPasswort.value;
 			var passwort2 = document.passwortbereich.wiederholtesPasswort.value;
@@ -58,9 +60,9 @@
 			return false;
 			}
 
-			if(passwort1.length<8)
+			if((!passwort1.match(/[0-9]/))||(!passwort1.match(/[a-z]/))||(!passwort1.match(/[A-Z]/))||(passwort1.length <8))
 			{
-				alert ("Das Passwort muss eine Länge von mindestens 8 Zeichen betragen");
+				alert ("Das Passwort muss eine Länge von mindestens 8 Zeichen, eine Zahl und ein Klein- und Großbuchstaben enthalten");
 				document.passwortbereich.neuesPasswort.focus();
 				return false;
 			}
@@ -69,12 +71,6 @@
 				alert ("Passwort geändert");
 				return false;
 			}
-
-			if (passwort1 == passwort2){
-				alert ("Passwort geändert");
-			}
-
-
 		}
     </script>
 
@@ -157,7 +153,7 @@
 
 
 	<footer>
-			<a href="impressum.php">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="nutzungsbestimmung.php">Nutzungsbestimmung</a>
+			<a href="impressum.html">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="agb.html">AGB</a>
 		</footer>
 	</body>
 </html>
