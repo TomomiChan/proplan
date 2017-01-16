@@ -44,7 +44,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 
     // JavaScript Pop Up, was zeigt, dass die Passwortsicherheit nicht erfuellt wurde
     echo "<script type='text/javascript'>
-            alert('Dein Passwort sollte zwischen 5 und 30 Zeichen lang sein und mind. eine Zahl und Buchstaben enthalten')
+            alert('Das Passwort muss eine Länge von mindestens 8 Zeichen, eine Zahl und ein Klein- und Großbuchstaben enthalten')
           </script>";
   }
 

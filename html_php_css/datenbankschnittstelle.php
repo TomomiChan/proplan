@@ -4,8 +4,8 @@
 	function datenbankaufbau(){
 		global $conn;
 
-    	//$conn = new mysqli("212.201.22.202", "planer", "verplant", "pro_db");
-		$conn = new mysqli("localhost", "root", "", "pro_db");
+    	$conn = new mysqli("212.201.22.202", "planer", "verplant", "pro_db");
+		//$conn = new mysqli("localhost", "root", "", "pro_db");
   	 	 if ($conn->connect_error) {
     	die("Verbindung zur Datenbank ist fehlgeschlagen ".$conn->connect_error);
    		}

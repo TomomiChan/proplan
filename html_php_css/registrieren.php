@@ -58,7 +58,7 @@
 
       // Ueberpruefe die Passwortsicherheit
       // Das Password darf nicht laenger als 30 und nicht kuerzer als 5 Zeichen sein. Es muss mindestens eine Zahl und ein Buchstabe enthalten sein
-    } else if ((strlen($password) < 5) || (strlen($pwd) > 30) || (!preg_match("#[0-9]+#", $password))
+    } else if ((strlen($password) < 8) || (strlen($pwd) > 30) || (!preg_match("#[0-9]+#", $password))
     || (!preg_match("#[a-z]+#", $password))||(!preg_match("#[A-Z]+#", $password))) {
 
       $_SESSION['passUnsafe'] = true;
