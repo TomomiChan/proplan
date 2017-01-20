@@ -1,4 +1,9 @@
 <?php
+/**
+* Die Seite "neuesProjektseite" stellt ein Formular zur Erstellung eines neuen Projekts dar
+*
+*@autor Alice Markmann
+**/
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -9,11 +14,9 @@ session_start();
 		$benutzer = $_SESSION['name'];
 		$benutzer_id = $_SESSION['id'];
 		
-		//Verbinung zu Datenbank
-
+		//Verbinung zur Datenbank
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
-		
 	}
 ?>
 <html>

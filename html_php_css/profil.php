@@ -1,4 +1,8 @@
 <?php
+/**
+*Die Seite profil.php stellt das Profil des eingeloggten Nutzers dar
+*@autor Alice Markmann
+**/
 	session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -6,10 +10,11 @@
 		header("location:index.php");
 	} else{
 		$berechtigung = 1;
-		//echo "Eingeloggt ist der Benutzter ".$_SESSION['name']." ".$_SESSION['id'];
 		$benutzer = $_SESSION['name'];
 		$email = $_SESSION['email'];
 		$userID = $_SESSION['id'];
+		
+		//Verbindung zur Datenbank
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
 	}
@@ -45,11 +50,13 @@
 				</p>
 
 		</header>
-
-
+	
     <script language="JavaScript">
-			
-			
+		
+		/**
+		*Vergleicht die eingegeben Passwoerter und prueft ob die Passworter lang genung sind,
+		*Gross- und Kleinbuchstaben und min. eine Zahl enthalten sind
+		**/		
 		function passwortAbgleich(){
 			var passwort1 = document.passwortbereich.neuesPasswort.value;
 			var passwort2 = document.passwortbereich.wiederholtesPasswort.value;
@@ -126,8 +133,9 @@
 		</tbody>
 			<div id=profilbild>
 				<?php
+				// Holt den Profilbildpfad aus der Datenbank und stellt es auf der Seite dar
 				if($berechtigung==1){
-					$pfad = getORSetEintraege("select bild from user where user_id = '$userID'");
+					$pfad = getORSetEintraege("SELECT bild FROM user WHERE user_id = '$userID'");
 					$bildpfad = $pfad['bild'];
 					if ($pfad['bild']!=""){
 						echo "<img  src=\"$bildpfad\" height=\"110px\" width=\"100px\">";

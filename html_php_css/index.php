@@ -1,16 +1,20 @@
 <?php
-//hole die werte aus dem vorherigen File
-// für den Fall, dass man nach der Registrierung direkt zur Login Seite gefuehrt wird
+/**
+*Stellt die Startseite dar, in der sich der Nutzer einloggen kann oder weiter zur Registrierungsseite gelangt
+*uebergibt login.php die eingegebenen Werte des Login
+*@autor Alice Markmann
+**/
+
 session_start();
 
 // Abfrage, ob der Nutzer gerade von der Registrierungsseite kommt
 // Wenn dies der Fall ist, wird der Nutzer benachrichtigt, dass er sich jetzt einloggen kann
 if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 
-  // Zuruecksetzen des boolean, welcher checkt, ob man durch einen Redirect auf die index Seite gekommen ist
+// Zuruecksetzen des boolean, welcher checkt, ob man durch einen Redirect auf die index Seite gekommen ist
   unset($_SESSION['fromReg']);
 
-  // JavaScript Pop Up, was zeigt, dass sich der Nutzer jetzt einloggen kann
+// JavaScript Pop Up, welches zeigt, dass sich der Nutzer jetzt einloggen kann
   echo "<script type='text/javascript'>
           alert('Die Registrierung war erfolgreich. Du kannst dich nun einloggen.')
         </script>";
@@ -71,7 +75,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 			</table>
 
 		</form>
-		<form id="formular1" action="registrierung.php">		<!--hier eigentlich script !-->
+		<form id="formular1" action="registrierung.php">		
 
 		<table>
 			<tr>

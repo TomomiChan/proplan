@@ -1,11 +1,15 @@
 <?php
+/**
+*Dokument behandelt die Aenderungen von Profilname, Email und Passwort
+*@autor Alice Markmann
+**/
 	session_start();
-
+	//Datenbankverbindung
 	include ("datenbankschnittstelle.php");
 	datenbankaufbau();
 	$userID = $_SESSION['id'];
 	
-	
+	//Username wird in der Datenbank geaendert
 	if (isset($_POST["button"])&& $_POST["button"]=="name_aendern"){
 	$neuerName = $_POST['neuerName'];
 	$result = getORSetEintraegeSchleifen("UPDATE user SET name='$neuerName' WHERE user_id ='$userID'");
@@ -15,23 +19,22 @@
 		}
 	}
 	
-	if (isset($_POST['neuesPasswort'])){
-	//echo "passwort übergeben";					
-	$neuesPasswort = $_POST['neuesPasswort'];		//Hier muessen ueberall noch die Escape Sachen rein da man hier sql injecttion betreiben kann
+	//Passwort wird in der Datenbank geaendert
+	if (isset($_POST['neuesPasswort'])){					
+	$neuesPasswort = $_POST['neuesPasswort'];		
 	$neuesPasswort = md5($neuesPasswort);
-	$result = getORSetEintraegeSchleifen("update user set passwort = '$neuesPasswort' where user_id='$userID'");
+	$result = getORSetEintraegeSchleifen("UPDATE user SET passwort = '$neuesPasswort' WHERE user_id='$userID'");
 		if($result){
 			header("Location: profil.php"); 
 		}
 		
 	}
-	
+	//Email wird in der Datenbank geaendert
 	if (isset($_POST['neueEmail'])){
-	//echo "email übergeben";
-	$neueEmail = $_POST['neueEmail'];		//original stand dort :$neuesPasswort = $_POST['neueEmail'];	ich habs mal in $neueEmail geaendert
-	$result = getORSetEintraegeSchleifen("update user set email='$neueEmail' where user_id='$userID'");
+	$neueEmail = $_POST['neueEmail'];		
+	$result = getORSetEintraegeSchleifen("UPDATE user SET email='$neueEmail' WHERE user_id='$userID'");
 		if($result){
-			$_SESSION['email'] = $neueEmail;		//hab ich auch noch hinzugefuegt
+			$_SESSION['email'] = $neueEmail;		//Christop: hab ich auch noch hinzugefuegt
 			header("Location: profil.php");
 		}
 	}
