@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt die Anfrage zum Updaten von Zeilen aus der Datenbanktabelle Beitrag
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -22,8 +26,8 @@ session_start();
 		//$terminID = stripcslashes($terminID);
 	//	$beitragID = mysql_real_escape_string($beitragID);
 		
-		$bearbeitet = getORSetEintraege("SELECT bearbeitet FROM beitrag WHERE beitrag_id = '$beitragID'");
-		$bearbeitet[0] +=1;
+		$bearbeitet = getORSetEintraege("SELECT bearbeitet FROM beitrag WHERE beitrag_id = '$beitragID'");		//Auf was steht der bearbeiten Zaehler in der Datenbank
+		$bearbeitet[0] +=1;																						//Zaehle ihn um eins hoch
 		
 		$tag = time();
 		$tag = date('Y-m-d H:i:s',$tag);

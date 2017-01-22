@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument baut die Projektseite strukturell mit allen Datenbankeintraegen zum jeweiligen Projekt auf
+  * @author Christoph Suhr
+  */
 	session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -85,7 +89,11 @@
 	function yearForward( $timestamp ){
 		return mktime(0,0,0, date("m",$timestamp),date("d",$timestamp),date("Y",$timestamp)+1 );
 	}
-
+	/**
+	 *Baut ein neuen String aus mehreren Eintraegen die am selben Tag sind
+	 *@param $terDat Datum welches mehrere Termine hat
+	 *@return String welches die Termine in ein String print bereit zusammengefasst hat
+	 */
 	function fassezusammen($terDat){	//Falls ein Tag mehrere Termine hat uebergabe Wert ist das Datum welches mehrere Termine hat
 		global $terminID;
 		global $terminName;
@@ -125,7 +133,7 @@
 		}
 	
 		$sum_days = date('t',$date);
-		$LastMonthSum = date('t',mktime(0,0,0,(date('m',$date)),0,date('Y',$date)));		//der scheiß war falsch im Internet -_- fehlersuche =10min ... hier stand 1 statt 0
+		$LastMonthSum = date('t',mktime(0,0,0,(date('m',$date)),0,date('Y',$date)));		//war falsch im Internet -_- fehlersuche =10min ... hier stand 1 statt 0
     
 		foreach( $headline as $key => $value ) {
 			echo "<div class=\"day headline\">".$value."</div>\n";
@@ -139,7 +147,7 @@
 			if( $i == 1) {
 				$s = array_search($day_name,array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'));
 				for( $b = $s; $b > 0; $b-- ) {
-					$x = $LastMonthSum-($b-1);			//der scheiß war falsch im Internet -_- fehlersuche =10min ... hier muss man nach der aenderung oben -1 nehmen
+					$x = $LastMonthSum-($b-1);			// war falsch im Internet -_- fehlersuche =10min ... hier muss man nach der aenderung oben -1 nehmen
 					echo "<div class=\"day before\">".sprintf("%02d",$x)."</div>\n";
 				}
 			} 
@@ -415,8 +423,8 @@
 			<?php  
 			$result = getORSetEintraegeSchleifen("SELECT * FROM to_do WHERE projekt_ref = '$aktuelles_projekt'");
 			$x=0;
-			while($row = $result->fetch_array(MYSQLI_BOTH)){		
-				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);
+			while($row = $result->fetch_array(MYSQLI_BOTH)){	//geht alle todos durch	
+				$todos[$x][0][0] = array($row['to_do_id'],$row['aufgabe'],$row['bearbeitet']);	//und speichert sie in ein dreidimensionales Array (hat keinen bestimmten grund, wollte nur mal sehen obs so vielleicht kuerzer ist)
 				$x++;	
 			}
 			//print_r($todos[0][0][0]);
@@ -429,7 +437,7 @@
 					foreach ($todos[$i][0] as $todo) {			//Holt sich die Zeile in dem die Atribute drin stehen und itteriert ueber diese, die Attribute stehen in einem Zweidimensionalen Array
 						echo "<div class=\"listetodo\">";
 						
-						if (strlen($todo[1])<=55){				//Gucken ob der Text ueber zwei Spalten gehen muss
+						if (strlen($todo[1])<=55){								//(Gucken ob der Text ueber zwei Spalten gehen muss)
 							echo "<div class=\"aufgabetext\">";
 							echo $todo[1];						//deshalb muss man hier noch sagen, welche Stelle des Arrays : $todo[0] = ids ; $todo[1] = aufgabe ; $todo[2] =  bearbeitet oder nicht in 0 oder 1
 							echo "</div>";
@@ -494,7 +502,7 @@
 					$beitragDatum = getORSetEintraege("SELECT datum FROM beitrag WHERE thema_ref = '$themaID[$i]' ORDER BY beitrag_id DESC LIMIT 1;");	
 					echo "<div class=\"thema\">
 							<div class=\"formthema\">";
-							if(strlen($themaName[$i])<69){
+							if(strlen($themaName[$i])<69){		//Falls der Forenname zu lang ist, nimm class die String umbricht
 								echo "<div class=\"mittig\"><a href=\"forum.php?thema=$themaID[$i]\">$themaName[$i]</a></div></div>";
 							}else {
 								echo "<a href=\"forum.php?thema=$themaID[$i]\">$themaName[$i]</a></div>";

@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um ein termin aendern zu koennen und liefert ihm zur Unterstuetzung die aktuellen Termindaten aus der Datenbank
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -17,7 +21,7 @@ session_start();
 		$terminDatum_projektID = $_POST['termin_bearbeiten'];	 
 		//$terminDatum_projektID = mysql_real_escape_string($terminDatum_projektID);
 
-		list ($terminDatum, $projektID) = explode('/', $terminDatum_projektID);
+		list ($terminDatum, $projektID) = explode('/', $terminDatum_projektID);		//Da der Kalender per Buttons uebersendet und ein Button nur eine Variable uebergeben kann, wurden die zwei Informationen mit / getrennt uebergeben und werden jetzt wieder aufgebrochen und in eine Liste geschrieben
 		//echo "terminDatum: $terminDatum; ProjektID: $projektID;";
 		//echo $terminDatum_projektID;
 		$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$projektID'");

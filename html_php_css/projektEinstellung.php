@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um Projekteinstellungen vornehmen zu koennen und gibt ihn zur Unterstuetzung Aktuelle Eintraege aus der Datenbank
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -22,7 +26,7 @@ session_start();
 		$projektEnde = getORSetEintraege("SELECT ende_projekt FROM projekt WHERE projekt_id = '$projektID'");
 		$erstellerREF = getORSetEintraege("SELECT ersteller_ref FROM projekt WHERE projekt_id = '$projektID'");
 		$zusatz="";
-		if($erstellerREF[0] == $benutzer_id){
+		if($erstellerREF[0] == $benutzer_id){		//Abfrage ob der angemeldete Nutzer ersteller ist, wenn ja Hinweis
 			$zusatz = "<div class=\"hinweistext\">Sie sind ersteller des Projektes, wenn sie dieses Entfernen, wird es auch für alle Projektteilnehmer gelöscht!</div>";
 		}
 	}

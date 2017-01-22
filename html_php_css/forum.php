@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument baut das Forum strukturell mit allen Datenbankeintraegen zum jeweiligen Thema auf
+  * @author Christoph Suhr
+  */
 	session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -23,7 +27,7 @@
 		
 	}
 	
-	$themaID = $_GET['thema'];	 
+	$themaID = $_GET['thema'];	 			//Thema ID, dieses Thema soll dargestellt werden
 	//$themaID = mysql_real_escape_string($themaID);
 
 	
@@ -44,7 +48,7 @@
 		header("location:fehler.php?fehlercode=Nicht_ihr_projekt");
 	}
 	
-	$result = getORSetEintraegeSchleifen("SELECT * FROM beitrag WHERE thema_ref = '$themaID'");
+	$result = getORSetEintraegeSchleifen("SELECT * FROM beitrag WHERE thema_ref = '$themaID'");		//Holt sich alle Beitraege zum Thema
 	$j = 0;
 	
 	while($row = $result->fetch_array(MYSQLI_BOTH)){		
@@ -110,7 +114,7 @@
 			for($i=0; $i < count($beitragID); $i++){		//if set beitragID ist nicht noetig, da wir das so loesen, dass zu jedem erstellten thema automatisch ein beitrag erstellt werden muss 
 				$username = getORSetEintraege("SELECT name FROM user WHERE user_id = '$beitragUserID[$i]'");
 				$zusatz = "";
-				if($beitragAnzahlBearbeitet[$i]>0){
+				if($beitragAnzahlBearbeitet[$i]>0){		//"0" steht in der Datenbank dafuer, dass es noch nicht bearbeitet wurde, alle hoeheren Zahlen fuer die Anzahl, wie oft der Beitrag bearbeitet wurde
 					$zusatz = "-------------<br>Der Beitrag wurde bereits $beitragAnzahlBearbeitet[$i] mal bearbeitet, zuletzt am ".date('d.m.Y \u\m H:i',strtotime($beitragBearbeitetDatum[$i]))."";
 				}
 				$pfad = getORSetEintraege("select bild from user where user_id = '$beitragUserID[$i]'");
@@ -123,7 +127,7 @@
 				}
 				$bearbeiten = "";
 				$loeschen = "";
-				if($benutzer_id == $beitragUserID[$i]){
+				if($benutzer_id == $beitragUserID[$i]){	//Ist der dargestellte Beitrag vom Eingeloggten Nutzer, dann stell folgenden Funktionalitaet dar
 					$bearbeiten = "<form action=\"forumBeitragBearbeiten.php\" method=\"Post\" class=\"formForum\">
 										<button type=\"submit\" name=\"beitrag\" value=\"$beitragID[$i]\" class=\"buttonforum\">Bearbeiten</button>
 								 /&nbsp</form>";

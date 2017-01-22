@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um ein Beitrag aendern zu koennen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -23,7 +27,7 @@ session_start();
 		$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$projektID[0]'");
 		$themaName = getORSetEintraege("SELECT name FROM thema WHERE thema_id = '$themaID[0]'");
 		
-		$text = getORSetEintraege("SELECT beitrag_text FROM beitrag WHERE beitrag_id = '$beitragID'");
+		$text = getORSetEintraege("SELECT beitrag_text FROM beitrag WHERE beitrag_id = '$beitragID'");		//zu aendernde Text
 
 	}
 ?>

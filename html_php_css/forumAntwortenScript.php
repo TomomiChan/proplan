@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt die Anfrage zum Einfuegen von Zeilen in die Datenbanktabelle Beitrag
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -21,7 +25,7 @@ session_start();
 		//$text = mysql_real_escape_string($text);
 		
 		$tag = time();
-		$tag = date('Y-m-d H:i:s',$tag);
+		$tag = date('Y-m-d H:i:s',$tag);		//Holt sich die aktuelle Zeit und bastelt diese in das passende Format fuer die Datenbank
 	}
 	
 	

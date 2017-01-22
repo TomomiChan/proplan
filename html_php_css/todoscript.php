@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt die Anfrage zum Aendern oder Loeschen von Zeilen in der Datenbanktabelle todo, oder stellt ein Interface fuer den Nutzer um todo eingaben aendern zu koennen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -12,7 +16,7 @@ session_start();
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
 		
-		if(isset($_POST['bearbeiten'])){
+		if(isset($_POST['bearbeiten'])){				//Wenn der Nutzer auf Bearbeiten geklickt hat
 			$bearbeiten = $_POST['bearbeiten'];			//ID des jeweiligen TODOS
 			//$bearbeiten = stripcslashes($bearbeiten);
 			//$bearbeiten = mysql_real_escape_string($bearbeiten);
@@ -20,13 +24,13 @@ session_start();
 			$projektID = getORSetEintraege("select projekt_ref FROM to_do WHERE to_do_id = '$bearbeiten'");
 			$projektID = $projektID['projekt_ref'];
 			
-			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projektID'");
+			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projektID'");	
 			
 			
-			$todo_aufgabe = getORSetEintraege("select aufgabe FROM to_do WHERE to_do_id = '$bearbeiten'");
+			$todo_aufgabe = getORSetEintraege("select aufgabe FROM to_do WHERE to_do_id = '$bearbeiten'");	//Holt sich die aufgabe 
 
-			
-			echo "<html>
+			//Umstaendlicher echo befehl um die Seite auf zu bauen, war einer meiner ersten Scripts
+			echo "<html>		
 			<head>
 				<meta charset=\"utf-8\">
 				<link href=\"https://fonts.googleapis.com/css?family=Ubuntu\" rel=\"stylesheet\">
@@ -117,17 +121,17 @@ session_start();
 			//echo $bearbeiten;
 			//echo "bearbeitet";
 		}
-		if(isset($_POST['erledigt'])){
+		if(isset($_POST['erledigt'])){				//Wenn der Nutzer auf erledigt gegangen ist
 			$erledigt = $_POST['erledigt'];			//ID des jeweiligen TODOS
 			//$erledigt = stripcslashes($erledigt);
 			//$erledigt = mysql_real_escape_string($erledigt);
 		
-			$rueckgabe = getORSetEintraegeSchleifen("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'");
+			$rueckgabe = getORSetEintraegeSchleifen("UPDATE to_do SET bearbeitet = '1' WHERE to_do_id = '$erledigt'");	//"1" steht in der Datenbank fuer erledigt, "0" fuer noch nicht
 			$projekt_id = getORSetEintraege("SELECT projekt_ref FROM to_do WHERE to_do_id = '$erledigt'");
 			$projekt_id = $projekt_id['projekt_ref'];
 			header("location:projektseite.php?projekt_id=$projekt_id");
 		}
-		if(isset($_POST['loeschen'])){
+		if(isset($_POST['loeschen'])){				//hat der Nutzer auf loeschen geklickt
 			$loeschen = $_POST['loeschen'];			//ID des jeweiligen TODOS
 			//$loeschen = stripcslashes($loeschen);
 			//$loeschen = mysql_real_escape_string($loeschen);

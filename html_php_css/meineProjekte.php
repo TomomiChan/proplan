@@ -1,4 +1,8 @@
 <?php 
+/**
+  * Das Dokument lisstet alle Projekte eines Nutzers auf und stellt die Referenz zu diesen
+  * @author Christoph Suhr
+  */
 	session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){

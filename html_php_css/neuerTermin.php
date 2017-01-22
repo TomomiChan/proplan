@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um ein neuen Termin anlegen zu koennen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -17,9 +21,9 @@ session_start();
 		$monatJahr_Tag_projektID = $_POST['neuerTerminAnlegen'];	 
 		//$monatJahr_Tag_projektID = mysql_real_escape_string($monatJahr_Tag_projektID);
 		//list ($monat_Jahr, $terminDatum, $projektID) = split('[/]', $monatJahr_Tag_projektID);	//explode(',',$emails);
-		list ($monat_Jahr, $terminDatum, $projektID) = explode('/',$monatJahr_Tag_projektID);
-		$tagAusgabe = date_format(date_create($terminDatum.".".$monat_Jahr),'d.m.y');
-		$tagDatenbank = date_format(date_create($terminDatum.".".$monat_Jahr),'Y-m-d');
+		list ($monat_Jahr, $terminDatum, $projektID) = explode('/',$monatJahr_Tag_projektID);		//Da der Kalender per Buttons uebersendet und ein Button nur eine Variable uebergeben kann, wurden die zwei Informationen mit / getrennt uebergeben und werden jetzt wieder aufgebrochen und in eine Liste geschrieben
+		$tagAusgabe = date_format(date_create($terminDatum.".".$monat_Jahr),'d.m.y');		//Unsere Dartellung ist mit Tag.Monat.Jahr
+		$tagDatenbank = date_format(date_create($terminDatum.".".$monat_Jahr),'Y-m-d');		//In der Datenbank wird ein Datum mit Jahr-Monat-Tag gespeichert
 
 
 		

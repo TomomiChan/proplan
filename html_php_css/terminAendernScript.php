@@ -1,7 +1,12 @@
 <?php
+/**
+  * Das Dokument Updatet die Datenbankeintraege in der Tabelle Termin, mit den ueberlieferten Atributen
+  * @author Christoph Suhr
+  */
+
 session_start();
 	$berechtigung = 0;
-	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
+	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){			//Ist der Nutzer ueberhaupt noch in der Session
 		$berechtigung = 0;
 		header("location:index.php");
 	} else {
@@ -13,20 +18,20 @@ session_start();
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau(); 
 		
-		if(isset($_POST['terminLoeschen'])){
-			$loeschen = $_POST['terminLoeschen'];			//ID des jeweiligen Termins
+		if(isset($_POST['terminLoeschen'])){				//Wurde Termin Loeschen angeklickt, wenn ja muss ja was in der Variable stehen
+			$loeschen = $_POST['terminLoeschen'];			//ID des jeweiligen Termins, der geloescht werden soll
 			//$loeschen = stripcslashes($loeschen);
 			//$loeschen = mysql_real_escape_string($loeschen);
 			
-			$projekt_id = getORSetEintraege("select projekt_ref from termin WHERE termin_id = '$loeschen'");
+			$projekt_id = getORSetEintraege("select projekt_ref from termin WHERE termin_id = '$loeschen'");			//Holt sich die Projektreferenz 
 			$projekt_id = $projekt_id['projekt_ref'];
 			
-			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM termin WHERE termin_id = '$loeschen'");
+			$rueckgabe = getORSetEintraegeSchleifen("DELETE FROM termin WHERE termin_id = '$loeschen'");		//loecht den Termin
 			
-			header("location:projektseite.php?projekt_id=$projekt_id");
+			header("location:projektseite.php?projekt_id=$projekt_id");		//und verweisst wieder auf das Projekt zurueck
 		}
 		
-		if(isset($_POST['terminAendern'])){
+		if(isset($_POST['terminAendern'])){		
 		
 			$neuertext = $_POST['textareatermin'];
 			//$neuertext = stripcslashes($neuertext);
@@ -40,7 +45,7 @@ session_start();
 			$neueUhrzeit = $stundeUhrzeit . ":" . $minuteUhrzeit;
 
 
-			$neueUhrzeit = date('H:i:s',strtotime($neueUhrzeit));
+			$neueUhrzeit = date('H:i:s',strtotime($neueUhrzeit));		//Baut sich den Terminstring wieder in ein Dateformat um
 		
 		
 			$terminID = $_POST['terminAendern'];

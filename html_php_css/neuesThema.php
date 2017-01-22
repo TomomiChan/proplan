@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um ein neues Thema anlegen zu koennen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){

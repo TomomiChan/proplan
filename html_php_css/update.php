@@ -34,7 +34,7 @@
 	$neueEmail = $_POST['neueEmail'];		
 	$result = getORSetEintraegeSchleifen("UPDATE user SET email='$neueEmail' WHERE user_id='$userID'");
 		if($result){
-			$_SESSION['email'] = $neueEmail;		//Christop: hab ich auch noch hinzugefuegt
+			$_SESSION['email'] = $neueEmail;		
 			header("Location: profil.php");
 		}
 	}

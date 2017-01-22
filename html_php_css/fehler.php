@@ -1,4 +1,9 @@
 <?php
+/**
+  * Das Dokument zeigt eine Fehler Meldung an, die per GET Methode uebergeben wird
+  * @author Christoph Suhr
+  * 
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){

@@ -1,7 +1,11 @@
 <?php
+/**
+  * Das Dokument laesst in der Datenbank ein neuen Termin anlegen mit den uebergeben Atributen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
-	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
+	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){			//Ist der Nutzer ueberhaupt noch in der Session
 		$berechtigung = 0;
 		header("location:index.php");
 	} else {
@@ -24,11 +28,11 @@ session_start();
 		/*$stundeUhrzeit = mysql_real_escape_string($stundeUhrzeit);
 		$minuteUhrzeit = mysql_real_escape_string($minuteUhrzeit);*/
 
-		$neueUhrzeit = $stundeUhrzeit . ":" . $minuteUhrzeit;
-		$neueUhrzeit = date('H:i:s',strtotime($neueUhrzeit));
+		$neueUhrzeit = $stundeUhrzeit . ":" . $minuteUhrzeit;			//Uhrzeit wird zusammengebaut - liegt in der Datenbank aber nicht als String vor deshalb
+		$neueUhrzeit = date('H:i:s',strtotime($neueUhrzeit));			//Umwandlung in das Dateformat
 		
-		if(strlen($neuertext)> 100){
-			$neuertext = substr($neuertext, 0, 100);
+		if(strlen($neuertext)> 100){					//Pruefen ob der String groeßer ist als 100 Zeichen
+			$neuertext = substr($neuertext, 0, 100);	//Schneidet ihn ab
 		}
 
 		$rueckgabe = getORSetEintraegeSchleifen("INSERT INTO termin (termin_name, datum, uhrzeit, projekt_ref) VALUES ('$neuertext', '$terminDatum', '$neueUhrzeit', '$projektID')");

@@ -1,4 +1,8 @@
 <?php
+/**
+  * Das Dokument stellt ein Interface fuer den Nutzer um ein todo anlegen zu koennen
+  * @author Christoph Suhr
+  */
 session_start();
 	$berechtigung = 0;
 	if(!isset($_SESSION['name']) OR !isset($_SESSION['id'])){
@@ -20,7 +24,7 @@ session_start();
 			$projektname = getORSetEintraege("select name FROM projekt WHERE projekt_id = '$projekt_ref'");
 			
 			
-
+			//Umstaendlicherweise mit echo gemacht
 			echo "<html>
 			<head>
 				<meta charset=\"utf-8\">
