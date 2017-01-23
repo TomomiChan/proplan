@@ -1,7 +1,8 @@
 <?php
 /**
 *Die Seite profil.php stellt das Profil des eingeloggten Nutzers dar
-*@autor Alice Markmann
+*@author Alice Markmann
+*@author Max Roth
 **/
 	session_start();
 	$berechtigung = 0;
@@ -13,7 +14,7 @@
 		$benutzer = $_SESSION['name'];
 		$email = $_SESSION['email'];
 		$userID = $_SESSION['id'];
-		
+
 		//Verbindung zur Datenbank
 		include ("datenbankschnittstelle.php");
 		datenbankaufbau();
@@ -35,28 +36,28 @@
 			<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
 			<img class="gluehbirneunterseiten" src="../Images/gluehbirne.png" width="135px" alt="gluehbirne" />
 			<a href = "meineProjekte.php"><img class="proplan" src="../Images/proplan.png" alt="proplan" /> </a>
-			<p class="ueberschrift">Mein Profil</p>	
-			
-				<div class="logout">	
+			<p class="ueberschrift">Mein Profil</p>
+
+				<div class="logout">
 					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
 				</div>
-  
+
 				<div class="profil">
 					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
 				</div>
-   
+
 				<p class="pfad">
-					<a href="meineProjekte.php">Meine Projekte ></a> Mein Profil	
+					<a href="meineProjekte.php">Meine Projekte ></a> Mein Profil
 				</p>
 
 		</header>
-	
+
     <script language="JavaScript">
-		
+
 		/**
 		*Vergleicht die eingegeben Passwoerter und prueft ob die Passworter lang genung sind,
 		*Gross- und Kleinbuchstaben und min. eine Zahl enthalten sind
-		**/		
+		**/
 		function passwortAbgleich(){
 			var passwort1 = document.passwortbereich.neuesPasswort.value;
 			var passwort2 = document.passwortbereich.wiederholtesPasswort.value;

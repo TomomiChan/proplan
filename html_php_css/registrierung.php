@@ -1,8 +1,14 @@
 <?php
+/**
+  * Dieses Dokument beinhaltet das Registrierungsformular
+  * Zusätzlich arbeitet dieses Dokument mit registrieren.php zusammen und sorgt für eine richtige Registrierung
+  * @author Max Roth
+  */
 //hole die werte aus dem vorherigen File
 session_start();
 
 // Abfrage, ob der Nutzer gerade von der Registrierungsseite kommt
+// Das bedeutet, ein Registrierungsversuch ist fehlgeschlagen
 if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 
 	// Zuruecksetzen des boolean, der ueberprueft, ob man von der Registrierungsseite kommt

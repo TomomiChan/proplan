@@ -1,4 +1,10 @@
 <?php
+/**
+  * Dieses Dokument registriert neue Nutzer und legt entsprechende Eintraege in der Datenbank an
+  * Dieses Dokument arbeitet mit der Datei registrierung.php zusammen um die Sicherheit zu gewährleisten
+  * Zur Sicherheit gehoert hierbei besipielsweise die Ueberpruefung des Passworts auf Vorgaben
+  * @author Max Roth
+  */
 	  //hole die werte aus dem Formular
   	session_start();
 
@@ -13,7 +19,7 @@
     $email = $_SESSION['email'];
 	  $password = $_SESSION['password'];
 
-  /*  // Entferne die Quotes
+  /* // Entferne die Quotes
 	  $username = stripcslashes($_SESSION['username']);
     $email = stripcslashes($_SESSION['email']);
 	  $password = stripcslashes($_SESSION['password']);
@@ -23,15 +29,15 @@
 	  $username = mysql_real_escape_string($username);
     $email = mysql_real_escape_string($email);
 	  $password = mysql_real_escape_string($password);
-    $confirmpassword = mysql_real_escape_string($confirmpassword);*/
+    $confirmpassword = mysql_real_escape_string($confirmpassword); */
 
-    // Bei einer erfolgreichen Registrierung, wird der Nutzer direkt auf die Login Seite weitergeleitet
+    // Boolean ist true, wenn die Registrierung erfolgreich war
     $_SESSION['fromReg'] = true;
-
+    // Boolean ist true, wenn ein Benutzername bereits vergeben ist
     $_SESSION['userExists'] = false;
-
+    // Boolean ist true, wenn Passwort bestaetigen falsch war
     $_SESSION['passMismatch'] = false;
-
+    // Boolean ist true, wenn das Passwort nicht die Sicherheitsanforderung erfuellt
     $_SESSION['passUnsafe'] = false;
 
     // MD5 Verschlüsselung des Passworts
@@ -43,10 +49,12 @@
     // Ueberpruefen, ob der user schon vorhanden ist
     $check = getORSetEintraegeSchleifen("SELECT * FROM user WHERE email = '$email'");
 
+    // Wird ein Eintrag gefunden, ist der Nutzername bereits vorhanden
     if (mysqli_num_rows($check) != 0) {
 
       $_SESSION['userExists'] = true;
 
+      // Reload des Registrierungsformulars
       header("location:registrierung.php");
 
       // Wenn die Passwortbestaetigung fehlerhaft ist
@@ -54,6 +62,7 @@
 
       $_SESSION['passMismatch'] = true;
 
+      // Reload des Registrierungsformulars
       header("location:registrierung.php");
 
       // Ueberpruefe die Passwortsicherheit
@@ -63,13 +72,23 @@
 
       $_SESSION['passUnsafe'] = true;
 
+      // Reload des Registrierungsformulars
       header("location:registrierung.php");
 
     } else {
 
+      // Wenn alles in Ordnung ist
       // Datenbankeintrag eines neuen Users
       $result = getORSetEintraegeSchleifen("INSERT INTO user(email, passwort, name) VALUES ('$email','$passwordfinal','$username')");
 
+      // Weiterleitung auf die Startseite zum login
       header("location:index.php");
     }
+
+    /** In der ersten Fassung des Registrierungsformulars gab es noch zusätzlich die Möglichkeit ein Profilbild hochzuladen
+    * Diese Funktion wurde hier jedoch später rausgenommen, da es kleine Überschneidungsprobleme gab.
+    * Nun ist diese Funktion in upload.php zu finden. Die Registrierung ist damit auch für neue Nutzer agenehmer und schneller geworden.
+    * Da man bei der Registrierung direkt zum Punkt kommt und essentielle Dinge wie Bild Upload später erledigen kann.
+    *
+    */
 ?>

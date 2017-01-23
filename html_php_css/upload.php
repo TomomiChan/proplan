@@ -1,7 +1,8 @@
  <?php
 /**
 *Behandelt den Bildupload
-*@autor Alice Markmann
+*@author Alice Markmann
+*@author Max Roth
 **/
  	session_start();
 	$ladeseiteneu = false;

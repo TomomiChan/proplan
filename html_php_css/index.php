@@ -2,16 +2,17 @@
 /**
 *Stellt die Startseite dar, in der sich der Nutzer einloggen kann oder weiter zur Registrierungsseite gelangt
 *uebergibt login.php die eingegebenen Werte des Login
-*@autor Alice Markmann
+*@author Alice Markmann
+*@author Max Roth - MR
 **/
 
 session_start();
 
-// Abfrage, ob der Nutzer gerade von der Registrierungsseite kommt
-// Wenn dies der Fall ist, wird der Nutzer benachrichtigt, dass er sich jetzt einloggen kann
+// Abfrage, ob der Nutzer von der Registrierungsseite weitergeleitet wurde (Bedeutet er hat sich gerade neu registriert)
+// Wenn dies der Fall ist, wird der Nutzer benachrichtigt, dass er sich jetzt einloggen kann - MR
 if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 
-// Zuruecksetzen des boolean, welcher checkt, ob man durch einen Redirect auf die index Seite gekommen ist
+// Zuruecksetzen des boolean, welcher ueberpruef, ob man durch einen Redirect auf die index Seite gekommen ist
   unset($_SESSION['fromReg']);
 
 // JavaScript Pop Up, welches zeigt, dass sich der Nutzer jetzt einloggen kann
@@ -75,7 +76,7 @@ if(isset($_SESSION['fromReg']) && $_SESSION['fromReg']) {
 			</table>
 
 		</form>
-		<form id="formular1" action="registrierung.php">		
+		<form id="formular1" action="registrierung.php">
 
 		<table>
 			<tr>

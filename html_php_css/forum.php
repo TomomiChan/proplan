@@ -12,7 +12,7 @@
 		$berechtigung = 1;
 		$benutzer = $_SESSION['name'];
 		$benutzer_id = $_SESSION['id'];
-		
+
 		//Verbinung zu Datenbank
 
 		include ("datenbankschnittstelle.php");
@@ -23,21 +23,21 @@
 		while($row = $result->fetch_array(MYSQLI_BOTH)){		//in row stehen jetzt die einzelnen reihen aus der tabelle user_projekte z.B. (1 1) oder (1 4) / die user_id wurde bei der abfrage aus der Datenbank festgelegt
 			$projekte[$i] = $row['projekt_ref'];		//ueberweise dem array nur die projekt_referenzen, nicht mehr die user_id
 			$i++;										//zaehler fuer array
-		}	
-		
+		}
+
 	}
-	
+
 	$themaID = $_GET['thema'];	 			//Thema ID, dieses Thema soll dargestellt werden
 	//$themaID = mysql_real_escape_string($themaID);
 
-	
+
 	$projektID = getORSetEintraege("SELECT projekt_ref FROM thema WHERE thema_id = '$themaID'");
-	$aktuelles_projekt = $projektID[0];	 
+	$aktuelles_projekt = $projektID[0];
 	//$aktuelles_projekt = mysql_real_escape_string($aktuelles_projekt);
-	
-	
+
+
 	$projektname = getORSetEintraege("SELECT name FROM projekt WHERE projekt_id = '$aktuelles_projekt'");
-	
+
 	$nutzer_ist_berechtigt = FALSE;				// Variable um zu gucken ob der Nutzer fuer das Projekt registriert ist
 	for($i = 0; $i < count($projekte); $i++){		//geht alle Projekte in der Session durch
 		if($aktuelles_projekt == $projekte[$i]){	//und gleicht dieses mit dem Projekt aus der Adresszeile ab
@@ -47,25 +47,25 @@
 	if(!$nutzer_ist_berechtigt){					//Ansonsten wird er auf eine andere Seite weitergeleitet
 		header("location:fehler.php?fehlercode=Nicht_ihr_projekt");
 	}
-	
+
 	$result = getORSetEintraegeSchleifen("SELECT * FROM beitrag WHERE thema_ref = '$themaID'");		//Holt sich alle Beitraege zum Thema
 	$j = 0;
-	
-	while($row = $result->fetch_array(MYSQLI_BOTH)){		
-		$beitragID[$j] = $row['beitrag_id'];	
-		$beitragText[$j] = $row['beitrag_text'];	
-		$beitragDatum[$j] = $row['datum'];	
-		$beitragAnzahlBearbeitet[$j] = $row['bearbeitet'];	
+
+	while($row = $result->fetch_array(MYSQLI_BOTH)){
+		$beitragID[$j] = $row['beitrag_id'];
+		$beitragText[$j] = $row['beitrag_text'];
+		$beitragDatum[$j] = $row['datum'];
+		$beitragAnzahlBearbeitet[$j] = $row['bearbeitet'];
 		$beitragBearbeitetDatum[$j] = $row['bearbeitet_datum'];
 		$beitragUserID[$j] = $row['user_ref'];
 		$j++;
-	}	
-		
+	}
+
 	/*for($i=0; $i < count($beitragID); $i++){		//Testausgabe
-		echo $beitragID[$i];	
-		echo $beitragText[$i];	
-		echo $beitragDatum[$i];	
-		echo $beitragAnzahlBearbeitet[$i];	
+		echo $beitragID[$i];
+		echo $beitragText[$i];
+		echo $beitragDatum[$i];
+		echo $beitragAnzahlBearbeitet[$i];
 		echo $beitragBearbeitetDatum[$i];
 		echo $beitragUserID[$i];
 		echo "<br>";
@@ -80,7 +80,7 @@
 	</head>
 
     <body>
-        
+
 		<header class="headerunterseiten">
 			<div class="lilabannerunterseiten">
 				<img class="lesezeichenunterseiten" src="../Images/lesezeichen.png" />
@@ -89,29 +89,29 @@
 				<p class="ueberschrift">
 					<?php $themaname = getORSetEintraege("SELECT name FROM thema WHERE thema_id = '$themaID'");
 					echo $themaname[0];?>
-				</p>	
-			
-				<div class="logout">	
+				</p>
+
+				<div class="logout">
 					<a href="logout.php" > <img src="../Images/logout.png" alt="logout" /></a>
 				</div>
-  
+
 				<div class="profil">
 					<a href="profil.php"><img src="../Images/profil_weiß.png" alt="profil" /></a>
 				</div>
-   
+
 				<p class="pfad">
 					<a href="meineProjekte.php">Meine Projekte ></a>
 					<a href="projektseite.php?projekt_id=<?php echo $aktuelles_projekt;?>">
 					<?php echo $projektname['name'];?></a> > <?php echo $themaname[0];?>
 				</p>
-			</div>   		
+			</div>
 		</header>
-        
+
         <div class="hauptbereichunterseiten">
-	
+
 			<div id="beitraege">
 			<?php
-			for($i=0; $i < count($beitragID); $i++){		//if set beitragID ist nicht noetig, da wir das so loesen, dass zu jedem erstellten thema automatisch ein beitrag erstellt werden muss 
+			for($i=0; $i < count($beitragID); $i++){		//if set beitragID ist nicht noetig, da wir das so loesen, dass zu jedem erstellten thema automatisch ein beitrag erstellt werden muss
 				$username = getORSetEintraege("SELECT name FROM user WHERE user_id = '$beitragUserID[$i]'");
 				$zusatz = "";
 				if($beitragAnzahlBearbeitet[$i]>0){		//"0" steht in der Datenbank dafuer, dass es noch nicht bearbeitet wurde, alle hoeheren Zahlen fuer die Anzahl, wie oft der Beitrag bearbeitet wurde
@@ -152,7 +152,7 @@
 						</div>
 						<div class =\"forumrechts\">
 							<div class=\"leiste\">
-								<div style=\"float:right; margin-top:1px;\" >#".($i+1)."</div> $loeschen $bearbeiten 
+								<div style=\"float:right; margin-top:1px;\" >#".($i+1)."</div> $loeschen $bearbeiten
 							</div>
 							<div class=\"textforum\">$beitragText[$i]<br><br>$zusatz</div>
 						</div>
@@ -174,4 +174,4 @@
 			<a href="impressum.php">Impressum</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="kontakt.html">Kontakt</a>&nbsp &nbsp &nbsp &nbsp &nbsp <a href="nutzungsbestimmung.php">Nutzungsbestimmung</a>
 		</footer>
 	</body>
-</html> 
+</html>
